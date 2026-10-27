@@ -24,12 +24,16 @@ a{color:inherit}
 .cover .reel .col{display:contents}
 .cover .reel a{text-decoration:none;text-align:center}
 .cover .reel img{display:block;width:100%;height:auto;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.cover .reel a:hover img{transform:scale(1.05)}
 .cover .reel span{display:block;margin-top:14px;font-size:15px}
-.cover .reel a:hover span{text-decoration:underline}
 .cover .posters{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(16px,2.4vw,36px);margin-bottom:56px}
 .cover .posters img{display:block;width:100%;height:auto;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.cover .posters img:hover{transform:scale(1.05)}
+@media(hover:hover){
+  .cover .reel a:hover img,.cover .posters img:hover{transform:scale(1.05)}
+  .cover .reel a:hover span{text-decoration:underline}
+}
+.cover .reel a.pressed img,.cover .posters img.pressed{transform:scale(1.05)}
+.cover .reel a.pressed span{text-decoration:underline}
+.cover .reel img,.cover .posters img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 @media(max-width:860px){
   .cover .reel{display:flex;gap:16px;align-items:flex-start}
   .cover .reel .col{display:flex;flex-direction:column;gap:28px;flex:1;min-width:0}
@@ -352,6 +356,15 @@ document.querySelector('.arrow.next').onclick=()=>go(1);
 document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(-1);if(e.key==='ArrowRight')go(1)});
 window.addEventListener('hashchange',route);
 route();
+</script>
+<script>
+// touch: show hover state only while pressed and held
+document.querySelectorAll('.cover .reel a, .cover .posters img').forEach(el=>{
+  let t;const off=()=>{clearTimeout(t);el.classList.remove('pressed')};
+  el.addEventListener('touchstart',()=>{t=setTimeout(()=>el.classList.add('pressed'),180)},{passive:true});
+  ['touchend','touchcancel','touchmove'].forEach(e=>el.addEventListener(e,off,{passive:true}));
+  el.addEventListener('contextmenu',e=>e.preventDefault());
+});
 </script>
 </body>
 </html>
