@@ -40,6 +40,55 @@ a{color:inherit}
   .cover .posters{grid-template-columns:repeat(2,1fr);gap:16px}
 }
 
+/* menu */
+.top{display:flex;align-items:center;gap:clamp(24px,3vw,48px)}
+.lft{display:flex;align-items:center;gap:32px;flex:1}
+.menu{display:flex;gap:24px;font-size:15px;font-weight:500}
+.menu a{text-decoration:none;text-underline-offset:4px}
+.menu a:hover,.menu a.on{text-decoration:underline}
+.burger{display:none;background:none;border:0;width:32px;height:32px;margin-left:auto;cursor:pointer;position:relative}
+.burger i{position:absolute;left:5px;right:5px;height:2px;background:var(--ink);transition:transform .3s}
+.burger i:first-child{top:11px}.burger i:last-child{top:19px}
+body.menu-open .burger i:first-child{transform:translateY(4px) rotate(45deg)}
+body.menu-open .burger i:last-child{transform:translateY(-4px) rotate(-45deg)}
+/* pages */
+.page{display:none;background:var(--lime);min-height:100vh;flex-direction:column;padding:40px 40px 32px}
+.page.active{display:flex}
+body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:none}
+.page .logo img{display:block;height:clamp(36px,4vw,56px);width:auto}
+.page .bottom{margin-top:auto;display:flex;justify-content:flex-end;font-size:14px;letter-spacing:.04em}
+.index{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin:24px 0 64px}
+.index ul{list-style:none;border-top:1px solid var(--ink)}
+.index li{border-bottom:1px solid rgba(31,42,36,.25)}
+.index .row{display:grid;grid-template-columns:1fr 160px 48px;gap:16px;padding:14px 0;text-decoration:none;font-size:15px;align-items:baseline}
+.index .row b{font-weight:500}
+.index .row span{color:rgba(31,42,36,.6);font-size:13px}
+.index .row span:last-of-type{text-align:right}
+.index .row img{display:none}
+.index .row:hover b{text-decoration:underline}
+.preview{position:sticky;top:40px;align-self:start;height:calc(100vh - 200px);display:flex;align-items:flex-start;justify-content:center}
+.preview img{max-width:100%;max-height:100%;object-fit:contain;opacity:0;transition:opacity .3s}
+.preview img.show{opacity:1}
+.about{max-width:720px;margin:auto 0}
+.about p{font-size:clamp(20px,2.2vw,30px);font-weight:500;line-height:1.5;letter-spacing:-.02em;word-break:keep-all}
+.about .en{font-size:clamp(15px,1.3vw,18px);font-weight:400;margin-top:28px;color:rgba(31,42,36,.7)}
+@media(max-width:860px){
+  .burger{display:block}
+  .top{flex-wrap:wrap}
+  .menu{display:none;order:3;flex-basis:100%;flex-direction:column;gap:6px;font-size:22px;font-weight:600;padding:12px 0 4px}
+  body.menu-open .menu{display:flex}
+  .bar .menu{position:absolute;top:100%;left:0;right:0;background:rgba(255,255,255,.97);padding:16px 20px}
+  .page{padding:28px 20px 24px}
+  .index{grid-template-columns:1fr;margin-bottom:40px}
+  .preview{display:none}
+  .index .row{grid-template-columns:56px 1fr;grid-template-rows:auto auto;column-gap:14px;row-gap:2px;padding:12px 0;align-items:center;align-content:center}
+  .index .row b{align-self:end}.index .row span:first-of-type{align-self:start}
+  .index .row img{display:block;grid-row:1/3;grid-column:1;width:56px;height:56px;object-fit:cover}
+  .index .row b{grid-column:2}
+  .index .row span:first-of-type{grid-column:2}
+  .index .row span:last-of-type{display:none}
+}
+
 /* work */
 .work{padding:160px 0 0}
 .head{border-top:1px solid var(--ink);padding-top:20px}
@@ -141,8 +190,9 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 <body>
 
 <header class="cover" id="top">
-  <div>
+  <div class="top">
     <h1><img src="img/ingsoon-logo.png" alt="ingsoon!"></h1>
+    <nav class="menu"><a href="#works">Works</a><a href="#info">Info</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
   </div>
   <h2 class="label">Animation</h2>
   <nav class="reel">
@@ -168,8 +218,47 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   </div>
 </header>
 
+<section class="page" id="works">
+  <div class="top">
+    <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a>
+    <nav class="menu"><a href="#works">Works</a><a href="#info">Info</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
+  </div>
+  <div class="index">
+    <div class="list">
+      <h2 class="label">Animation</h2>
+      <ul>
+        <li><a class="row" href="#eddie" data-img="img/eddie/poster.jpg"><b>Eddie &amp; the Quokka Gang</b><span>Series planning</span><span>2026</span><img src="img/eddie/poster.jpg" alt="" loading="lazy"></a></li>
+        <li><a class="row" href="#pink" data-img="img/works/pink-poster.jpg"><b>분홍산이 간질간질</b><span>AI Creator Showcase</span><span>2026</span><img src="img/works/pink-poster.jpg" alt="" loading="lazy"></a></li>
+        <li><a class="row" href="#ocean" data-img="img/works/w06_0.jpg"><b>Baking the Ocean</b><span>3D Motion Graphic</span><span>2025</span><img src="img/works/w06_0.jpg" alt="" loading="lazy"></a></li>
+        <li><a class="row" href="#sun" data-img="img/works/w15_0.jpg"><b>Sun-Dried</b><span>3D Motion Graphic</span><span>2025</span><img src="img/works/w15_0.jpg" alt="" loading="lazy"></a></li>
+      </ul>
+      <h2 class="label">Poster</h2>
+      <ul>
+        <li><div class="row" data-img="img/posters/green-with-green.jpg"><b>초록은 동색 Green with Green</b><span>Exhibition poster</span><span>2026</span><img src="img/posters/green-with-green.jpg" alt="" loading="lazy"></div></li>
+        <li><div class="row" data-img="img/posters/porous-boundaries.jpg"><b>스며드는 경계 Porous Boundaries</b><span>Exhibition poster</span><span>2026</span><img src="img/posters/porous-boundaries.jpg" alt="" loading="lazy"></div></li>
+        <li><div class="row" data-img="img/posters/apophenia.jpg"><b>Apophenia_우연한 연결</b><span>Exhibition poster</span><span>2026</span><img src="img/posters/apophenia.jpg" alt="" loading="lazy"></div></li>
+        <li><div class="row" data-img="img/posters/the-way-of-line.jpg"><b>선:선 The Way of Line</b><span>Exhibition poster</span><span>2026</span><img src="img/posters/the-way-of-line.jpg" alt="" loading="lazy"></div></li>
+        <li><div class="row" data-img="img/posters/power-play.jpg"><b>힘겨루기: 게임의 법칙</b><span>Exhibition poster</span><span>2026</span><img src="img/posters/power-play.jpg" alt="" loading="lazy"></div></li>
+      </ul>
+    </div>
+    <div class="preview"><img alt=""></div>
+  </div>
+</section>
+
+<section class="page" id="info">
+  <div class="top">
+    <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a>
+    <nav class="menu"><a href="#works">Works</a><a href="#info">Info</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
+  </div>
+  <div class="about">
+    <p>이인선은 이야기를 기획하고 움직임으로 만드는 애니메이션 기획·제작자입니다. 캐릭터와 세계관을 설계하는 시리즈 기획부터 3D 모션그래픽, AI 기반 영상, 전시 포스터까지 — 하나의 아이디어가 화면 위에서 살아 움직이도록 만듭니다.</p>
+    <p class="en">Insun Lee is an animation planner and producer who turns stories into motion — from series and world-building to 3D motion graphics, AI-driven film and exhibition posters.</p>
+  </div>
+  <div class="bottom"><span>INSUN LEE © 2026</span></div>
+</section>
+
 <header class="bar">
-  <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a>
+  <div class="lft"><a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a><nav class="menu"><a href="#works">Works</a><a href="#info">Info</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button></div>
   <nav class="idx">
     <a href="#eddie">Eddie &amp; the Quokka Gang</a><a href="#pink">분홍산이 간질간질</a><a href="#ocean">Baking the Ocean</a><a href="#sun">Sun-Dried</a>
   </nav>
@@ -338,8 +427,12 @@ document.querySelectorAll('.facade').forEach(f=>f.onclick=()=>{
   f.replaceWith(d);
 });
 function route(){
-  const i=ids.indexOf(location.hash.slice(1));
-  document.body.classList.toggle('home',i<0);
+  const h=location.hash.slice(1),i=ids.indexOf(h),pg=h==='works'||h==='info';
+  document.body.classList.toggle('home',i<0&&!pg);
+  document.body.classList.toggle('pg',pg);
+  document.body.classList.remove('menu-open');
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===h));
+  document.querySelectorAll('.menu a').forEach(a=>a.classList.toggle('on',a.hash==='#'+h));
   works.forEach((w,k)=>w.classList.toggle('active',k===i));
   document.querySelectorAll('.bar .idx a').forEach(a=>a.classList.toggle('on',a.hash==='#'+ids[i]));
   // stop videos left playing in hidden projects
@@ -356,6 +449,15 @@ document.querySelector('.arrow.next').onclick=()=>go(1);
 document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(-1);if(e.key==='ArrowRight')go(1)});
 window.addEventListener('hashchange',route);
 route();
+</script>
+<script>
+document.querySelectorAll('.burger').forEach(b=>b.onclick=()=>document.body.classList.toggle('menu-open'));
+// works index: show image on the right on hover
+const pv=document.querySelector('.preview img');
+document.querySelectorAll('.index .row').forEach(r=>{
+  r.addEventListener('mouseenter',()=>{pv.src=r.dataset.img;pv.classList.add('show')});
+  r.addEventListener('mouseleave',()=>pv.classList.remove('show'));
+});
 </script>
 <script>
 // touch: show hover state only while pressed and held
