@@ -25,17 +25,19 @@ a{color:inherit}
 
 /* work */
 .work{padding:160px 0 0}
-.head{display:grid;grid-template-columns:120px 1fr;gap:0 24px;border-top:1px solid var(--ink);padding-top:20px}
-.head .no{font-size:14px;font-weight:500}
+.head{border-top:1px solid var(--ink);padding-top:20px}
+.head .no{font-size:14px;font-weight:500;margin-bottom:28px}
 .head h2{font-size:clamp(34px,5vw,60px);font-weight:700;letter-spacing:-.035em;line-height:1.05}
 .head .sub{font-size:15px;color:var(--muted);margin-top:10px}
-.body{margin-left:144px}
+.body{margin-left:0}
 .lead{font-size:clamp(20px,2.2vw,26px);font-weight:500;letter-spacing:-.025em;line-height:1.5;margin-top:64px;max-width:780px}
 .text{color:#3e4641;max-width:620px;margin-top:20px}
 .meta{display:flex;gap:48px;margin-top:40px;font-size:14px}
 .meta span{display:block;color:var(--muted);font-size:12px;letter-spacing:.04em}
 .media{margin-top:72px}
 .media.portrait{max-width:360px}
+.media.poster{margin-top:56px}
+.media.poster img{max-width:720px}
 .media video{background:#000}
 .two{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:72px;align-items:end;margin-top:72px}
 .two .lead{margin-top:0}
@@ -53,7 +55,7 @@ a{color:inherit}
 .rows p{color:#3e4641}
 .quote{font-size:clamp(22px,2.6vw,30px);font-weight:600;letter-spacing:-.03em;line-height:1.35}
 .cast{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
-.cast img{aspect-ratio:3/4;object-fit:cover;background:#f2f2ef}
+.cast img{aspect-ratio:3/4;object-fit:contain;object-position:bottom}
 .cast .n{font-weight:600;margin-top:12px}
 .cast .r{font-size:12px;color:var(--muted)}
 .cast q{display:block;font-size:13px;margin-top:6px;line-height:1.5}
@@ -151,6 +153,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div class="no">01</div>
     <div><h2>Eddie &amp; the Quokka Gang</h2><p class="sub">에디와 쿼카 갱 · Original AI Animation Series · 기획</p></div>
   </div>
+  <div class="media poster"><img src="img/eddie/poster.jpg" alt="Eddie & the Quokka Gang 포스터"></div>
   <div class="body">
     <p class="lead">낮에는 세상에서 가장 행복한 동물,<br>밤에는 섬을 뒤집어 놓는 힙합 갱스터.</p>
     <p class="text">관광객 앞에선 언제나 웃는 쿼카들. 밤이 되면 섬을 뒤집는 힙합 갱스터가 된다. 그 정체를 목격한 신입 관리인 에디는 시설 복구를 위해 이들과 내키지 않는 비밀 거래를 시작한다.</p>
@@ -191,8 +194,6 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     </div>
   </div>
 
-  <div class="media"><img src="img/eddie/eddie-sheet.png" alt="에디 캐릭터 턴어라운드"></div>
-  <p class="cap">Eddie — character turnaround</p>
 
   <div class="body">
     <div class="sec">
@@ -201,7 +202,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     </div>
   </div>
   <div class="cast">
-    <div><img src="img/eddie/eddie-sheet.png" alt="에디" style="object-position:22% 50%"><p class="n">에디 Eddie</p><p class="r">신입 섬 관리인</p><q>제발 오늘 하루만 아무 일 없이 지나가면 안 될까?</q></div>
+    <div><img src="img/eddie/eddie.webp" alt="에디"><p class="n">에디 Eddie</p><p class="r">신입 섬 관리인</p><q>제발 오늘 하루만 아무 일 없이 지나가면 안 될까?</q></div>
     <div><img src="img/eddie/rocco.webp" alt="로코"><p class="n">로코 Rocco</p><p class="r">지베이 갱의 보스</p><q>난 귀여운 게 아니라 무서운 거라고!</q></div>
     <div><img src="img/eddie/fix.webp" alt="픽스"><p class="n">픽스 Fix</p><p class="r">작전 설계 담당</p><q>계획대로만 하면 완벽해. 이론적으로는.</q></div>
     <div><img src="img/eddie/dunk.webp" alt="덩크"><p class="n">덩크 Dunk</p><p class="r">행동대장</p><q>부수면 되는 거죠, 보스?</q></div>
@@ -226,15 +227,11 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div class="no">02</div>
     <div><h2>분홍산이 간질간질</h2><p class="sub">AI 크리에이터 쇼케이스 · 영상부문</p></div>
   </div>
+  <div class="media"><video src="media/pink-mountain.mp4" controls playsinline preload="none" poster="img/works/pink-poster.jpg"></video></div>
   <div class="body">
-    <div class="two">
-      <video src="videos/pink-mountain.mp4" controls playsinline preload="metadata"></video>
-      <div>
-        <p class="lead">AI 크리에이터 쇼케이스 영상부문 출품작.</p>
+    <p class="lead">AI 크리에이터 쇼케이스 영상부문 출품작.</p>
         <p class="text">[기획의도 · 작품 설명을 여기에 작성해 주세요]</p>
-        <div class="meta"><div><span>기여도</span>100%</div><div><span>길이</span>3분 10초</div><div><span>비율</span>9:16</div></div>
-      </div>
-    </div>
+        <div class="meta"><div><span>기여도</span>100%</div><div><span>길이</span>3분 10초</div><div><span>비율</span>16:9</div></div>
   </div>
 </section>
 
@@ -244,7 +241,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div class="no">03</div>
     <div><h2>Baking the Ocean</h2><p class="sub">3D Motion Graphic · C4D / Octane</p></div>
   </div>
-  <div class="media"><button class="yt wide facade" data-id="XgVOc58mm74" aria-label="Baking the Ocean 재생"><img src="img/works/w06_0.jpg" alt=""><span class="play"></span></button></div>
+  <div class="media"><video src="media/baking-the-ocean.mp4" controls playsinline preload="none" poster="img/works/w06_0.jpg"></video></div>
   <div class="body">
     <p class="lead">뜨거운 오븐 안, 메론빵과 소라빵이 부풀어 오르며 무언가 특별한 변화가 시작된다.</p>
         <p class="text">일상의 작은 사물이 상상력을 통해 새로운 생명을 얻고, 평범한 공간이 환상적인 세계로 변해가는 순간을 표현했다. 메론빵은 거북이가 되어 헤엄치고, 오븐 속은 산호초가 자라는 바다가 된다.</p>
@@ -266,7 +263,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   </div>
   <div class="body">
     <div class="two">
-      <video src="videos/sun-dried.mp4" controls playsinline preload="metadata" loop poster="img/works/w15_0.jpg"></video>
+      <video src="media/sun-dried.mp4" controls playsinline preload="metadata" loop poster="img/works/w15_0.jpg"></video>
       <div>
         <p class="lead">아기 얼굴을 한 태양이 세탁기에서 태어난다.</p>
         <p class="text">세탁 후 따뜻한 햇빛 아래 빨래를 말린 듯한 산뜻함을 전하기 위해, 햇살처럼 포근하고 상쾌한 세탁의 순간을 감각적인 비주얼로 표현했다.</p>
