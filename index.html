@@ -84,6 +84,11 @@ main .work.active{display:block;padding-top:120px}
 .pager .nx{text-align:right;margin-left:auto}
 .yt{position:relative;aspect-ratio:9/16;background:#000}
 .yt.wide{aspect-ratio:16/9}
+.facade{display:block;width:100%;border:0;padding:0;cursor:pointer}
+.facade img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.facade .play{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;background:rgba(255,255,255,.9);transition:transform .2s}
+.facade .play::after{content:"";position:absolute;left:31px;top:24px;border-style:solid;border-width:14px 0 14px 22px;border-color:transparent transparent transparent var(--ink)}
+.facade:hover .play{transform:scale(1.08)}
 .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 @media(max-width:860px){
   .bar{padding:14px 20px}.bar .idx{display:none}
@@ -239,7 +244,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div class="no">03</div>
     <div><h2>Baking the Ocean</h2><p class="sub">3D Motion Graphic · C4D / Octane</p></div>
   </div>
-  <div class="media"><div class="yt wide"><iframe src="https://www.youtube-nocookie.com/embed/XgVOc58mm74?rel=0" title="Baking the Ocean" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div></div>
+  <div class="media"><button class="yt wide facade" data-id="XgVOc58mm74" aria-label="Baking the Ocean 재생"><img src="img/works/w06_0.jpg" alt=""><span class="play"></span></button></div>
   <div class="body">
     <p class="lead">뜨거운 오븐 안, 메론빵과 소라빵이 부풀어 오르며 무언가 특별한 변화가 시작된다.</p>
         <p class="text">일상의 작은 사물이 상상력을 통해 새로운 생명을 얻고, 평범한 공간이 환상적인 세계로 변해가는 순간을 표현했다. 메론빵은 거북이가 되어 헤엄치고, 오븐 속은 산호초가 자라는 바다가 된다.</p>
@@ -289,6 +294,11 @@ works.forEach((w,i)=>{
   const p=works[(i+ids.length-1)%ids.length],n=works[(i+1)%ids.length];
   const t=s=>s.querySelector('h2').textContent;
   w.insertAdjacentHTML('beforeend',`<div class="pager"><a href="#${p.id}"><span>← PREV</span><b>${t(p)}</b></a><a class="nx" href="#${n.id}"><span>NEXT →</span><b>${t(n)}</b></a></div>`);
+});
+document.querySelectorAll('.facade').forEach(f=>f.onclick=()=>{
+  const d=document.createElement('div');d.className=f.className.replace('facade','');
+  d.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${f.dataset.id}?autoplay=1&rel=0&controls=0&modestbranding=1&playsinline=1&iv_load_policy=3" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+  f.replaceWith(d);
 });
 function route(){
   const i=ids.indexOf(location.hash.slice(1));
