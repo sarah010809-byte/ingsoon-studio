@@ -71,6 +71,8 @@ body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
 main .work{display:none}
 main .work.active{display:block;padding-top:120px}
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
+.cover h1 img{display:block;height:clamp(64px,10vw,130px);width:auto}
+.bar .logo img{display:block;height:28px;width:auto}
 .bar .logo{font-weight:700;font-size:18px;letter-spacing:-.03em;text-decoration:none}
 .bar .idx{display:flex;gap:24px}
 .bar .idx a{text-decoration:none;color:var(--muted);text-underline-offset:4px}
@@ -123,7 +125,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 
 <header class="cover" id="top">
   <div>
-    <h1>ingsoon!</h1>
+    <h1><img src="img/logo.png" alt="ingsoon!"></h1>
     <p class="tag">Making stories move.</p>
   </div>
   <div class="bottom">
@@ -138,7 +140,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 </header>
 
 <header class="bar">
-  <a href="#" class="logo">ingsoon!</a>
+  <a href="#" class="logo"><img src="img/logo.png" alt="ingsoon!"></a>
   <nav class="idx">
     <a href="#eddie">Eddie &amp; the Quokka Gang</a><a href="#pink">분홍산이 간질간질</a><a href="#ocean">Baking the Ocean</a><a href="#sun">Sun-Dried</a>
   </nav>
