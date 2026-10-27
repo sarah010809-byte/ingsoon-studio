@@ -48,7 +48,7 @@ a{color:inherit}
 
 /* eddie list sections */
 .sec{display:grid;grid-template-columns:180px 1fr;gap:24px;padding:28px 0;border-top:1px solid var(--line)}
-.sec:first-of-type{margin-top:80px}
+.sec.first{margin-top:80px}
 .sec h3{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.02em}
 .rows > div{display:grid;grid-template-columns:200px 1fr;gap:16px;padding:6px 0}
 .rows b{font-weight:600}
@@ -157,7 +157,14 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   <div class="body">
     <p class="lead">낮에는 세상에서 가장 행복한 동물,<br>밤에는 섬을 뒤집어 놓는 힙합 갱스터.</p>
     <p class="text">관광객 앞에선 언제나 웃는 쿼카들. 밤이 되면 섬을 뒤집는 힙합 갱스터가 된다. 그 정체를 목격한 신입 관리인 에디는 시설 복구를 위해 이들과 내키지 않는 비밀 거래를 시작한다.</p>
-    <div class="meta"><div><span>장르</span>버디 · 음악 코미디</div><div><span>포맷</span>AI 3D · 회당 5–7분</div><div><span>플랫폼</span>YouTube</div></div>
+    <div class="sec first">
+      <h3>개요</h3>
+      <div class="rows">
+        <div><b>장르</b><p>버디 · 음악 코미디</p></div>
+        <div><b>포맷</b><p>AI 3D 애니메이션 · 회당 5–7분</p></div>
+        <div><b>플랫폼</b><p>YouTube</p></div>
+      </div>
+    </div>
 
     <div class="sec">
       <h3>기획의도</h3>
