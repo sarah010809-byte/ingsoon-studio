@@ -15,17 +15,26 @@ a{color:inherit}
 .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
 
 /* cover */
-.cover{background:var(--lime);min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:40px 40px 32px}
+.cover{background:var(--lime);min-height:100vh;display:flex;flex-direction:column;padding:40px 40px 32px}
 .cover h1{font-size:clamp(48px,7vw,88px);font-weight:700;letter-spacing:-.035em;line-height:1}
 .cover .tag{font-size:clamp(15px,1.4vw,18px);font-weight:600;letter-spacing:-.01em}
-.cover .bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;font-size:14px;letter-spacing:.04em}
-.cover .reel{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.4vw,36px);padding:40px 0;align-items:end}
+.cover .bottom{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;font-size:14px;letter-spacing:.04em}
+.cover .label{font-size:clamp(20px,2vw,26px);font-weight:700;letter-spacing:-.02em;margin:56px 0 24px}
+.cover .reel{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.4vw,36px);align-items:end}
+.cover .reel .col{display:contents}
 .cover .reel a{text-decoration:none;text-align:center}
 .cover .reel img{display:block;width:100%;height:auto;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .cover .reel a:hover img{transform:scale(1.05)}
 .cover .reel span{display:block;margin-top:14px;font-size:15px}
 .cover .reel a:hover span{text-decoration:underline}
-@media(max-width:860px){.cover .reel{grid-template-columns:repeat(2,1fr)}}
+.cover .posters{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(16px,2.4vw,36px);margin-bottom:56px}
+.cover .posters img{display:block;width:100%;height:auto;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.cover .posters img:hover{transform:scale(1.05)}
+@media(max-width:860px){
+  .cover .reel{display:flex;gap:16px;align-items:flex-start}
+  .cover .reel .col{display:flex;flex-direction:column;gap:28px;flex:1;min-width:0}
+  .cover .posters{grid-template-columns:repeat(2,1fr);gap:16px}
+}
 
 /* work */
 .work{padding:160px 0 0}
@@ -131,12 +140,25 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   <div>
     <h1><img src="img/ingsoon-logo.png" alt="ingsoon!"></h1>
   </div>
+  <h2 class="label">Animation</h2>
   <nav class="reel">
-    <a href="#eddie"><div class="ph"><img src="img/eddie/poster.jpg" alt=""></div><span>Eddie &amp; the Quokka Gang</span></a>
-    <a href="#pink"><div class="ph"><img src="img/works/pink-poster.jpg" alt=""></div><span>분홍산이 간질간질</span></a>
-    <a href="#ocean"><div class="ph"><img src="img/works/w06_0.jpg" alt=""></div><span>Baking the Ocean</span></a>
-    <a href="#sun"><div class="ph"><img src="img/works/w15_0.jpg" alt=""></div><span>Sun-Dried</span></a>
+    <div class="col">
+      <a href="#eddie" style="order:1"><img src="img/eddie/poster.jpg" alt=""><span>Eddie &amp; the Quokka Gang</span></a>
+      <a href="#ocean" style="order:3"><img src="img/works/w06_0.jpg" alt=""><span>Baking the Ocean</span></a>
+    </div>
+    <div class="col">
+      <a href="#pink" style="order:2"><img src="img/works/pink-poster.jpg" alt=""><span>분홍산이 간질간질</span></a>
+      <a href="#sun" style="order:4"><img src="img/works/w15_0.jpg" alt=""><span>Sun-Dried</span></a>
+    </div>
   </nav>
+  <h2 class="label">Poster</h2>
+  <div class="posters">
+    <img src="img/posters/green-with-green.jpg" alt="초록은 동색">
+    <img src="img/posters/porous-boundaries.jpg" alt="스며드는 경계">
+    <img src="img/posters/apophenia.jpg" alt="Apophenia_우연한 연결">
+    <img src="img/posters/the-way-of-line.jpg" alt="선:선 The Way of Line">
+    <img src="img/posters/power-play.jpg" alt="힘겨루기: 게임의 법칙">
+  </div>
   <div class="bottom">
     <p class="tag">Making stories move.</p>
     <span>INSUN LEE © 2026</span>
