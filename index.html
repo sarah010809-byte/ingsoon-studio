@@ -17,7 +17,7 @@ a{color:inherit}
 /* cover */
 .cover{background:var(--lime);min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:40px 40px 32px}
 .cover h1{font-size:clamp(48px,7vw,88px);font-weight:700;letter-spacing:-.035em;line-height:1}
-.cover .tag{font-size:clamp(18px,1.8vw,24px);margin-top:20px;font-weight:400}
+.cover .tag{font-size:clamp(17px,1.6vw,22px);font-weight:600;letter-spacing:-.01em;margin-bottom:20px}
 .cover .bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;font-size:14px;letter-spacing:.04em}
 .cover nav{display:flex;flex-direction:column;gap:2px;letter-spacing:0}
 .cover nav a{text-decoration:none;font-size:15px}
@@ -71,7 +71,7 @@ body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
 main .work{display:none}
 main .work.active{display:block;padding-top:120px}
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
-.cover h1 img{display:block;height:clamp(48px,7vw,96px);width:auto}
+.cover h1 img{display:block;height:clamp(64px,12vw,170px);width:auto}
 .bar .logo img{display:block;height:24px;width:auto}
 .bar .logo{font-weight:700;font-size:18px;letter-spacing:-.03em;text-decoration:none}
 .bar .idx{display:flex;gap:24px}
@@ -125,11 +125,11 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 
 <header class="cover" id="top">
   <div>
-    <h1><img src="img/logo.png" alt="ingsoon!"></h1>
-    <p class="tag">Making stories move.</p>
+    <h1><img src="img/ingsoon-logo.png" alt="ingsoon!"></h1>
   </div>
   <div class="bottom">
     <nav>
+      <p class="tag">Making stories move.</p>
       <a href="#eddie">01 Eddie &amp; the Quokka Gang</a>
       <a href="#pink">02 분홍산이 간질간질</a>
       <a href="#ocean">03 Baking the Ocean</a>
@@ -140,7 +140,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 </header>
 
 <header class="bar">
-  <a href="#" class="logo"><img src="img/logo.png" alt="ingsoon!"></a>
+  <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a>
   <nav class="idx">
     <a href="#eddie">Eddie &amp; the Quokka Gang</a><a href="#pink">분홍산이 간질간질</a><a href="#ocean">Baking the Ocean</a><a href="#sun">Sun-Dried</a>
   </nav>
