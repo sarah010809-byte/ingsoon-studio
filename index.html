@@ -60,7 +60,38 @@ a{color:inherit}
 .eps > div{display:grid;grid-template-columns:90px 220px 1fr;gap:16px;padding:6px 0}
 .eps span{color:var(--muted);font-size:14px}
 
-footer{padding:200px 0 40px}
+/* views */
+.cover nav a{text-decoration:none;text-underline-offset:4px;text-decoration-thickness:1px}
+.cover nav a:hover{text-decoration:underline}
+body:not(.home) .cover{display:none}
+body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
+main .work{display:none}
+main .work.active{display:block;padding-top:120px}
+.bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
+.bar .logo{font-weight:700;font-size:18px;letter-spacing:-.03em;text-decoration:none}
+.bar .idx{display:flex;gap:24px}
+.bar .idx a{text-decoration:none;color:var(--muted);text-underline-offset:4px}
+.bar .idx a:hover{color:var(--ink);text-decoration:underline}
+.bar .idx a.on{color:var(--ink)}
+.arrow{position:fixed;top:50%;transform:translateY(-50%);z-index:15;background:none;border:0;font:300 34px/1 inherit;font-family:inherit;color:var(--ink);cursor:pointer;padding:16px;opacity:.35;transition:opacity .2s}
+.arrow:hover{opacity:1}
+.arrow.prev{left:8px}.arrow.next{right:8px}
+.pager{display:flex;justify-content:space-between;gap:24px;border-top:1px solid var(--ink);margin-top:160px;padding:20px 0 0}
+.pager a{text-decoration:none;max-width:45%}
+.pager a:hover b{text-decoration:underline;text-underline-offset:4px}
+.pager span{display:block;font-size:12px;color:var(--muted);letter-spacing:.04em}
+.pager b{font-size:clamp(18px,2.2vw,26px);font-weight:600;letter-spacing:-.03em}
+.pager .nx{text-align:right;margin-left:auto}
+.yt{position:relative;aspect-ratio:9/16;background:#000}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media(max-width:860px){
+  .bar{padding:14px 20px}.bar .idx{display:none}
+  .arrow{display:none}
+  main .work.active{padding-top:90px}
+  .pager{margin-top:100px}
+}
+footer{padding:120px 0 40px}
+body.home footer{display:none}
 footer .wrap{display:flex;justify-content:space-between;align-items:flex-end;font-size:14px}
 footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;line-height:1}
 
@@ -96,6 +127,15 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <span>INSUN LEE © 2026</span>
   </div>
 </header>
+
+<header class="bar">
+  <a href="#" class="logo">ingsoon!</a>
+  <nav class="idx">
+    <a href="#eddie">Eddie &amp; the Quokka Gang</a><a href="#pink">분홍산이 간질간질</a><a href="#ocean">Baking the Ocean</a><a href="#sun">Sun-Dried</a>
+  </nav>
+</header>
+<button class="arrow prev" aria-label="이전 프로젝트">←</button>
+<button class="arrow next" aria-label="다음 프로젝트">→</button>
 
 <main class="wrap">
 
@@ -222,7 +262,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   </div>
   <div class="body">
     <div class="two">
-      <video src="videos/baking-the-ocean.mp4" controls playsinline preload="metadata" poster="img/works/w06_0.jpg"></video>
+      <div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/XgVOc58mm74?rel=0" title="Baking the Ocean" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
       <div>
         <p class="lead">뜨거운 오븐 안, 메론빵과 소라빵이 부풀어 오르며 무언가 특별한 변화가 시작된다.</p>
         <p class="text">일상의 작은 사물이 상상력을 통해 새로운 생명을 얻고, 평범한 공간이 환상적인 세계로 변해가는 순간을 표현했다. 메론빵은 거북이가 되어 헤엄치고, 오븐 속은 산호초가 자라는 바다가 된다.</p>
@@ -268,5 +308,33 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div style="text-align:right">Insun Lee · Konkuk Univ. Communication Design<br><a href="mailto:93insun@naver.com">93insun@naver.com</a></div>
   </div>
 </footer>
+<script>
+const ids=['eddie','pink','ocean','sun'];
+const works=ids.map(id=>document.getElementById(id));
+works.forEach((w,i)=>{
+  const p=works[(i+ids.length-1)%ids.length],n=works[(i+1)%ids.length];
+  const t=s=>s.querySelector('h2').textContent;
+  w.insertAdjacentHTML('beforeend',`<div class="pager"><a href="#${p.id}"><span>← PREV</span><b>${t(p)}</b></a><a class="nx" href="#${n.id}"><span>NEXT →</span><b>${t(n)}</b></a></div>`);
+});
+function route(){
+  const i=ids.indexOf(location.hash.slice(1));
+  document.body.classList.toggle('home',i<0);
+  works.forEach((w,k)=>w.classList.toggle('active',k===i));
+  document.querySelectorAll('.bar .idx a').forEach(a=>a.classList.toggle('on',a.hash==='#'+ids[i]));
+  // stop videos left playing in hidden projects
+  document.querySelectorAll('main video').forEach(v=>v.pause());
+  document.querySelectorAll('main iframe').forEach(f=>{if(!f.closest('.active'))f.src=f.src});
+  window.scrollTo(0,0);
+}
+function go(d){
+  const i=ids.indexOf(location.hash.slice(1));
+  if(i>=0)location.hash=ids[(i+d+ids.length)%ids.length];
+}
+document.querySelector('.arrow.prev').onclick=()=>go(-1);
+document.querySelector('.arrow.next').onclick=()=>go(1);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(-1);if(e.key==='ArrowRight')go(1)});
+window.addEventListener('hashchange',route);
+route();
+</script>
 </body>
 </html>
