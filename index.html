@@ -17,11 +17,16 @@ a{color:inherit}
 /* cover */
 .cover{background:var(--lime);min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:40px 40px 32px}
 .cover h1{font-size:clamp(48px,7vw,88px);font-weight:700;letter-spacing:-.035em;line-height:1}
-.cover .tag{font-size:clamp(17px,1.6vw,22px);font-weight:600;letter-spacing:-.01em;margin-bottom:20px}
+.cover .tag{font-size:clamp(15px,1.4vw,18px);font-weight:600;letter-spacing:-.01em}
 .cover .bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;font-size:14px;letter-spacing:.04em}
-.cover nav{display:flex;flex-direction:column;gap:2px;letter-spacing:0}
-.cover nav a{text-decoration:none;font-size:15px}
-.cover nav a:hover{text-decoration:underline}
+.cover .reel{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.4vw,36px);padding:40px 0}
+.cover .reel a{text-decoration:none;text-align:center}
+.cover .reel .ph{aspect-ratio:4/5;overflow:hidden}
+.cover .reel img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.cover .reel a:hover img{transform:scale(1.08)}
+.cover .reel span{display:block;margin-top:14px;font-size:15px}
+.cover .reel a:hover span{text-decoration:underline}
+@media(max-width:860px){.cover .reel{grid-template-columns:repeat(2,1fr)}}
 
 /* work */
 .work{padding:160px 0 0}
@@ -71,7 +76,7 @@ body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
 main .work{display:none}
 main .work.active{display:block;padding-top:120px}
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
-.cover h1 img{display:block;height:clamp(64px,12vw,170px);width:auto}
+.cover h1 img{display:block;height:clamp(52px,8vw,110px);width:auto}
 .bar .logo img{display:block;height:24px;width:auto}
 .bar .logo{font-weight:700;font-size:18px;letter-spacing:-.03em;text-decoration:none}
 .bar .idx{display:flex;gap:24px}
@@ -127,14 +132,14 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   <div>
     <h1><img src="img/ingsoon-logo.png" alt="ingsoon!"></h1>
   </div>
+  <nav class="reel">
+    <a href="#eddie"><div class="ph"><img src="img/eddie/poster.jpg" alt=""></div><span>Eddie &amp; the Quokka Gang</span></a>
+    <a href="#pink"><div class="ph"><img src="img/works/pink-poster.jpg" alt=""></div><span>분홍산이 간질간질</span></a>
+    <a href="#ocean"><div class="ph"><img src="img/works/w06_0.jpg" alt=""></div><span>Baking the Ocean</span></a>
+    <a href="#sun"><div class="ph"><img src="img/works/w15_0.jpg" alt=""></div><span>Sun-Dried</span></a>
+  </nav>
   <div class="bottom">
-    <nav>
-      <p class="tag">Making stories move.</p>
-      <a href="#eddie">01 Eddie &amp; the Quokka Gang</a>
-      <a href="#pink">02 분홍산이 간질간질</a>
-      <a href="#ocean">03 Baking the Ocean</a>
-      <a href="#sun">04 Sun-Dried</a>
-    </nav>
+    <p class="tag">Making stories move.</p>
     <span>INSUN LEE © 2026</span>
   </div>
 </header>
