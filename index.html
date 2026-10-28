@@ -97,7 +97,8 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .lb{position:fixed;inset:0;z-index:100;display:none}
 .lb.open{display:block}
 .lb .dim{position:absolute;inset:0;background:rgba(10,12,10,.72);opacity:0}
-.lb img{position:fixed;transform-origin:0 0;box-shadow:0 30px 80px rgba(0,0,0,.35);will-change:transform}
+.lb img{position:fixed;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.lb canvas{position:fixed;inset:0;width:100%;height:100%}
 .cover .posters img,.index div.row{cursor:zoom-in}
 
 /* work */
@@ -269,7 +270,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   <div class="bottom"><span>INSUN LEE © 2026</span></div>
 </section>
 
-<div class="lb" aria-hidden="true"><div class="dim"></div><img alt=""></div>
+<div class="lb" aria-hidden="true"><div class="dim"></div><canvas></canvas><img alt=""></div>
 <header class="bar">
   <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a><nav class="menu"><a href="#works">Works</a><a href="#info">Info</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
 </header>
@@ -470,34 +471,45 @@ document.querySelectorAll('.index .row').forEach(r=>{
 });
 </script>
 <script>
-// poster lightbox: grows out of the clicked poster and shrinks back into it
-const lb=document.querySelector('.lb'),lbImg=lb.querySelector('img'),dim=lb.querySelector('.dim');
-let from=null,busy=false;
-const ease='cubic-bezier(.2,.8,.2,1)';
-function fit(w,h){
-  const s=Math.min(innerWidth*.9/w,innerHeight*.9/h);
-  return {w:w*s,h:h*s,x:(innerWidth-w*s)/2,y:(innerHeight-h*s)/2};
+// poster lightbox: macOS "genie" — the poster pours out of the clicked spot and back into it
+const lb=document.querySelector('.lb'),lbImg=lb.querySelector('img'),dim=lb.querySelector('.dim'),cv=lb.querySelector('canvas'),cx=cv.getContext('2d');
+let from=null,pic=null,F=null,busy=false;
+const clamp=v=>v<0?0:v>1?1:v,ease=t=>t<.5?2*t*t:1-(-2*t+2)**2/2,lerp=(a,b,t)=>a+(b-a)*t;
+function fit(w,h){const k=Math.min(innerWidth*.9/w,innerHeight*.9/h);return {x:(innerWidth-w*k)/2,y:(innerHeight-h*k)/2,w:w*k,h:h*k}}
+// p=0: full size, p=1: inside the source element
+function draw(p,T){
+  const d=devicePixelRatio||1;
+  if(cv.width!==innerWidth*d||cv.height!==innerHeight*d){cv.width=innerWidth*d;cv.height=innerHeight*d}
+  cx.setTransform(d,0,0,d,0,0);cx.clearRect(0,0,innerWidth,innerHeight);
+  const N=90,down=T.y+T.h/2>F.y+F.h/2,ey=ease(clamp((p-.3)/.7));
+  const row=v=>{ // left edge, width and y of the image row at v (0 top .. 1 bottom)
+    const near=down?v:1-v,ex=ease(clamp(p*1.6-(1-near)*.6));
+    return {x:lerp(F.x,T.x,ex),w:lerp(F.w,T.w,ex),y:lerp(F.y+v*F.h,T.y+v*T.h,ey)};
+  };
+  const iw=pic.naturalWidth,ih=pic.naturalHeight;
+  for(let k=0;k<N;k++){
+    const a=row(k/N),b=row((k+1)/N);
+    cx.drawImage(pic,0,ih*k/N,iw,ih/N,a.x,a.y,a.w,b.y-a.y+.6);
+  }
+  dim.style.opacity=1-p;
 }
-function delta(r,f){return `translate(${r.left-f.x}px,${r.top-f.y}px) scale(${r.width/f.w},${r.height/f.h})`}
+function run(p0,p1,ms,done){
+  const r=from.getBoundingClientRect(),T={x:r.left,y:r.top,w:r.width,h:r.height},t0=performance.now();
+  (function f(now){const t=clamp((now-t0)/ms);draw(lerp(p0,p1,t),T);t<1?requestAnimationFrame(f):done()})(t0);
+}
 function open(src,el){
-  if(busy)return;busy=true;from=el;
-  const pre=new Image();pre.src=src;
-  pre.decode().catch(()=>{}).then(()=>{
-    const f=fit(pre.naturalWidth,pre.naturalHeight),r=el.getBoundingClientRect();
-    Object.assign(lbImg.style,{left:f.x+'px',top:f.y+'px',width:f.w+'px',height:f.h+'px'});
-    lbImg.src=src;lb.classList.add('open');el.style.visibility='hidden';
-    dim.animate([{opacity:0},{opacity:1}],{duration:450,fill:'forwards'});
-    lbImg.animate([{transform:delta(r,f),borderRadius:'2px'},{transform:'none'}],{duration:560,easing:ease,fill:'forwards'}).onfinish=()=>busy=false;
+  if(busy)return;busy=true;from=el;pic=new Image();pic.src=src;
+  pic.decode().catch(()=>{}).then(()=>{
+    F=fit(pic.naturalWidth,pic.naturalHeight);
+    Object.assign(lbImg.style,{left:F.x+'px',top:F.y+'px',width:F.w+'px',height:F.h+'px',display:'none'});
+    lbImg.src=src;lb.classList.add('open');cv.style.display='block';el.style.visibility='hidden';
+    run(1,0,650,()=>{lbImg.style.display='block';cv.style.display='none';busy=false});
   });
 }
 function close(){
   if(busy||!lb.classList.contains('open'))return;busy=true;
-  const f={x:parseFloat(lbImg.style.left),y:parseFloat(lbImg.style.top),w:parseFloat(lbImg.style.width),h:parseFloat(lbImg.style.height)};
-  const r=from.getBoundingClientRect();
-  dim.animate([{opacity:1},{opacity:0}],{duration:420,fill:'forwards'});
-  lbImg.animate([{transform:'none'},{transform:delta(r,f)}],{duration:480,easing:'cubic-bezier(.5,0,.3,1)',fill:'forwards'}).onfinish=()=>{
-    lb.classList.remove('open');from.style.visibility='';busy=false;
-  };
+  lbImg.style.display='none';cv.style.display='block';
+  run(0,1,600,()=>{lb.classList.remove('open');from.style.visibility='';busy=false});
 }
 document.querySelectorAll('.cover .posters img').forEach(i=>i.addEventListener('click',()=>open(i.src,i)));
 document.querySelectorAll('.index div.row').forEach(r=>r.addEventListener('click',()=>{
