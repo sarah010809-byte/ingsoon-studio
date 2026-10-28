@@ -481,7 +481,7 @@ function draw(p,T){
   const d=devicePixelRatio||1;
   if(cv.width!==innerWidth*d||cv.height!==innerHeight*d){cv.width=innerWidth*d;cv.height=innerHeight*d}
   cx.setTransform(d,0,0,d,0,0);cx.clearRect(0,0,innerWidth,innerHeight);
-  const N=90,down=T.y+T.h/2>F.y+F.h/2,ey=ease(clamp((p-.3)/.7));
+  const N=Math.ceil(F.h*d/1.5),down=T.y+T.h/2>F.y+F.h/2,ey=ease(clamp((p-.3)/.7));
   const row=v=>{ // left edge, width and y of the image row at v (0 top .. 1 bottom)
     const near=down?v:1-v,ex=ease(clamp(p*1.6-(1-near)*.6));
     return {x:lerp(F.x,T.x,ex),w:lerp(F.w,T.w,ex),y:lerp(F.y+v*F.h,T.y+v*T.h,ey)};
@@ -489,7 +489,7 @@ function draw(p,T){
   const iw=pic.naturalWidth,ih=pic.naturalHeight;
   for(let k=0;k<N;k++){
     const a=row(k/N),b=row((k+1)/N);
-    cx.drawImage(pic,0,ih*k/N,iw,ih/N,a.x,a.y,a.w,b.y-a.y+.6);
+    cx.drawImage(pic,0,ih*k/N,iw,ih/N+.5,a.x,a.y,a.w,b.y-a.y+.4);
   }
   dim.style.opacity=1-p;
 }
@@ -497,13 +497,19 @@ function run(p0,p1,ms,done){
   const r=from.getBoundingClientRect(),T={x:r.left,y:r.top,w:r.width,h:r.height},t0=performance.now();
   (function f(now){const t=clamp((now-t0)/ms);draw(lerp(p0,p1,t),T);t<1?requestAnimationFrame(f):done()})(t0);
 }
-function open(src,el){
+function open(src,el,go){
   if(busy)return;busy=true;from=el;pic=new Image();pic.src=src;
   pic.decode().catch(()=>{}).then(()=>{
     F=fit(pic.naturalWidth,pic.naturalHeight);
     Object.assign(lbImg.style,{left:F.x+'px',top:F.y+'px',width:F.w+'px',height:F.h+'px',display:'none'});
     lbImg.src=src;lb.classList.add('open');cv.style.display='block';el.style.visibility='hidden';
-    run(1,0,650,()=>{lbImg.style.display='block';cv.style.display='none';busy=false});
+    run(1,0,650,()=>{
+      lbImg.style.display='block';cv.style.display='none';
+      if(!go){busy=false;return}
+      // animation card: open the project behind the poster, then fade the overlay away
+      location.hash=go;el.style.visibility='';
+      lb.animate([{opacity:1},{opacity:0}],{duration:350,easing:'ease-out'}).onfinish=()=>{lb.classList.remove('open');busy=false};
+    });
   });
 }
 function close(){
@@ -518,6 +524,13 @@ document.querySelectorAll('.index div.row').forEach(r=>r.addEventListener('click
   open(r.dataset.img,el);
 }));
 lb.addEventListener('click',close);
+const cardFx=e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey)return;
+  const a=e.currentTarget,p=document.querySelector('.preview img');
+  const img=a.closest('.index')&&getComputedStyle(p.parentNode).display!=='none'&&p.classList.contains('show')?p:a.querySelector('img');
+  e.preventDefault();open(a.querySelector('img').src,img,a.hash.slice(1));
+};
+document.querySelectorAll('.cover .reel a, .index a.row').forEach(a=>a.addEventListener('click',cardFx));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 </script>
 <script>
