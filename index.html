@@ -451,10 +451,23 @@ function route(){
   document.querySelectorAll('main iframe').forEach(f=>{if(!f.closest('.active'))f.src=f.src});
   window.scrollTo(0,0);
 }
+// prev/next: current project slides away from the arrow, the next one slides in from it
+let sliding=false;
 function go(d){
   const i=ids.indexOf(location.hash.slice(1));
-  if(i>=0)location.hash=ids[(i+d+ids.length)%ids.length];
+  if(i<0||sliding)return;
+  sliding=true;
+  const out=works[i],ez='cubic-bezier(.4,0,.2,1)';
+  out.animate([{opacity:1,transform:'none'},{opacity:0,transform:`translateX(${-d*40}px)`}],{duration:220,easing:ez,fill:'forwards'}).onfinish=()=>{
+    addEventListener('hashchange',()=>requestAnimationFrame(()=>{
+      out.getAnimations().forEach(a=>a.cancel());
+      const nx=works[ids.indexOf(location.hash.slice(1))];
+      nx.animate([{opacity:0,transform:`translateX(${d*40}px)`},{opacity:1,transform:'none'}],{duration:420,easing:'cubic-bezier(.2,.7,.2,1)'}).onfinish=()=>sliding=false;
+    }),{once:true});
+    location.hash=ids[(i+d+ids.length)%ids.length];
+  };
 }
+document.querySelectorAll('.pager a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();go(a.classList.contains('nx')?1:-1)}));
 document.querySelector('.arrow.prev').onclick=()=>go(-1);
 document.querySelector('.arrow.next').onclick=()=>go(1);
 document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(-1);if(e.key==='ArrowRight')go(1)});
