@@ -43,8 +43,8 @@ a{color:inherit}
 /* menu */
 .top{display:flex;align-items:center;gap:clamp(24px,3vw,48px)}
 .lft{display:flex;align-items:center;gap:32px;flex:1}
-.menu{display:flex;gap:6px;font-size:clamp(20px,2vw,26px);font-weight:700;letter-spacing:-.02em;margin-left:auto}
-.menu a{text-decoration:none;padding:.28em .8em;border-radius:999px;transition:background .25s,color .25s}
+.menu{display:flex;gap:10px;font-size:clamp(20px,2vw,26px);font-weight:700;letter-spacing:-.02em;margin-left:auto}
+.menu a{text-decoration:none;padding:.22em .8em;border:2px solid var(--ink);border-radius:999px;transition:background .25s,color .25s}
 .menu a:hover,.menu a.on{background:#fff}
 .bar .menu a:hover,.bar .menu a.on{background:var(--lime)}
 .burger{display:none;background:none;border:0;width:32px;height:32px;margin-left:auto;cursor:pointer;position:relative}
@@ -79,7 +79,7 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 @media(max-width:860px){
   .burger{display:block}
   .top{flex-wrap:wrap}
-  .menu{display:none;order:3;flex-basis:100%;flex-direction:column;gap:6px;font-size:22px;font-weight:600;padding:12px 0 4px}
+  .menu{display:none;order:3;flex-basis:100%;flex-direction:column;align-items:flex-start;gap:10px;font-size:22px;font-weight:600;padding:12px 0 4px}
   body.menu-open .menu{display:flex}
   .bar .menu{position:absolute;top:100%;left:0;right:0;background:rgba(255,255,255,.97);padding:16px 20px}
   .page{padding:28px 20px 24px}
@@ -165,6 +165,7 @@ main .work.active{display:block;padding-top:120px}
 .arrow{position:fixed;top:50%;transform:translateY(-50%);z-index:15;background:none;border:0;font:300 34px/1 inherit;font-family:inherit;color:var(--ink);cursor:pointer;padding:16px;opacity:.35;transition:opacity .2s}
 .arrow:hover{opacity:1}
 .arrow.prev{left:8px}.arrow.next{right:8px}
+.arrow{display:none!important}
 .pager{display:flex;justify-content:space-between;gap:24px;border-top:1px solid var(--ink);margin-top:160px;padding:20px 0 0}
 .pager a{text-decoration:none;max-width:45%}
 .pager a:hover b{text-decoration:underline;text-underline-offset:4px}
