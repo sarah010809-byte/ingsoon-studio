@@ -525,6 +525,33 @@ document.querySelectorAll('.index div.row').forEach(r=>r.addEventListener('click
   open(r.dataset.img,el);
 }));
 lb.addEventListener('click',close);
+// animation card: the thumbnail glides into the project's lead image while the page rises in around it
+function expand(e){
+  if(e.metaKey||e.ctrlKey||e.shiftKey||busy)return;
+  const a=e.currentTarget,id=a.hash.slice(1),p=document.querySelector('.preview img');
+  const src=a.closest('.index')&&getComputedStyle(p.parentNode).display!=='none'&&p.classList.contains('show')?p:a.querySelector('img');
+  if(!src)return;
+  e.preventDefault();busy=true;
+  const r=src.getBoundingClientRect(),fly=new Image();
+  fly.src=src.src;
+  fly.style.cssText=`position:fixed;z-index:90;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;object-fit:cover;margin:0;pointer-events:none`;
+  document.body.append(fly);
+  addEventListener('hashchange',()=>requestAnimationFrame(()=>{
+    const sec=document.getElementById(id),dest=sec.querySelector('.media img, .media video'),t=dest.getBoundingClientRect();
+    dest.style.visibility='hidden';
+    const sp='cubic-bezier(.65,0,.15,1)';
+    fly.animate([{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'},
+      {left:t.left+'px',top:t.top+'px',width:t.width+'px',height:t.height+'px'}],{duration:750,easing:sp,fill:'forwards'})
+      .onfinish=()=>{dest.style.visibility='';fly.remove();busy=false};
+    [...sec.children].filter(c=>!c.contains(dest)).forEach((c,i)=>c.animate(
+      [{opacity:0,transform:'translateY(28px)'},{opacity:1,transform:'none'}],
+      {duration:700,delay:250+i*70,easing:'cubic-bezier(.2,.7,.2,1)',fill:'backwards'}));
+    document.querySelector('.bar').animate([{opacity:0},{opacity:1}],{duration:500,delay:200,fill:'backwards'});
+  }),{once:true});
+  location.hash=id;
+}
+document.querySelectorAll('.cover .reel a, .index a.row').forEach(a=>a.addEventListener('click',expand));
+
 const cardFx=e=>{
   if(e.metaKey||e.ctrlKey||e.shiftKey)return;
   const a=e.currentTarget,p=document.querySelector('.preview img');
