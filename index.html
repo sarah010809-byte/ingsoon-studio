@@ -162,12 +162,12 @@ main .work.active{display:block;padding-top:120px}
 .bar .idx a{text-decoration:none;color:var(--muted);text-underline-offset:4px}
 .bar .idx a:hover{color:var(--ink);text-decoration:underline}
 .bar .idx a.on{color:var(--ink)}
-.arrow{position:fixed;top:50%;transform:translateY(-50%);z-index:15;width:52px;height:52px;border-radius:50%;border:1px solid var(--ink);background:rgba(255,255,255,.85);font:300 22px/1 inherit;font-family:inherit;color:var(--ink);cursor:pointer;display:grid;place-items:center;opacity:.4;transition:opacity .25s,background .25s,color .25s}
-.arrow:hover{opacity:1;background:var(--ink);color:#fff}
-.arrow.prev{left:20px}.arrow.next{right:20px}
-.pager{display:flex;justify-content:space-between;gap:24px;margin-top:160px}
-.pager a{text-decoration:none;max-width:45%;padding:16px 28px;border:1px solid var(--ink);border-radius:999px;transition:background .25s}
-.pager a:hover{background:var(--lime)}
+.arrow{position:fixed;top:50%;transform:translateY(-50%);z-index:15;background:none;border:0;font:300 34px/1 inherit;font-family:inherit;color:var(--ink);cursor:pointer;padding:16px;opacity:.35;transition:opacity .2s}
+.arrow:hover{opacity:1}
+.arrow.prev{left:8px}.arrow.next{right:8px}
+.pager{display:flex;justify-content:space-between;gap:24px;border-top:1px solid var(--ink);margin-top:160px;padding:20px 0 0}
+.pager a{text-decoration:none;max-width:45%}
+.pager a:hover b{text-decoration:underline;text-underline-offset:4px}
 .pager span{display:block;font-size:12px;color:var(--muted);letter-spacing:.04em}
 .pager b{font-size:clamp(18px,2.2vw,26px);font-weight:600;letter-spacing:-.03em}
 .pager .nx{text-align:right;margin-left:auto}
@@ -199,8 +199,6 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   .rows > div,.eps > div{grid-template-columns:1fr;gap:0;padding:8px 0}
   .cast{grid-template-columns:repeat(2,1fr)}
   .grid{grid-template-columns:1fr 1fr}
-  .pager a{padding:12px 20px}
-  .pager b{font-size:16px}
   .work{padding-top:110px}
   footer .wrap{flex-direction:column;align-items:flex-start;gap:24px}
 }
