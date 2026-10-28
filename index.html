@@ -531,7 +531,7 @@ const cardFx=e=>{
   const img=a.closest('.index')&&getComputedStyle(p.parentNode).display!=='none'&&p.classList.contains('show')?p:a.querySelector('img');
   e.preventDefault();open(a.querySelector('img').src,img,a.hash.slice(1));
 };
-document.querySelectorAll('.cover .reel a, .index a.row').forEach(a=>a.addEventListener('click',cardFx));
+
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 </script>
 <script>
