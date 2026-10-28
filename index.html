@@ -477,7 +477,7 @@ let from=null,pic=null,F=null,busy=false;
 const clamp=v=>v<0?0:v>1?1:v,ease=t=>t<.5?2*t*t:1-(-2*t+2)**2/2,lerp=(a,b,t)=>a+(b-a)*t;
 function fit(w,h,full){const k=full?Math.max(innerWidth/w,innerHeight/h):Math.min(innerWidth*.9/w,innerHeight*.9/h);return {x:(innerWidth-w*k)/2,y:(innerHeight-h*k)/2,w:w*k,h:h*k}}
 // p=0: full size, p=1: inside the source element
-function draw(p,T){
+function draw(p,T,tex,mix){
   const d=devicePixelRatio||1;
   if(cv.width!==innerWidth*d||cv.height!==innerHeight*d){cv.width=innerWidth*d;cv.height=innerHeight*d}
   cx.setTransform(d,0,0,d,0,0);cx.clearRect(0,0,innerWidth,innerHeight);
@@ -489,22 +489,32 @@ function draw(p,T){
   const iw=pic.naturalWidth,ih=pic.naturalHeight;
   for(let k=0;k<N;k++){
     const a=row(k/N),b=row((k+1)/N);
-    cx.drawImage(pic,0,ih*k/N,iw,ih/N+.5,a.x,a.y,a.w,b.y-a.y+.4);
+    const h=b.y-a.y+.4;
+    if(mix<1){cx.globalAlpha=1;cx.drawImage(pic,0,ih*k/N,iw,ih/N+.5,a.x,a.y,a.w,h)}
+    if(tex&&mix>0){cx.globalAlpha=mix;cx.drawImage(tex,0,tex.height*k/N,tex.width,tex.height/N+.5,a.x,a.y,a.w,h)}
   }
+  cx.globalAlpha=1;
   dim.style.opacity=1-p;
 }
 function run(p0,p1,ms,done,tick){
   const r=from.getBoundingClientRect(),T={x:r.left,y:r.top,w:r.width,h:r.height},t0=performance.now();
-  (function f(now){const t=clamp((now-t0)/ms);draw(lerp(p0,p1,t),T);tick&&tick(t);t<1?requestAnimationFrame(f):done()})(t0);
+  (function f(now){const t=clamp((now-t0)/ms),p=lerp(p0,p1,t);draw(p,T,run.tex,run.tex?ease(clamp((.7-p)/.5)):0);tick&&tick(t);t<1?requestAnimationFrame(f):done()})(t0);
 }
 function open(src,el,go){
   if(busy)return;busy=true;from=el;pic=new Image();pic.src=src;
   pic.decode().catch(()=>{}).then(()=>{
-    F=fit(pic.naturalWidth,pic.naturalHeight,!!go);
+    const shot=go&&snaps[go+innerWidth+'x'+innerHeight];
+    F=shot?{x:0,y:0,w:innerWidth,h:innerHeight}:fit(pic.naturalWidth,pic.naturalHeight,!!go);
     Object.assign(lbImg.style,{left:F.x+'px',top:F.y+'px',width:F.w+'px',height:F.h+'px',display:'none'});
     lbImg.src=src;lb.classList.add('open');cv.style.display='block';cv.style.opacity=1;dim.style.visibility='';el.style.visibility='hidden';
+    run.tex=null;
     if(!go)return run(1,0,650,()=>{lbImg.style.display='block';cv.style.display='none';busy=false});
-    // animation card: the image fills the screen, the project page swaps in underneath it, then the image dissolves
+    if(shot){
+      // the card pours out to fill the screen while its print turns into the project page
+      run.tex=shot;
+      return run(1,0,900,()=>{location.hash=go;el.style.visibility='';lb.classList.remove('open');run.tex=null;busy=false});
+    }
+    // no snapshot yet: the image fills the screen, the project swaps in underneath, then the image dissolves
     let swapped=false;
     run(1,0,800,()=>{
       cv.animate([{opacity:1},{opacity:0}],{duration:450,easing:'ease-out',fill:'forwards'}).onfinish=()=>{lb.classList.remove('open');cv.getAnimations().forEach(a=>a.cancel());busy=false};
@@ -532,6 +542,34 @@ const cardFx=e=>{
   e.preventDefault();open(a.querySelector('img').src,img,a.hash.slice(1));
 };
 document.querySelectorAll('.cover .reel a, .index a.row').forEach(a=>a.addEventListener('click',cardFx));
+// snapshot of a project's first screen, taken when a card is hovered/touched, used as the genie's second print
+const snaps={},pending={};
+function snap(id){
+  const key=id+innerWidth+'x'+innerHeight;
+  if(snaps[key]||pending[key]||!window.htmlToImage)return;
+  pending[key]=1;
+  const out=document.createElement('div'),box=document.createElement('div');
+  out.style.cssText='position:fixed;left:-300vw;top:0;pointer-events:none';
+  box.style.cssText=`position:relative;width:${innerWidth}px;height:${innerHeight}px;overflow:hidden;background:var(--bg);transform:translateZ(0)`;
+  const bar=document.querySelector('.bar').cloneNode(true);bar.style.display='flex';
+  const main=document.createElement('main');main.className='wrap';main.style.display='block';
+  const sec=document.getElementById(id).cloneNode(true);sec.id='';sec.classList.add('active');
+  sec.querySelectorAll('video').forEach(v=>{const i=new Image();i.src=v.poster;i.style.cssText='display:block;width:100%';v.replaceWith(i)});
+  main.append(sec);box.append(bar,main);out.append(box);document.body.append(out);
+  htmlToImage.toCanvas(box,{width:innerWidth,height:innerHeight,pixelRatio:Math.min(devicePixelRatio||1,2),cacheBust:false})
+    .then(c=>{snaps[key]=c}).catch(()=>{}).finally(()=>{out.remove();delete pending[key]});
+}
+document.querySelectorAll('.cover .reel a, .index a.row').forEach(a=>{
+  const id=a.hash.slice(1),go=()=>snap(id);
+  a.addEventListener('mouseenter',go);a.addEventListener('touchstart',go,{passive:true});
+});
+// warm the cache in the background, one project at a time
+addEventListener('load',()=>{
+  const q=['eddie','pink','ocean','sun'],idle=window.requestIdleCallback||(f=>setTimeout(f,300));
+  const next=()=>{const id=q.shift();if(!id)return;snap(id);const w=()=>pending[id+innerWidth+'x'+innerHeight]?setTimeout(w,200):idle(next);setTimeout(w,200)};
+  setTimeout(()=>idle(next),800);
+});
+
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 </script>
 <script>
@@ -543,5 +581,6 @@ document.querySelectorAll('.cover .reel a, .cover .posters img').forEach(el=>{
   el.addEventListener('contextmenu',e=>e.preventDefault());
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
 </body>
 </html>
