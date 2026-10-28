@@ -449,7 +449,7 @@ function route(){
   // stop videos left playing in hidden projects
   document.querySelectorAll('main video').forEach(v=>v.pause());
   document.querySelectorAll('main iframe').forEach(f=>{if(!f.closest('.active'))f.src=f.src});
-  window.scrollTo(0,0);
+  window.scrollTo({top:0,behavior:'instant'});
 }
 // prev/next: current project slides away from the arrow, the next one slides in from it
 let sliding=false;
