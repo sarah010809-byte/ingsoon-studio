@@ -475,7 +475,7 @@ document.querySelectorAll('.index .row').forEach(r=>{
 const lb=document.querySelector('.lb'),lbImg=lb.querySelector('img'),dim=lb.querySelector('.dim'),cv=lb.querySelector('canvas'),cx=cv.getContext('2d');
 let from=null,pic=null,F=null,busy=false;
 const clamp=v=>v<0?0:v>1?1:v,ease=t=>t<.5?2*t*t:1-(-2*t+2)**2/2,lerp=(a,b,t)=>a+(b-a)*t;
-function fit(w,h){const k=Math.min(innerWidth*.9/w,innerHeight*.9/h);return {x:(innerWidth-w*k)/2,y:(innerHeight-h*k)/2,w:w*k,h:h*k}}
+function fit(w,h,full){const k=full?Math.max(innerWidth/w,innerHeight/h):Math.min(innerWidth*.9/w,innerHeight*.9/h);return {x:(innerWidth-w*k)/2,y:(innerHeight-h*k)/2,w:w*k,h:h*k}}
 // p=0: full size, p=1: inside the source element
 function draw(p,T){
   const d=devicePixelRatio||1;
@@ -493,22 +493,23 @@ function draw(p,T){
   }
   dim.style.opacity=1-p;
 }
-function run(p0,p1,ms,done){
+function run(p0,p1,ms,done,tick){
   const r=from.getBoundingClientRect(),T={x:r.left,y:r.top,w:r.width,h:r.height},t0=performance.now();
-  (function f(now){const t=clamp((now-t0)/ms);draw(lerp(p0,p1,t),T);t<1?requestAnimationFrame(f):done()})(t0);
+  (function f(now){const t=clamp((now-t0)/ms);draw(lerp(p0,p1,t),T);tick&&tick(t);t<1?requestAnimationFrame(f):done()})(t0);
 }
 function open(src,el,go){
   if(busy)return;busy=true;from=el;pic=new Image();pic.src=src;
   pic.decode().catch(()=>{}).then(()=>{
-    F=fit(pic.naturalWidth,pic.naturalHeight);
+    F=fit(pic.naturalWidth,pic.naturalHeight,!!go);
     Object.assign(lbImg.style,{left:F.x+'px',top:F.y+'px',width:F.w+'px',height:F.h+'px',display:'none'});
-    lbImg.src=src;lb.classList.add('open');cv.style.display='block';el.style.visibility='hidden';
-    run(1,0,650,()=>{
-      lbImg.style.display='block';cv.style.display='none';
-      if(!go){busy=false;return}
-      // animation card: open the project behind the poster, then fade the overlay away
-      location.hash=go;el.style.visibility='';
-      lb.animate([{opacity:1},{opacity:0}],{duration:350,easing:'ease-out'}).onfinish=()=>{lb.classList.remove('open');busy=false};
+    lbImg.src=src;lb.classList.add('open');cv.style.display='block';cv.style.opacity=1;dim.style.visibility='';el.style.visibility='hidden';
+    if(!go)return run(1,0,650,()=>{lbImg.style.display='block';cv.style.display='none';busy=false});
+    // animation card: the image fills the screen, the project page swaps in underneath it, then the image dissolves
+    let swapped=false;
+    run(1,0,800,()=>{
+      cv.animate([{opacity:1},{opacity:0}],{duration:450,easing:'ease-out',fill:'forwards'}).onfinish=()=>{lb.classList.remove('open');cv.getAnimations().forEach(a=>a.cancel());busy=false};
+    },t=>{
+      if(!swapped&&t>.8){swapped=true;location.hash=go;el.style.visibility='';dim.style.visibility='hidden'}
     });
   });
 }
