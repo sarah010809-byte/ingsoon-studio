@@ -635,8 +635,8 @@ function prog(){
 addEventListener('scroll',prog,{passive:true});addEventListener('resize',prog);addEventListener('hashchange',()=>requestAnimationFrame(prog));prog();
 </script>
 <script>
-// video: big centre button. First play from the button; afterwards a tap on the video
-// only reveals the button, and the button toggles play / pause.
+// video: big centre button. The first play starts from the button; after that a tap
+// anywhere on the video (or the button) toggles play / pause.
 const PLAY='<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>',PAUSE='<svg viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>';
 document.querySelectorAll('main video').forEach(v=>{
   const w=document.createElement('div');w.className='vwrap';v.replaceWith(w);w.append(v);
@@ -649,7 +649,7 @@ document.querySelectorAll('main video').forEach(v=>{
     if(e.clientY>v.getBoundingClientRect().bottom-48)return; // native control bar
     e.preventDefault();
     if(!v.played.length)return; // before the first play only the button starts it
-    b.classList.add('show');hideLater();
+    v.paused?v.play():v.pause();
   });
   v.addEventListener('play',()=>{icon();hideLater()});
   v.addEventListener('pause',()=>{icon();clearTimeout(t);b.classList.add('show')});
