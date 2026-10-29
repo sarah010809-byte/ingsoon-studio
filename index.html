@@ -643,7 +643,7 @@ document.querySelectorAll('main video').forEach(v=>{
   const b=document.createElement('button');b.className='vbtn show';b.setAttribute('aria-label','재생');b.innerHTML=PLAY;w.append(b);
   let t;
   const icon=()=>{b.innerHTML=v.paused?PLAY:PAUSE;b.setAttribute('aria-label',v.paused?'재생':'일시정지')};
-  const hideLater=()=>{clearTimeout(t);if(!v.paused)t=setTimeout(()=>b.classList.remove('show'),2000)};
+  const hideLater=()=>{clearTimeout(t);if(!v.paused)t=setTimeout(()=>b.classList.remove('show'),1000)};
   b.addEventListener('click',e=>{e.stopPropagation();v.paused?v.play():v.pause()});
   v.addEventListener('click',e=>{
     if(e.clientY>v.getBoundingClientRect().bottom-48)return; // native control bar
