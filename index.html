@@ -153,7 +153,8 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .cover nav a{text-decoration:none;text-underline-offset:4px;text-decoration-thickness:1px}
 .cover nav.reel a:hover{text-decoration:underline}
 body:not(.home) .cover{display:none}
-body.home main,body.home .bar,body.home .arrow,body.home .strip{margin-top:96px}
+body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
+.strip{margin-top:96px}
 .strip p{font-size:14px;font-weight:600;margin-bottom:16px}
 .strip>div{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,2vw,24px);align-items:end}
 .strip .th{text-decoration:none;text-align:center;font-size:13px}
@@ -172,7 +173,6 @@ body.home main,body.home .bar,body.home .arrow,body.home .strip{margin-top:96px}
 .vbtn:hover{background:var(--lime)}
 .vbtn svg{width:30px;height:30px;fill:var(--ink)}
 @media(max-width:860px){.vbtn{width:60px;height:60px;margin:-30px 0 0 -30px}.vbtn svg{width:24px;height:24px}}
-.pager{display:none}
 main .work{display:none}
 main .work.active{display:block;padding-top:120px}
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
