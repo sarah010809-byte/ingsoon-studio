@@ -602,11 +602,12 @@ function expand(e){
     if(!dest){fly.remove();busy=false;return}
     const t=dest.getBoundingClientRect();
     dest.style.visibility='hidden';
+    const vb=dest.parentNode.querySelector('.vbtn');if(vb)vb.style.visibility='hidden';
     // genie: the thumbnail pours out of its old spot into the lead image
     pic=fly;from=dest;F={x:t.left,y:t.top,w:t.width,h:t.height};run.T={x:r.left,y:r.top,w:r.width,h:r.height};run.tex=null;run.topFirst=true;
     lb.classList.add('open');dim.style.visibility='hidden';lbImg.style.display='none';cv.style.display='block';
     draw(1,run.T);fly.remove();
-    run(1,0,800,()=>{dest.style.visibility='';lb.classList.remove('open');cv.style.display='none';dim.style.visibility='';run.T=null;run.topFirst=false;busy=false});
+    run(1,0,800,()=>{dest.style.visibility='';if(vb)vb.style.visibility='';lb.classList.remove('open');cv.style.display='none';dim.style.visibility='';run.T=null;run.topFirst=false;busy=false});
     [...sec.children].filter(c=>!c.contains(dest)).forEach((c,i)=>c.animate(
       [{opacity:0,transform:'translateY(28px)'},{opacity:1,transform:'none'}],
       {duration:700,delay:350+i*70,easing:'cubic-bezier(.2,.7,.2,1)',fill:'backwards'}));
