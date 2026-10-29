@@ -613,6 +613,15 @@ function prog(){
 addEventListener('scroll',prog,{passive:true});addEventListener('resize',prog);addEventListener('hashchange',()=>requestAnimationFrame(prog));prog();
 </script>
 <script>
+// click anywhere on a video (except its control bar) to play / pause
+document.querySelectorAll('main video').forEach(v=>v.addEventListener('click',e=>{
+  const r=v.getBoundingClientRect();
+  if(e.clientY>r.bottom-48)return;
+  e.preventDefault();
+  v.paused?v.play():v.pause();
+}));
+</script>
+<script>
 // touch: show hover state only while pressed and held
 document.querySelectorAll('.cover .reel a, .cover .posters img').forEach(el=>{
   let t;const off=()=>{clearTimeout(t);el.classList.remove('pressed')};
