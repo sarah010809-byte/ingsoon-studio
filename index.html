@@ -518,6 +518,10 @@ function draw(p,T){
   cx.setTransform(d,0,0,d,0,0);cx.clearRect(0,0,innerWidth,innerHeight);
   const N=Math.ceil(F.h*d/1.5),down=T.y+T.h/2>F.y+F.h/2,ey=ease(clamp((p-.3)/.7));
   const row=v=>{ // left edge, width and y of the image row at v (0 top .. 1 bottom)
+    if(run.topFirst){ // card → lead image: the top edge lands first, the rest follows down
+      const lag=(1-v)*.4,e=ease(clamp((p-lag)/.6));
+      return {x:lerp(F.x,T.x,e),w:lerp(F.w,T.w,e),y:lerp(F.y+v*F.h,T.y+v*T.h,e)};
+    }
     const near=down?v:1-v,ex=ease(clamp(p*1.6-(1-near)*.6));
     return {x:lerp(F.x,T.x,ex),w:lerp(F.w,T.w,ex),y:lerp(F.y+v*F.h,T.y+v*T.h,ey)};
   };
@@ -577,10 +581,10 @@ function expand(e){
     const t=dest.getBoundingClientRect();
     dest.style.visibility='hidden';
     // genie: the thumbnail pours out of its old spot into the lead image
-    pic=fly;from=dest;F={x:t.left,y:t.top,w:t.width,h:t.height};run.T={x:r.left,y:r.top,w:r.width,h:r.height};run.tex=null;
+    pic=fly;from=dest;F={x:t.left,y:t.top,w:t.width,h:t.height};run.T={x:r.left,y:r.top,w:r.width,h:r.height};run.tex=null;run.topFirst=true;
     lb.classList.add('open');dim.style.visibility='hidden';lbImg.style.display='none';cv.style.display='block';
     draw(1,run.T);fly.remove();
-    run(1,0,800,()=>{dest.style.visibility='';lb.classList.remove('open');cv.style.display='none';dim.style.visibility='';run.T=null;busy=false});
+    run(1,0,800,()=>{dest.style.visibility='';lb.classList.remove('open');cv.style.display='none';dim.style.visibility='';run.T=null;run.topFirst=false;busy=false});
     [...sec.children].filter(c=>!c.contains(dest)).forEach((c,i)=>c.animate(
       [{opacity:0,transform:'translateY(28px)'},{opacity:1,transform:'none'}],
       {duration:700,delay:350+i*70,easing:'cubic-bezier(.2,.7,.2,1)',fill:'backwards'}));
