@@ -75,11 +75,13 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .about{max-width:720px;margin:auto 0}
 .about p{font-size:clamp(20px,2.2vw,30px);font-weight:500;line-height:1.5;letter-spacing:-.02em;word-break:keep-all}
 .about p+p{margin-top:28px}
+.contact .mail{display:inline-block;margin-top:36px;font-size:clamp(24px,3.4vw,48px);font-weight:700;letter-spacing:-.03em;text-decoration:none;padding:.15em .7em;border:2px solid var(--ink);border-radius:999px;transition:background .25s}
+.contact .mail:hover{background:#fff}
 .about .en{font-size:clamp(15px,1.3vw,18px);font-weight:400;margin-top:28px;color:rgba(31,42,36,.7)}
 @media(max-width:860px){
   .burger{display:block}
   .top{flex-wrap:wrap}
-  .menu{display:none;order:3;flex-basis:100%;flex-direction:column;align-items:flex-start;gap:10px;font-size:22px;font-weight:600;padding:12px 0 4px}
+  .menu{display:none;order:3;flex-basis:100%;flex-wrap:wrap;gap:8px;font-size:17px;font-weight:600;padding:12px 0 4px}
   body.menu-open .menu{display:flex}
   .bar .menu{position:absolute;top:100%;left:0;right:0;background:rgba(255,255,255,.97);padding:16px 20px}
   .page{padding:28px 20px 24px}
@@ -210,7 +212,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 <header class="cover" id="top">
   <div class="top">
     <h1><img src="img/ingsoon-logo.png" alt="ingsoon!"></h1>
-    <nav class="menu"><a href="#works">Works</a><a href="#info">Info</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
+    <nav class="menu"><a href="#works">Works</a><a href="#info">Info</a><a href="#contact">Contact</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
   </div>
   <h2 class="label">Animation</h2>
   <nav class="reel">
@@ -239,7 +241,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 <section class="page" id="works">
   <div class="top">
     <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a>
-    <nav class="menu"><a href="#works">Works</a><a href="#info">Info</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
+    <nav class="menu"><a href="#works">Works</a><a href="#info">Info</a><a href="#contact">Contact</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
   </div>
   <div class="index">
     <div class="list">
@@ -266,7 +268,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 <section class="page" id="info">
   <div class="top">
     <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a>
-    <nav class="menu"><a href="#works">Works</a><a href="#info">Info</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
+    <nav class="menu"><a href="#works">Works</a><a href="#info">Info</a><a href="#contact">Contact</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
   </div>
   <div class="about">
     <p>ingsoon STUDIO는 ing와 soon.<br>지금도, 앞으로도 새로운 것을 만들어가는 이인선의 작업을 담은 공간입니다.</p>
@@ -276,10 +278,22 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   <div class="bottom"><span>INSUN LEE © 2026</span></div>
 </section>
 
+<section class="page" id="contact">
+  <div class="top">
+    <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a>
+    <nav class="menu"><a href="#works">Works</a><a href="#info">Info</a><a href="#contact">Contact</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
+  </div>
+  <div class="about contact">
+    <p>새로운 이야기를 함께 만들고 싶다면<br>언제든 편하게 연락 주세요.</p>
+    <a class="mail" href="mailto:01.ingsoon@gmail.com">01.ingsoon@gmail.com</a>
+  </div>
+  <div class="bottom"><span>INSUN LEE © 2026</span></div>
+</section>
+
 <div class="lb" aria-hidden="true"><div class="dim"></div><canvas></canvas><img alt=""></div>
 <header class="bar">
   <div class="progress"><i></i></div>
-  <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a><nav class="menu"><a href="#works">Works</a><a href="#info">Info</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
+  <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a><nav class="menu"><a href="#works">Works</a><a href="#info">Info</a><a href="#contact">Contact</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
 </header>
 <button class="arrow prev" aria-label="이전 프로젝트">←</button>
 <button class="arrow next" aria-label="다음 프로젝트">→</button>
@@ -445,7 +459,7 @@ document.querySelectorAll('.facade').forEach(f=>f.onclick=()=>{
   f.replaceWith(d);
 });
 function route(){
-  const h=location.hash.slice(1),i=ids.indexOf(h),pg=h==='works'||h==='info';
+  const h=location.hash.slice(1),i=ids.indexOf(h),pg=h==='works'||h==='info'||h==='contact';
   document.body.classList.toggle('home',i<0&&!pg);
   document.body.classList.toggle('pg',pg);
   document.body.classList.remove('menu-open');
