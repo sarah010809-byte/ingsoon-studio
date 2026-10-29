@@ -8,7 +8,7 @@
 <style>
 :root{--lime:#d1ef92;--ink:#1f2a24;--muted:#7a7f7a;--line:#e6e6e2;--bg:#ffffff}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+
 body{background:var(--bg);color:var(--ink);font-family:'Pretendard','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:16px;line-height:1.75;letter-spacing:-.01em;word-break:keep-all;-webkit-font-smoothing:antialiased}
 img,video{display:block;width:100%}
 a{color:inherit}
@@ -457,6 +457,7 @@ function route(){
   document.querySelectorAll('main video').forEach(v=>v.pause());
   document.querySelectorAll('main iframe').forEach(f=>{if(!f.closest('.active'))f.src=f.src});
   window.scrollTo({top:0,behavior:'instant'});
+  requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'instant'}));
 }
 // prev/next: current project slides away from the arrow, the next one slides in from it
 let sliding=false;
@@ -557,7 +558,9 @@ function expand(e){
   fly.style.cssText=`position:fixed;z-index:90;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;object-fit:cover;margin:0;pointer-events:none`;
   document.body.append(fly);
   addEventListener('hashchange',()=>requestAnimationFrame(()=>{
-    const sec=document.getElementById(id),dest=sec.querySelector('.media img, .media video'),t=dest.getBoundingClientRect();
+    const sec=document.getElementById(id),dest=sec.querySelector('.media img, video');
+    if(!dest){fly.remove();busy=false;return}
+    const t=dest.getBoundingClientRect();
     dest.style.visibility='hidden';
     const sp='cubic-bezier(.65,0,.15,1)';
     fly.animate([{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'},
