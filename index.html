@@ -165,6 +165,13 @@ body.home main,body.home .bar,body.home .arrow,body.home .strip{margin-top:96px}
 .strip .on span{font-weight:700}
 .strip .on span::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink);margin-right:6px;vertical-align:1px}
 @media(max-width:860px){.strip{margin-top:64px}.strip span{font-size:11px}}
+.vwrap{position:relative}
+.vwrap video{display:block}
+.vbtn{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;border:2px solid var(--ink);background:rgba(255,255,255,.88);display:grid;place-items:center;cursor:pointer;opacity:0;pointer-events:none;transform:scale(.9);transition:opacity .25s,transform .25s}
+.vbtn.show{opacity:1;pointer-events:auto;transform:none}
+.vbtn:hover{background:var(--lime)}
+.vbtn svg{width:30px;height:30px;fill:var(--ink)}
+@media(max-width:860px){.vbtn{width:60px;height:60px;margin:-30px 0 0 -30px}.vbtn svg{width:24px;height:24px}}
 .pager{display:none}
 main .work{display:none}
 main .work.active{display:block;padding-top:120px}
@@ -628,13 +635,25 @@ function prog(){
 addEventListener('scroll',prog,{passive:true});addEventListener('resize',prog);addEventListener('hashchange',()=>requestAnimationFrame(prog));prog();
 </script>
 <script>
-// click anywhere on a video (except its control bar) to play / pause
-document.querySelectorAll('main video').forEach(v=>v.addEventListener('click',e=>{
-  const r=v.getBoundingClientRect();
-  if(e.clientY>r.bottom-48)return;
-  e.preventDefault();
-  v.paused?v.play():v.pause();
-}));
+// video: big centre button. First play from the button; afterwards a tap on the video
+// only reveals the button, and the button toggles play / pause.
+const PLAY='<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>',PAUSE='<svg viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>';
+document.querySelectorAll('main video').forEach(v=>{
+  const w=document.createElement('div');w.className='vwrap';v.replaceWith(w);w.append(v);
+  const b=document.createElement('button');b.className='vbtn show';b.setAttribute('aria-label','재생');b.innerHTML=PLAY;w.append(b);
+  let t;
+  const icon=()=>{b.innerHTML=v.paused?PLAY:PAUSE;b.setAttribute('aria-label',v.paused?'재생':'일시정지')};
+  const hideLater=()=>{clearTimeout(t);if(!v.paused)t=setTimeout(()=>b.classList.remove('show'),2000)};
+  b.addEventListener('click',e=>{e.stopPropagation();v.paused?v.play():v.pause()});
+  v.addEventListener('click',e=>{
+    if(e.clientY>v.getBoundingClientRect().bottom-48)return; // native control bar
+    e.preventDefault();
+    if(!v.played.length)return; // before the first play only the button starts it
+    b.classList.add('show');hideLater();
+  });
+  v.addEventListener('play',()=>{icon();hideLater()});
+  v.addEventListener('pause',()=>{icon();clearTimeout(t);b.classList.add('show')});
+});
 </script>
 <script>
 // touch: show hover state only while pressed and held
