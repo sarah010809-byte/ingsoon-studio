@@ -645,7 +645,7 @@ addEventListener('scroll',prog,{passive:true});addEventListener('resize',prog);a
 </script>
 <script>
 // video: custom controls. Centre button starts the first play; after that a tap on the
-// video toggles play / pause. Button and bottom bar hide 1s after the last interaction.
+// video toggles play / pause. Button and bottom bar hide 0.7s after the last interaction.
 // Fullscreen falls back to the browser's own player.
 const PLAY='<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>',PAUSE='<svg viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>',
 SND='<svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM16 8.5a5 5 0 0 1 0 7l-1.4-1.4a3 3 0 0 0 0-4.2zM18.4 6a8.5 8.5 0 0 1 0 12L17 16.6a6.5 6.5 0 0 0 0-9.2z"/></svg>',
@@ -663,11 +663,11 @@ document.querySelectorAll('main video').forEach(v=>{
   let t;
   const toggle=()=>v.paused?v.play():v.pause();
   const icon=()=>{const i=v.paused?PLAY:PAUSE,l=v.paused?'재생':'일시정지';b.innerHTML=pp.innerHTML=i;b.setAttribute('aria-label',l);pp.setAttribute('aria-label',l)};
-  const show=()=>{b.classList.add('show');if(v.played.length||!v.paused)bar.classList.add('show');clearTimeout(t);if(!v.paused)t=setTimeout(()=>{b.classList.remove('show');bar.classList.remove('show')},1000)};
+  const show=()=>{b.classList.add('show');if(v.played.length||!v.paused)bar.classList.add('show');clearTimeout(t);if(!v.paused)t=setTimeout(()=>{b.classList.remove('show');bar.classList.remove('show')},700)};
   const upd=()=>{tm.textContent=fmt(v.currentTime);du.textContent=fmt(v.duration);fill.style.width=(v.duration?v.currentTime/v.duration*100:0)+'%'};
   b.addEventListener('click',e=>{e.stopPropagation();toggle()});
   pp.addEventListener('click',e=>{e.stopPropagation();toggle()});
-  v.addEventListener('click',()=>{if(v.played.length)toggle()});
+  w.addEventListener('click',e=>{if(e.target.closest('.vbar button,.vbar .seek'))return;if(v.played.length||!v.paused)toggle()});
   mu.addEventListener('click',e=>{e.stopPropagation();v.muted=!v.muted;mu.innerHTML=v.muted?MUTE:SND;show()});
   bar.querySelector('.fs').addEventListener('click',e=>{e.stopPropagation();
     if(v.requestFullscreen)v.requestFullscreen();else if(v.webkitEnterFullscreen)v.webkitEnterFullscreen()});
