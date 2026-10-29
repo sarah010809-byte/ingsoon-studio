@@ -153,7 +153,20 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .cover nav a{text-decoration:none;text-underline-offset:4px;text-decoration-thickness:1px}
 .cover nav.reel a:hover{text-decoration:underline}
 body:not(.home) .cover{display:none}
-body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
+body.home main,body.home .bar,body.home .arrow,body.home .strip{margin-top:120px}
+.strip p{font-size:14px;font-weight:600;margin-bottom:16px}
+.strip>div{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,2vw,24px);align-items:end}
+.strip .th{text-decoration:none;text-align:center;font-size:13px}
+.strip img{display:block;width:100%;height:auto;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.strip span{display:block;margin-top:10px;line-height:1.3}
+.strip a.th:hover img{transform:scale(1.05)}
+.strip a.th:hover span{text-decoration:underline;text-underline-offset:3px}
+.strip a.th{opacity:.55;transition:opacity .25s}.strip a.th:hover{opacity:1}
+.strip .on img{outline:2px solid var(--ink);outline-offset:4px}
+.strip .on span{font-weight:700}
+.strip .on span::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink);margin-right:6px;vertical-align:1px}
+@media(max-width:860px){.strip{margin-top:80px}.strip span{font-size:11px}}
+.pager{display:none}
 main .work{display:none}
 main .work.active{display:block;padding-top:120px}
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
@@ -168,7 +181,7 @@ main .work.active{display:block;padding-top:120px}
 .arrow:hover{opacity:1}
 .arrow.prev{left:8px}.arrow.next{right:8px}
 .arrow{display:none!important}
-.pager{display:flex;justify-content:space-between;gap:24px;border-top:1px solid var(--ink);margin-top:160px;padding:20px 0 0}
+.pager{display:flex;justify-content:space-between;gap:24px;border-top:1px solid var(--ink);margin-top:64px;padding:20px 0 0}
 .pager a{text-decoration:none;max-width:45%}
 .pager a:hover b{text-decoration:underline;text-underline-offset:4px}
 .pager span{display:block;font-size:12px;color:var(--muted);letter-spacing:.04em}
@@ -451,6 +464,9 @@ const works=ids.map(id=>document.getElementById(id));
 works.forEach((w,i)=>{
   const p=works[(i+ids.length-1)%ids.length],n=works[(i+1)%ids.length];
   const t=s=>s.querySelector('h2').textContent;
+  const strip=ids.map((id,k)=>{const im=document.querySelector(`.cover .reel a[href="#${id}"] img`).getAttribute('src'),t=works[k].querySelector('h2').textContent;
+    return k===i?`<div class="th on"><img src="${im}" alt=""><span>${t}</span></div>`:`<a class="th" href="#${id}"><img src="${im}" alt=""><span>${t}</span></a>`}).join('');
+  w.insertAdjacentHTML('beforeend',`<div class="strip"><p>Animation</p><div>${strip}</div></div>`);
   w.insertAdjacentHTML('beforeend',`<div class="pager"><a href="#${p.id}"><span>← PREV</span><b>${t(p)}</b></a><a class="nx" href="#${n.id}"><span>NEXT →</span><b>${t(n)}</b></a></div>`);
 });
 document.querySelectorAll('.facade').forEach(f=>f.onclick=()=>{
@@ -592,7 +608,7 @@ function expand(e){
   }),{once:true});
   location.hash=id;
 }
-document.querySelectorAll('.cover .reel a, .index a.row').forEach(a=>a.addEventListener('click',expand));
+document.querySelectorAll('.cover .reel a, .index a.row, .strip a.th').forEach(a=>a.addEventListener('click',expand));
 
 const cardFx=e=>{
   if(e.metaKey||e.ctrlKey||e.shiftKey)return;
