@@ -515,7 +515,7 @@ function draw(p,T){
   dim.style.opacity=1-p;
 }
 function run(p0,p1,ms,done,tick){
-  const r=from.getBoundingClientRect(),T={x:r.left,y:r.top,w:r.width,h:r.height},t0=performance.now();
+  const r=from.getBoundingClientRect(),T=run.T||{x:r.left,y:r.top,w:r.width,h:r.height},t0=performance.now();
   (function f(now){const t=clamp((now-t0)/ms);draw(lerp(p0,p1,t),T);tick&&tick(t);t<1?requestAnimationFrame(f):done()})(t0);
 }
 function open(src,el,go){
@@ -562,13 +562,14 @@ function expand(e){
     if(!dest){fly.remove();busy=false;return}
     const t=dest.getBoundingClientRect();
     dest.style.visibility='hidden';
-    const sp='cubic-bezier(.65,0,.15,1)';
-    fly.animate([{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'},
-      {left:t.left+'px',top:t.top+'px',width:t.width+'px',height:t.height+'px'}],{duration:750,easing:sp,fill:'forwards'})
-      .onfinish=()=>{dest.style.visibility='';fly.remove();busy=false};
+    // genie: the thumbnail pours out of its old spot into the lead image
+    pic=fly;from=dest;F={x:t.left,y:t.top,w:t.width,h:t.height};run.T={x:r.left,y:r.top,w:r.width,h:r.height};run.tex=null;
+    lb.classList.add('open');dim.style.visibility='hidden';lbImg.style.display='none';cv.style.display='block';
+    draw(1,run.T);fly.remove();
+    run(1,0,800,()=>{dest.style.visibility='';lb.classList.remove('open');cv.style.display='none';dim.style.visibility='';run.T=null;busy=false});
     [...sec.children].filter(c=>!c.contains(dest)).forEach((c,i)=>c.animate(
       [{opacity:0,transform:'translateY(28px)'},{opacity:1,transform:'none'}],
-      {duration:700,delay:250+i*70,easing:'cubic-bezier(.2,.7,.2,1)',fill:'backwards'}));
+      {duration:700,delay:350+i*70,easing:'cubic-bezier(.2,.7,.2,1)',fill:'backwards'}));
     document.querySelector('.bar').animate([{opacity:0},{opacity:1}],{duration:500,delay:200,fill:'backwards'});
   }),{once:true});
   location.hash=id;
