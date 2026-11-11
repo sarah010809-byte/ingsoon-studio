@@ -194,10 +194,8 @@ main .work.active{display:block;padding-top:120px}
 /* test: split layout — media sticks on the left, text scrolls on the right */
 @media(min-width:861px){
 main .work.split.active{width:100vw;margin-left:calc(50% - 50vw);padding-left:40px;padding-right:40px}
-.split .sp{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:64px;align-items:start}
-.split .sp>.body{border-top:1px solid var(--ink);padding-top:20px}
-.split .sp>.pin{position:sticky;top:96px}
-.split .pin .media{margin-top:28px}
+.split .sp{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:64px;align-items:start;margin-top:48px}
+.split .sp>.media{position:sticky;top:96px;margin-top:0}
 .split .lead{margin-top:0}
 }
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
@@ -511,14 +509,12 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 </section>
 
 <section class="work split" id="apple">
-  <div class="sp">
-  <div class="pin">
   <div class="head">
     <div class="no">05</div>
     <div><h2>Apple Watch Bands</h2><p class="sub">Apple Watch 밴드 TV 광고 · 기획 · 아트</p></div>
   </div>
+  <div class="sp">
   <div class="media"><video src="media/apple-watch.mp4?v=6" controls playsinline preload="none" poster="img/works/apple-watch.jpg"></video></div>
-  </div>
   <div class="body">
     <p class="lead">심장이 빨라져도, 흔들림 없이.</p>
     <p class="text">심박이 오를수록 달라지는 하루의 순간을 따라가며 세 가지 Apple Watch 밴드를 보여주는 광고다. 세 개의 기획안 중 'BPM'을 골라 발전시켰다. 처음에는 전문 스포츠의 운동 강도에 따라 심박이 오르는 구성이었지만, 일상의 활동과 하루의 흐름으로 바꿔 더 많은 사람이 공감할 수 있게 했다.</p>
