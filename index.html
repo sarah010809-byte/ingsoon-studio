@@ -195,7 +195,14 @@ main .work.active{display:block;padding-top:120px}
 @media(min-width:861px){
 main .work.split.active{width:100vw;margin-left:calc(50% - 50vw);padding-left:40px;padding-right:40px}
 .split .sp{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:64px;align-items:start;margin-top:48px}
-.split .sp>.media{position:sticky;top:96px;margin-top:0}
+.split .sp>.media{margin-top:0}
+.split .sp+.sp,.split .cast+.sp{margin-top:96px}
+.split .side .media:first-child{margin-top:0}
+.split .side .media+.media{margin-top:24px}
+.split .stick{position:sticky}
+.split .sp .sec{grid-template-columns:1fr;gap:12px}
+.split .sp .rows>div{grid-template-columns:110px 1fr;gap:12px}
+.split .sp .lead+.text+.sec{margin-top:32px}
 .split .lead{margin-top:0}
 }
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
@@ -362,19 +369,20 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 <main class="wrap">
 
 <!-- 01 -->
-<section class="work" id="eddie">
+<section class="work split" id="eddie">
   <div class="head">
     <div class="no">01</div>
     <div><h2>Eddie &amp; the Quokka Gang</h2><p class="sub">에디와 쿼카 갱 · Original AI Animation Series · 기획</p></div>
   </div>
-  <div class="media poster"><img src="img/eddie/poster.jpg" alt="Eddie & the Quokka Gang 포스터"></div>
-  <div class="body">
+  <div class="sp">
+    <div class="side">
+    <div class="media poster"><img src="img/eddie/poster.jpg" alt="Eddie & the Quokka Gang 포스터"></div>
+      <div class="media"><video src="media/eddie-quokka.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
+    </div>
+    <div class="body">
     <p class="lead">낮에는 세상에서 가장 행복한 동물,<br>밤에는 섬을 뒤집어 놓는 힙합 갱스터.</p>
     <p class="text">관광객 앞에선 언제나 웃는 쿼카들. 밤이 되면 섬을 뒤집는 힙합 갱스터가 된다. 그 정체를 목격한 신입 관리인 에디는 시설 복구를 위해 이들과 내키지 않는 비밀 거래를 시작한다.</p>
-  </div>
-  <div class="vside">
-    <video src="media/eddie-quokka.mp4#t=0.1" controls playsinline preload="metadata"></video>
-    <div>
+    <div class="sec first">
       <h3>개요</h3>
       <div class="rows">
         <div><b>장르</b><p>버디 · 음악 코미디</p></div>
@@ -383,8 +391,6 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
         <div><b>제작 기간</b><p>2026.10 – 진행 중</p></div>
       </div>
     </div>
-  </div>
-  <div class="body">
 
     <div class="sec">
       <h3>기획의도</h3>
@@ -419,8 +425,8 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
         <div><b>나뭇잎 문화</b><p>시가처럼 만 잎말이, 철통 보안의 잎 농장, 잎 거래. 갱스터 소품처럼 보이지만 그냥 맛있는 먹이.</p></div>
       </div>
     </div>
+    </div>
   </div>
-
 
   <div class="body">
     <div class="sec">
@@ -436,7 +442,11 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div><img src="img/eddie/riff.webp" alt="리프"><p class="n">리프 Riff</p><p class="r">DJ · 발명가</p><q>잠깐, 이걸로 소리 한번 만들어 볼까?</q></div>
   </div>
 
-  <div class="body">
+  <div class="sp">
+    <div class="side">
+      <div class="media"><video src="media/eddie-hotel-lobby.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
+    </div>
+    <div class="body">
     <div class="sec">
       <h3>제작 · 확장</h3>
       <div class="rows">
@@ -445,12 +455,10 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
         <div><b>IP 확장</b><p>캐릭터별 숏폼 힙합 뮤직비디오, 음악 콘텐츠, 굿즈, 새로운 호주 동물과 라이벌 조직.</p></div>
       </div>
     </div>
-  </div>
-  <div class="vside">
-    <video src="media/eddie-hotel-lobby.mp4#t=0.1" controls playsinline preload="metadata"></video>
-    <div>
+    <div class="sec">
       <h3>숏폼 패러디</h3>
-      <p class="text">Quavo &amp; Takeoff의 힙합 곡 ‘Hotel Lobby’ 라이브 무대를 <span style="white-space:nowrap">‘비디오 투 비디오’</span>로 캐릭터 스왑한 패러디. 쿼카 갱을 숏폼 힙합 콘텐츠로 확장하는 실험.</p>
+      <div><p class="text" style="margin-top:0">Quavo &amp; Takeoff의 힙합 곡 ‘Hotel Lobby’ 라이브 무대를 <span style="white-space:nowrap">‘비디오 투 비디오’</span>로 캐릭터 스왑한 패러디. 쿼카 갱을 숏폼 힙합 콘텐츠로 확장하는 실험.</p></div>
+    </div>
     </div>
   </div>
 </section>
@@ -792,6 +800,15 @@ document.querySelectorAll('.cover .reel a, .cover .posters img').forEach(el=>{
     const h=w.querySelector('.head h2');bt.innerHTML=`<b>${w.querySelector('.head .no').textContent}</b>${h.textContent}`;
     bt.classList.toggle('show',h.getBoundingClientRect().bottom<bar.getBoundingClientRect().bottom)};
   addEventListener('scroll',upd,{passive:true});addEventListener('hashchange',()=>requestAnimationFrame(upd));upd()})();
+</script>
+<script>
+// split layout: whichever column is shorter sticks while the longer one scrolls.
+// A sticky column taller than the screen sticks by its bottom edge instead of its top.
+(()=>{const fit=()=>{const wide=innerWidth>860;
+  document.querySelectorAll('main .work.split.active .sp').forEach(sp=>{const [a,b]=sp.children;[a,b].forEach(c=>{c.classList.remove('stick');c.style.top=''});
+    if(!wide)return;const s=a.offsetHeight<=b.offsetHeight?a:b;s.classList.add('stick');s.style.top=Math.min(96,innerHeight-s.offsetHeight-32)+'px'})};
+  addEventListener('resize',fit);addEventListener('hashchange',()=>requestAnimationFrame(fit));addEventListener('load',fit);
+  document.querySelectorAll('main .split img, main .split video').forEach(m=>m.addEventListener(m.tagName==='IMG'?'load':'loadedmetadata',fit));fit()})();
 </script>
 </body>
 </html>
