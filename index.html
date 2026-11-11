@@ -137,6 +137,7 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .grid.sq img{aspect-ratio:1}
 .grid.pair{grid-template-columns:1fr 1fr}
 .grid.pair img{aspect-ratio:16/9}
+.times{margin-top:72px}
 .times figcaption{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;letter-spacing:.02em}
 .cap{font-size:12px;color:var(--muted);margin-top:10px}
 
@@ -153,6 +154,10 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .cast .n{font-weight:600;margin-top:12px}
 .cast .r{font-size:12px;color:var(--muted)}
 .cast q{display:block;font-size:13px;margin-top:6px;line-height:1.5}
+.vcap{display:flex;gap:12px;align-items:baseline;margin-top:14px;font-size:14px}.vcap b{font-weight:500;color:#5b625e}.vcap span{color:var(--muted)}
+.grid.shots{margin-top:28px;grid-template-columns:repeat(3,1fr)!important}.grid.shots img{aspect-ratio:16/9}
+.cast .d{font-size:13px;color:#3e4641;margin-top:6px;line-height:1.5}
+.castlabel{text-align:center;font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.02em;margin-top:120px;padding-top:28px;border-top:1px solid var(--line)}
 .eps > div{display:grid;grid-template-columns:90px 220px 1fr;gap:16px;padding:6px 0}
 .eps span{color:var(--muted);font-size:14px}
 
@@ -162,8 +167,9 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 body:not(.home) .cover{display:none}
 body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
 .strip{margin-top:96px}
+.strip+.strip{margin-top:56px}
 .strip p{font-size:14px;font-weight:600;margin-bottom:16px}
-.strip>div{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,2vw,24px);align-items:end}
+.strip>div{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(10px,2vw,24px);align-items:end}
 .strip .th{text-decoration:none;text-align:center;font-size:13px}
 .strip img{display:block;width:100%;height:auto;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .strip span{display:block;margin-top:10px;line-height:1.3;min-height:2.6em}
@@ -172,13 +178,16 @@ body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
 .strip a.th{opacity:.55;transition:opacity .25s}.strip a.th:hover{opacity:1}
 .strip .on span{font-weight:700}
 .strip .on span::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink);margin-right:6px;vertical-align:1px}
-@media(max-width:860px){.strip{margin-top:64px}.strip span{font-size:11px}}
+@media(max-width:860px){.strip>div{grid-template-columns:repeat(4,1fr)}.strip{margin-top:64px}.strip span{font-size:11px}}
 .vwrap{position:relative}
 .vwrap video{display:block}
 .vbar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(transparent,rgba(0,0,0,.45));color:#fff;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;opacity:0;pointer-events:none;transition:opacity .25s}
 .vbar.show{opacity:1;pointer-events:auto}
 .vbar button{background:none;border:0;padding:0;width:22px;height:22px;display:grid;place-items:center;cursor:pointer;color:#fff}
 .vbar button svg{width:20px;height:20px;fill:currentColor}
+.vbar .vol{width:0;opacity:0;margin-left:-8px;accent-color:var(--lime);height:16px;cursor:pointer;transition:width .2s,opacity .2s}
+.vbar .mu:hover+.vol,.vbar .vol:hover,.vbar .vol:focus{width:72px;opacity:1;margin-left:0}
+@media(hover:none){.vbar .vol{display:none}} /* phones: volume is the hardware buttons' job */
 .vbar .seek{flex:1;height:16px;display:flex;align-items:center;cursor:pointer;touch-action:none}
 .vbar .seek i{position:relative;display:block;width:100%;height:3px;background:rgba(255,255,255,.35);border-radius:2px}
 .vbar .seek b{position:absolute;left:0;top:0;bottom:0;background:var(--lime);border-radius:2px}
@@ -191,9 +200,42 @@ body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
 @media(max-width:860px){.vbtn{width:60px;height:60px;margin:-30px 0 0 -30px}.vbtn svg{width:24px;height:24px}}
 main .work{display:none}
 main .work.active{display:block;padding-top:120px}
+/* mobile keeps the old single-column order: lead media, text, then the remaining media */
+@media(max-width:860px){
+  .sp{display:flex;flex-direction:column}
+  .sp>.side,.sp>.body{display:contents}
+  .sp>.side>*{order:2}.sp>.side>:first-child,.sp>.side>.vcap{order:0}.sp>.body>*{order:1}
+  .sp.late>.side>*{order:2}
+  .castlabel{text-align:left;margin-top:72px}
+}
+/* test: split layout — media sticks on the left, text scrolls on the right */
+@media(min-width:861px){
+main .work.split.active{width:100vw;margin-left:calc(50% - 50vw);padding-left:40px;padding-right:40px}
+.split .sp{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:64px;align-items:start;margin-top:48px}
+.split .sp>.media{margin-top:0}
+.split .sp+.sp,.split .cast+.sp{margin-top:96px}
+.split .side .media:first-child{margin-top:0}
+.split .side .media+.media{margin-top:24px}
+.split .stick{position:sticky}
+
+.split .side .times{margin-top:24px}
+.split .side .media.sq{max-width:560px}
+#pink .side video{aspect-ratio:16/9;object-fit:cover}
+.split .side .grid.pair{grid-template-columns:1fr;gap:24px;margin-top:24px}.split .side .grid.pair img{aspect-ratio:auto}
+footer .wrap{max-width:none;padding:0 40px}
+.split .sp .body>.sec:first-child{margin-top:0}
+.split .side .media.poster img{max-width:none;width:100%}
+.split .sp .sec{grid-template-columns:1fr;gap:12px}
+.split .sp .rows>div{grid-template-columns:110px 1fr;gap:12px}
+.split .sp .lead+.text+.sec{margin-top:32px}
+.split .lead{margin-top:0}
+}
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
 .cover h1 img{display:block;height:clamp(52px,8vw,110px);width:auto}
 .bar .logo img{display:block;height:24px;width:auto}
+.bar .bt{flex:1;margin-left:28px;font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
+.bar .bt b{font-weight:500;color:var(--muted);margin-right:10px}
+.bar .bt.show{opacity:1;transform:none}
 .bar .logo{font-weight:700;font-size:18px;letter-spacing:-.03em;text-decoration:none}
 .bar .idx{display:flex;gap:24px}
 .bar .idx a{text-decoration:none;color:var(--muted);text-underline-offset:4px}
@@ -344,7 +386,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 <div class="lb" aria-hidden="true"><div class="dim"></div><canvas></canvas><img alt=""></div>
 <header class="bar">
   <div class="progress"><i></i></div>
-  <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a><nav class="menu"><a href="#works">Works</a><a href="#info">Info</a><a href="#contact">Contact</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
+  <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a><span class="bt"></span><nav class="menu"><a href="#works">Works</a><a href="#info">Info</a><a href="#contact">Contact</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
 </header>
 <button class="arrow prev" aria-label="이전 프로젝트">←</button>
 <button class="arrow next" aria-label="다음 프로젝트">→</button>
@@ -352,19 +394,19 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 <main class="wrap">
 
 <!-- 01 -->
-<section class="work" id="eddie">
+<section class="work split" id="eddie">
   <div class="head">
     <div class="no">01</div>
     <div><h2>Eddie &amp; the Quokka Gang</h2><p class="sub">에디와 쿼카 갱 · Original AI Animation Series · 기획</p></div>
   </div>
-  <div class="media poster"><img src="img/eddie/poster.jpg?v=2" alt="Eddie & the Quokka Gang 포스터"></div>
-  <div class="body">
+  <div class="sp">
+    <div class="side">
+      <div class="media poster"><img src="img/eddie/poster.jpg?v=2" alt="Eddie & the Quokka Gang 포스터"></div>
+    </div>
+    <div class="body">
     <p class="lead">낮에는 세상에서 가장 행복한 동물,<br>밤에는 섬을 뒤집어 놓는 힙합 갱스터.</p>
     <p class="text">관광객 앞에선 언제나 웃는 쿼카들. 밤이 되면 섬을 뒤집는 힙합 갱스터가 된다. 그 정체를 목격한 신입 관리인 에디는 시설 복구를 위해 이들과 내키지 않는 비밀 거래를 시작한다.</p>
-  </div>
-  <div class="vside">
-    <video src="media/eddie-quokka.mp4#t=0.1" controls playsinline preload="metadata"></video>
-    <div>
+    <div class="sec first">
       <h3>개요</h3>
       <div class="rows">
         <div><b>장르</b><p>버디 · 음악 코미디</p></div>
@@ -373,8 +415,6 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
         <div><b>제작 기간</b><p>2026.10 – 진행 중</p></div>
       </div>
     </div>
-  </div>
-  <div class="body">
 
     <div class="sec">
       <h3>기획의도</h3>
@@ -384,7 +424,15 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
       </div>
     </div>
 
-    <div class="sec">
+    </div>
+  </div>
+  <div class="sp">
+    <div class="side">
+      <div class="media"><video src="media/eddie-quokka.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
+      <p class="vcap"><b>주인공 로코 캐릭터 소개 영상</b><span>Made with AI · 1분 5초</span></p>
+    </div>
+    <div class="body">
+    <div class="sec first">
       <h3>핵심 매력</h3>
       <div class="rows">
         <div><b>이미지의 반전</b><p>언제나 웃는 얼굴의 쿼카가 사실은 다른 동물들이 두려워하는 갱스터.</p></div>
@@ -409,24 +457,24 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
         <div><b>나뭇잎 문화</b><p>시가처럼 만 잎말이, 철통 보안의 잎 농장, 잎 거래. 갱스터 소품처럼 보이지만 그냥 맛있는 먹이.</p></div>
       </div>
     </div>
-  </div>
-
-
-  <div class="body">
-    <div class="sec">
-      <h3>캐릭터</h3>
-      <p class="text" style="margin-top:0">질서를 지키려는 신입 관리인과 자유와 위엄을 추구하는 쿼카 보스. 둘 다 ‘인정받고 싶은’ 주인공 — 같은 욕망, 정반대의 방식.</p>
     </div>
   </div>
+
+  <h3 class="castlabel">캐릭터</h3>
   <div class="cast">
-    <div><img src="img/eddie/eddie.webp" alt="에디"><p class="n">에디 Eddie</p><p class="r">신입 섬 관리인</p><q>제발 오늘 하루만 아무 일 없이 지나가면 안 될까?</q></div>
-    <div><img src="img/eddie/rocco.webp" alt="로코"><p class="n">로코 Rocco</p><p class="r">지베이 갱의 보스</p><q>난 귀여운 게 아니라 무서운 거라고!</q></div>
+    <div><img src="img/eddie/eddie.webp" alt="에디"><p class="n">에디 Eddie</p><p class="r">신입 섬 관리인</p><p class="d">질서를 지키며 섬에서 인정받고 싶은 원칙주의자.</p><q>제발 오늘 하루만 아무 일 없이 지나가면 안 될까?</q></div>
+    <div><img src="img/eddie/rocco.webp" alt="로코"><p class="n">로코 Rocco</p><p class="r">지베이 갱의 보스</p><p class="d">자유와 위엄으로 인정받고 싶은 쿼카 보스.</p><q>난 귀여운 게 아니라 무서운 거라고!</q></div>
     <div><img src="img/eddie/fix.webp" alt="픽스"><p class="n">픽스 Fix</p><p class="r">작전 설계 담당</p><q>계획대로만 하면 완벽해. 이론적으로는.</q></div>
     <div><img src="img/eddie/dunk.webp" alt="덩크"><p class="n">덩크 Dunk</p><p class="r">행동대장</p><q>부수면 되는 거죠, 보스?</q></div>
     <div><img src="img/eddie/riff.webp" alt="리프"><p class="n">리프 Riff</p><p class="r">DJ · 발명가</p><q>잠깐, 이걸로 소리 한번 만들어 볼까?</q></div>
   </div>
 
-  <div class="body">
+  <div class="sp late">
+    <div class="side">
+      <div class="media"><video src="media/eddie-hotel-lobby.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
+      <p class="vcap"><b>Hotel Lobby 패러디 숏폼</b><span>Made with AI · 15초</span></p>
+    </div>
+    <div class="body">
     <div class="sec">
       <h3>제작 · 확장</h3>
       <div class="rows">
@@ -435,107 +483,129 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
         <div><b>IP 확장</b><p>캐릭터별 숏폼 힙합 뮤직비디오, 음악 콘텐츠, 굿즈, 새로운 호주 동물과 라이벌 조직.</p></div>
       </div>
     </div>
-  </div>
-  <div class="vside">
-    <video src="media/eddie-hotel-lobby.mp4#t=0.1" controls playsinline preload="metadata"></video>
-    <div>
+    <div class="sec">
       <h3>숏폼 패러디</h3>
-      <p class="text">Quavo &amp; Takeoff의 힙합 곡 ‘Hotel Lobby’ 라이브 무대를 <span style="white-space:nowrap">‘비디오 투 비디오’</span>로 캐릭터 스왑한 패러디. 쿼카 갱을 숏폼 힙합 콘텐츠로 확장하는 실험.</p>
+      <div><p class="text" style="margin-top:0">Quavo &amp; Takeoff의 힙합 곡 ‘Hotel Lobby’ 라이브 무대를 <span style="white-space:nowrap">‘비디오 투 비디오’</span>로 캐릭터 스왑한 패러디. 쿼카 갱을 숏폼 힙합 콘텐츠로 확장하는 실험.</p></div>
+    </div>
     </div>
   </div>
 </section>
 
 <!-- 02 -->
-<section class="work" id="pink">
+<section class="work split" id="pink">
   <div class="head">
     <div class="no">02</div>
     <div><h2>분홍산이 간질간질</h2><p class="sub">AI 크리에이터 쇼케이스 영상부문 선정작</p></div>
   </div>
-  <div class="media"><video src="media/pink-mountain.mp4?v=6" controls playsinline preload="none" poster="img/works/pink-poster.jpg?v=3"></video></div>
+  <div class="sp" data-stick="none">
+    <div class="side">
+    <div class="media"><video src="media/pink-mountain.mp4?v=6" controls playsinline preload="none" poster="img/works/pink-poster.jpg?v=3"></video></div>
+      <p class="vcap"><b>분홍산이 간질간질</b><span>Made with AI · 3분 17초</span></p>
+    </div>
   <div class="body">
-    <p class="lead">신비로운 분홍행성에서, 별이와 분홍이가 갑작스러운 진동의 원인을 찾아 나선다.</p>
-        <p class="text">3분 분량의 아동 대상 판타지 어드벤처 애니메이션.</p>
-        <p class="text">아이들에게 이유를 알 수 없는 현상은 때로 두려움으로 다가온다. 그러나 두려움의 원인을 이해하면 낯선 상황도 새로운 시선으로 바라볼 수 있다. 친구와 함께 미지의 상황에 다가가는 과정을 통해 호기심과 용기의 가치를 전달하고자 했다.</p>
-        <div class="meta"><div><span>기여도</span>100%</div><div><span>기간</span>2026.07–08</div><div><span>길이</span>3분 17초</div><div><span>비율</span>16:9</div></div>
+      <p class="lead">신비로운 분홍행성에서, 별이와 분홍이가 갑작스러운 진동의 원인을 찾아 나선다.</p>
+          <p class="text">3분 분량의 아동 대상 판타지 어드벤처 애니메이션.</p>
+          <p class="text">아이들에게 이유를 알 수 없는 현상은 때로 두려움으로 다가온다. 그러나 두려움의 원인을 이해하면 낯선 상황도 새로운 시선으로 바라볼 수 있다. 친구와 함께 미지의 상황에 다가가는 과정을 통해 호기심과 용기의 가치를 전달하고자 했다.</p>
+          <div class="meta"><div><span>기여도</span>100%</div><div><span>기간</span>2026.07–08</div><div><span>길이</span>3분 17초</div><div><span>비율</span>16:9</div></div>
+    </div>
   </div>
 </section>
 
 <!-- 03 -->
-<section class="work" id="ocean">
+<section class="work split" id="ocean">
   <div class="head">
     <div class="no">03</div>
     <div><h2>Baking the Ocean</h2><p class="sub">3D Motion Graphic · C4D / Octane</p></div>
   </div>
+  <div class="sp">
+    <div class="side">
   <div class="media"><video src="media/baking-the-ocean.mp4" controls playsinline preload="none" poster="img/works/w06_0.jpg"></video></div>
-  <div class="body">
-    <p class="lead">뜨거운 오븐 안, 메론빵과 소라빵이 부풀어 오르며 무언가 특별한 변화가 시작된다.</p>
-        <p class="text">일상의 작은 사물이 상상력을 통해 새로운 생명을 얻고, 평범한 공간이 환상적인 세계로 변해가는 순간을 표현했다. 메론빵은 거북이가 되어 헤엄치고, 오븐 속은 산호초가 자라는 바다가 된다.</p>
-        <div class="meta"><div><span>기여도</span>100%</div><div><span>기간</span>2025.03–05</div><div><span>길이</span>50초</div></div>
-  </div>
+      <p class="vcap"><b>Baking the Ocean</b><span>Cinema 4D · Octane · 50초</span></p>
   <div class="media"><img src="img/works/w07_1.jpg" alt="Scene 6 스타일 프레임"></div>
   <div class="grid">
     <img src="img/works/w06_0.jpg" alt="Scene 5"><img src="img/works/w08_0.jpg" alt="Scene 7"><img src="img/works/w04_0.jpg" alt="주방 디테일">
   </div>
   <div class="media" style="margin-top:8px"><img src="img/works/w05_0.jpg" alt="스토리보드"></div>
   <p class="cap">Style frames · Kitchen detail · Storyboard</p>
+    </div>
+  <div class="body">
+    <p class="lead">뜨거운 오븐 안, 메론빵과 소라빵이 부풀어 오르며 무언가 특별한 변화가 시작된다.</p>
+        <p class="text">일상의 작은 사물이 상상력을 통해 새로운 생명을 얻고, 평범한 공간이 환상적인 세계로 변해가는 순간을 표현했다. 메론빵은 거북이가 되어 헤엄치고, 오븐 속은 산호초가 자라는 바다가 된다.</p>
+        <div class="meta"><div><span>기여도</span>100%</div><div><span>기간</span>2025.03–05</div><div><span>길이</span>50초</div></div>
+  </div>
+  </div>
 </section>
 
 <!-- 04 -->
-<section class="work" id="sun">
+<section class="work split" id="sun">
   <div class="head">
     <div class="no">04</div>
     <div><h2>Sun-Dried</h2><p class="sub">선드라이드 · Where the Sun Was Born · 3D Motion Graphic</p></div>
   </div>
+  <div class="sp">
+    <div class="side">
+      <div class="media sq"><video src="media/sun-dried.mp4" controls playsinline preload="metadata" loop poster="img/works/w15_0.jpg"></video></div>
+      <p class="vcap"><b>Sun-Dried</b><span>Cinema 4D · Octane · 7초</span></p>
+  <div class="grid sq times">
+    <figure><img src="img/works/w16_1.jpg" alt="AM 10:30"><figcaption>AM 10:30</figcaption></figure><figure><img src="img/works/w16_2.jpg" alt="AM 10:55"><figcaption>AM 10:55</figcaption></figure><figure><img src="img/works/w16_0.jpg" alt="AM 11:07"><figcaption>AM 11:07</figcaption></figure>
+  </div>
+    </div>
   <div class="body">
-    <div class="two">
-      <video src="media/sun-dried.mp4" controls playsinline preload="metadata" loop poster="img/works/w15_0.jpg"></video>
-      <div>
         <p class="lead">아기 얼굴을 한 태양이 세탁기에서 태어난다.</p>
         <p class="text">세탁 후 따뜻한 햇빛 아래 빨래를 말린 듯한 산뜻함을 전하기 위해, 햇살처럼 포근하고 상쾌한 세탁의 순간을 감각적인 비주얼로 표현했다.</p>
         <div class="meta"><div><span>기여도</span>100%</div><div><span>기간</span>2025.05–06</div><div><span>길이</span>7초</div></div>
-      </div>
-    </div>
   </div>
-  <div class="grid sq times" style="margin-top:72px">
-    <figure><img src="img/works/w16_1.jpg" alt="AM 10:30"><figcaption>AM 10:30</figcaption></figure><figure><img src="img/works/w16_2.jpg" alt="AM 10:55"><figcaption>AM 10:55</figcaption></figure><figure><img src="img/works/w16_0.jpg" alt="AM 11:07"><figcaption>AM 11:07</figcaption></figure>
   </div>
 </section>
 
-<section class="work" id="apple">
+<section class="work split" id="apple">
   <div class="head">
     <div class="no">05</div>
     <div><h2>Apple Watch Bands</h2><p class="sub">Apple Watch 밴드 TV 광고 · 기획 · 아트</p></div>
   </div>
-  <div class="media"><video src="media/apple-watch.mp4?v=6" controls playsinline preload="none" poster="img/works/apple-watch.jpg"></video></div>
+  <div class="sp">
+    <div class="side">
+    <div class="media"><video src="media/apple-watch.mp4?v=6" controls playsinline preload="none" poster="img/works/apple-watch.jpg"></video></div>
+      <p class="vcap"><b>Apple Watch Band Commercial</b><span>Made with AI · 1분 5초</span></p>
+    </div>
   <div class="body">
     <p class="lead">심장이 빨라져도, 흔들림 없이.</p>
     <p class="text">심박이 오를수록 달라지는 하루의 순간을 따라가며 세 가지 Apple Watch 밴드를 보여주는 광고다. 세 개의 기획안 중 'BPM'을 골라 발전시켰다. 처음에는 전문 스포츠의 운동 강도에 따라 심박이 오르는 구성이었지만, 일상의 활동과 하루의 흐름으로 바꿔 더 많은 사람이 공감할 수 있게 했다.</p>
     <p class="text">대사 없이 제품 클로즈업과 사운드의 리듬만으로 이야기하는 Apple 광고의 특징을 기반으로 구성했다. 얼굴 대신 손등과 땀, 숨소리로 인물을 표현했다. 심장박동은 메트로놈 소리로 바꿔, 템포가 빨라지는 리듬이 장면 전체를 이끌게 했다.</p>
     <p class="text"><b>60 BPM · 실내</b> — 고요한 아침, 요가 매트 위의 손목. 솔로 루프.<br><b>120 BPM · 야외</b> — 테니스 코트 위로 빨라지는 비트. 스포츠 루프.<br><b>170 BPM · 식당</b> — 초조하게 테이블을 두드리는 손가락, 그리고 꽃다발. 알파인 루프.</p>
+    <div class="grid shots">
+      <img src="img/works/apple-60-wide.jpg" alt="60 BPM · 실내"><img src="img/works/apple-120-wide.jpg" alt="120 BPM · 야외"><img src="img/works/apple-170-wide.jpg" alt="170 BPM · 식당">
+    </div>
+    <p class="cap">60 BPM 실내 · 120 BPM 야외 · 170 BPM 식당</p>
     <p class="text">심박 → 단서 → 행동 → 밴드. 이 구조를 세 장면에서 반복하다가, 마지막 장면에서 운동이 아닌 설렘으로 심박이 오르는 반전을 넣었다.</p>
     <p class="text">심박이 오르는 과정을 빛과 질감으로 표현했다. 장면이 바뀔수록 주변 세계의 감각 밀도를 단계적으로 높였다. 장면마다 밴드 색이 공간의 포인트 컬러가 되도록 의상, 장소, 조명을 설계했다. 의상은 제품을 가리지 않도록 손목을 드러내고, 다른 브랜드 로고는 화면에서 모두 지웠다.</p>
     <p class="text">3인 팀 프로젝트에서 아트를 맡아 장면별 분위기 스틸컷을 먼저 잡고, 세 명이 BPM 장면을 하나씩 나눠 영상을 생성했다. 기준 스틸이 있어 따로 만든 장면도 톤이 맞았고, 아트 단계에서 이미지 톤을 먼저 정리하는 것이 중요하다는 걸 배웠다.</p>
     <div class="meta"><div><span>기여도</span>60%</div><div><span>담당</span>기획 · 아트</div><div><span>제작</span>50%</div><div><span>기간</span>2026.09–10</div><div><span>길이</span>1분 5초</div></div>
   </div>
+  </div>
 </section>
 
-<section class="work" id="family">
+<section class="work split" id="family">
   <div class="head">
     <div class="no">06</div>
     <div><h2>가족사진 — Converse</h2><p class="sub">Converse 내러티브 광고 · 기획 · 아트 · 연출</p></div>
   </div>
+  <div class="sp">
+    <div class="side">
   <div class="media"><img src="img/works/family-converse.jpg" alt="가족사진 — Converse 키비주얼"></div>
-  <div class="body">
-    <p class="lead">똑같지 않아서, 우리답게.</p>
-    <p class="text">완벽한 가족사진을 찍으려는 가족들이 자꾸 엉뚱한 표정을 짓는 막내 때문에 촬영을 반복하다가, 가장 점잖던 할머니까지 장난에 동참하면서 모두가 제각각인 '가장 우리다운 사진' 한 장을 남기는 약 55초 내러티브 광고다.</p>
-    <div class="grid pair" style="margin-top:32px">
+    <div class="grid pair">
       <img src="img/works/family-shoes.jpg" alt="발 클로즈업 컨셉샷"><img src="img/works/family-group.jpg" alt="바닥 높이 단체 컷 컨셉샷">
     </div>
     <p class="cap">Visual concept · 발 클로즈업 · 바닥 높이 단체 컷</p>
+    </div>
+  <div class="body">
+    <p class="lead">똑같지 않아서, 우리답게.</p>
+    <p class="text">완벽한 가족사진을 찍으려는 가족들이 자꾸 엉뚱한 표정을 짓는 막내 때문에 촬영을 반복하다가, 가장 점잖던 할머니까지 장난에 동참하면서 모두가 제각각인 '가장 우리다운 사진' 한 장을 남기는 약 55초 내러티브 광고다.</p>
     <p class="text">가족사진은 늘 같은 표정과 자세를 요구하지만, 오래 기억에 남는 건 각자의 모습이 드러나는 순간이다. 서로 다른 컨버스를 신은 가족처럼, 제각각이어서 더 우리다운 순간을 1분 광고 안에 담아 '개성을 존중하는 브랜드'라는 메시지와 연결하고자 했다.</p>
     <p class="text"><b>모두 같은 표정</b> — 단정한 가족, 막내 혼자 볼을 부풀린다.<br><b>끝나지 않는 촬영</b> — 윙크, 혀 내밀기. 점점 굳어 가는 미소.<br><b>뜻밖의 공범</b> — 할머니가 똑같이 혀를 내민다.<br><b>표정이 번지다</b> — 할아버지와 부모까지 웃음이 번진다.<br><b>가장 우리다운 사진</b> — "이걸로 할게요." 카피와 로고.</p>
     <p class="text">1차 기획은 표정 중심이라 광고 제품인 컨버스가 이야기 밖에 머물렀다. 장난이 시작되는 순간에 발 클로즈업 1컷을 추가해, 장난이 발끝에서 시작해 표정으로 번지고 마지막 단체 사진의 서로 다른 신발로 돌아오는 흐름을 만들었다. 로고를 크게 비추거나 신발로 줌인하지 않고, 크림색 스튜디오 위에서 신발 색이 자연스럽게 눈에 띄도록 했다.</p>
     <div class="meta"><div><span>기여도</span>100%</div><div><span>담당</span>기획 · 아트 · 연출</div><div><span>기간</span>2026.11</div><div><span>길이</span>약 55초</div></div>
+  </div>
   </div>
 </section>
 
@@ -552,11 +622,11 @@ const works=ids.map(id=>document.getElementById(id));
 works.forEach((w,i)=>{
   const p=works[(i+ids.length-1)%ids.length],n=works[(i+1)%ids.length];
   const t=s=>s.querySelector('h2').textContent;
-  const c=cat[ids[i]]||'Animation',same=ids.filter(id=>(cat[id]||'Animation')===c);
-  const strip=ids.map((id,k)=>{if(!same.includes(id))return'';const im=document.querySelector(`.cover .reel a[href="#${id}"] img`).getAttribute('src'),t=works[k].querySelector('h2').textContent;
+  const c=cat[ids[i]]||'Animation',kinds=[c,...['Animation','Commercial'].filter(x=>x!==c)]; // own category first, the other below
+  const strip=g=>ids.map((id,k)=>{if((cat[id]||'Animation')!==g)return'';const im=document.querySelector(`.cover .reel a[href="#${id}"] img`).getAttribute('src'),t=works[k].querySelector('h2').textContent;
     return k===i?`<div class="th on"><img src="${im}" alt=""><span>${t}</span></div>`:`<a class="th" href="#${id}"><img src="${im}" alt=""><span>${t}</span></a>`}).join('');
   w.insertAdjacentHTML('beforeend',`<div class="pager"><a href="#${p.id}"><span>← PREV</span><b>${t(p)}</b></a><a class="nx" href="#${n.id}"><span>NEXT →</span><b>${t(n)}</b></a></div>`);
-  w.insertAdjacentHTML('beforeend',`<div class="strip"><p>${c}</p><div>${strip}</div></div>`);
+  kinds.forEach(g=>w.insertAdjacentHTML('beforeend',`<div class="strip"><p>${g}</p><div>${strip(g)}</div></div>`));
 });
 document.querySelectorAll('.facade').forEach(f=>f.onclick=()=>{
   const d=document.createElement('div');d.className=f.className.replace('facade','');
@@ -737,7 +807,7 @@ document.querySelectorAll('main video').forEach(v=>{
   const w=document.createElement('div');w.className='vwrap';v.replaceWith(w);w.append(v);
   const b=document.createElement('button');b.className='vbtn show';b.setAttribute('aria-label','재생');b.innerHTML=PLAY;w.append(b);
   const bar=document.createElement('div');bar.className='vbar';
-  bar.innerHTML=`<button class="pp" aria-label="재생">${PLAY}</button><span class="tm">0:00</span><div class="seek"><i><b></b></i></div><span class="du">0:00</span><button class="mu" aria-label="음소거">${SND}</button><button class="fs" aria-label="전체화면">${FS}</button>`;
+  bar.innerHTML=`<button class="pp" aria-label="재생">${PLAY}</button><span class="tm">0:00</span><div class="seek"><i><b></b></i></div><span class="du">0:00</span><button class="mu" aria-label="음소거">${SND}</button><input class="vol" type="range" min="0" max="1" step="0.05" value="1" aria-label="볼륨"><button class="fs" aria-label="전체화면">${FS}</button>`;
   w.append(bar);
   const pp=bar.querySelector('.pp'),tm=bar.querySelector('.tm'),du=bar.querySelector('.du'),sk=bar.querySelector('.seek'),fill=sk.querySelector('b'),mu=bar.querySelector('.mu');
   let t;
@@ -748,7 +818,10 @@ document.querySelectorAll('main video').forEach(v=>{
   b.addEventListener('click',e=>{e.stopPropagation();toggle()});
   pp.addEventListener('click',e=>{e.stopPropagation();toggle()});
   w.addEventListener('click',e=>{if(e.target.closest('.vbar button,.vbar .seek'))return;toggle()});
-  mu.addEventListener('click',e=>{e.stopPropagation();v.muted=!v.muted;mu.innerHTML=v.muted?MUTE:SND;show()});
+  mu.addEventListener('click',e=>{e.stopPropagation();v.muted=!v.muted;mu.innerHTML=v.muted?MUTE:SND;vol.value=v.muted?0:v.volume;show()});
+  const vol=bar.querySelector('.vol');
+  ['click','pointerdown'].forEach(t=>vol.addEventListener(t,e=>e.stopPropagation()));
+  vol.addEventListener('input',()=>{v.volume=+vol.value;v.muted=v.volume===0;mu.innerHTML=v.muted?MUTE:SND;show()});
   bar.querySelector('.fs').addEventListener('click',e=>{e.stopPropagation();
     if(v.requestFullscreen)v.requestFullscreen();else if(v.webkitEnterFullscreen)v.webkitEnterFullscreen()});
   const fsOn=()=>{v.controls=document.fullscreenElement===v};document.addEventListener('fullscreenchange',fsOn);
@@ -772,6 +845,25 @@ document.querySelectorAll('.cover .reel a, .cover .posters img').forEach(el=>{
   ['touchend','touchcancel','touchmove'].forEach(e=>el.addEventListener(e,off,{passive:true}));
   el.addEventListener('contextmenu',e=>e.preventDefault());
 });
+</script>
+<script>
+// small project title in the bar once the big title scrolls out of view
+(()=>{const bt=document.querySelector('.bar .bt'),bar=document.querySelector('.bar');
+  const upd=()=>{const w=document.querySelector('main .work.active');if(!w){bt.classList.remove('show');return}
+    const h=w.querySelector('.head h2');bt.innerHTML=`<b>${w.querySelector('.head .no').textContent}</b>${h.textContent}`;
+    bt.classList.toggle('show',h.getBoundingClientRect().bottom<bar.getBoundingClientRect().bottom)};
+  addEventListener('scroll',upd,{passive:true});addEventListener('hashchange',()=>requestAnimationFrame(upd));upd()})();
+</script>
+<script>
+// split layout: whichever column is shorter sticks while the longer one scrolls.
+// It sits centred in the space under the bar; one taller than the screen sticks by its bottom edge.
+(()=>{const fit=()=>{const wide=innerWidth>860;
+  document.querySelectorAll('main .work.split.active .sp').forEach(sp=>{const [a,b]=sp.children;[a,b].forEach(c=>{c.classList.remove('stick');c.style.top=''});b.style.minHeight='';
+    if(!wide||sp.dataset.stick==='none')return; // data-stick=none: the pair scrolls as one block
+    const force=sp.dataset.stick==='side';b.style.minHeight='';if(force)b.style.minHeight=a.offsetHeight+b.offsetHeight+'px'; // media stays put while the text slides up past it, then both scroll on
+    const s=force||a.offsetHeight<=b.offsetHeight?a:b;s.classList.add('stick');const free=innerHeight-72,h=s.offsetHeight;s.style.top=(h<=free-48?72+(free-h)/2:Math.min(96,innerHeight-h-32))+'px'})};
+  addEventListener('resize',fit);addEventListener('hashchange',()=>{requestAnimationFrame(fit);setTimeout(fit,500)});addEventListener('load',fit); // the page swap animates, so measure again once it settles
+  document.querySelectorAll('main .split img, main .split video').forEach(m=>m.addEventListener(m.tagName==='IMG'?'load':'loadedmetadata',fit));fit()})();
 </script>
 </body>
 </html>
