@@ -193,10 +193,9 @@ main .work{display:none}
 main .work.active{display:block;padding-top:120px}
 /* test: split layout — media sticks on the left, text scrolls on the right */
 @media(min-width:861px){
-main .work.split.active{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:64px;width:100vw;margin-left:calc(50% - 50vw);padding-left:40px;padding-right:40px}
-.split>.head,.split>.pager,.split>.strip{grid-column:1/-1}
-.split>.media{grid-column:1;grid-row:2 / span 20;position:sticky;top:96px;align-self:start;margin-top:48px}
-.split>.body{grid-column:2;margin-top:48px}
+main .work.split.active{width:100vw;margin-left:calc(50% - 50vw);padding-left:40px;padding-right:40px}
+.split .sp{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:64px;align-items:start;margin-top:48px}
+.split .sp>.media{position:sticky;top:96px;margin-top:0}
 .split .lead{margin-top:0}
 }
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
@@ -514,6 +513,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div class="no">05</div>
     <div><h2>Apple Watch Bands</h2><p class="sub">Apple Watch 밴드 TV 광고 · 기획 · 아트</p></div>
   </div>
+  <div class="sp">
   <div class="media"><video src="media/apple-watch.mp4?v=6" controls playsinline preload="none" poster="img/works/apple-watch.jpg"></video></div>
   <div class="body">
     <p class="lead">심장이 빨라져도, 흔들림 없이.</p>
@@ -524,6 +524,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <p class="text">심박이 오르는 과정을 빛과 질감으로 표현했다. 장면이 바뀔수록 주변 세계의 감각 밀도를 단계적으로 높였다. 장면마다 밴드 색이 공간의 포인트 컬러가 되도록 의상, 장소, 조명을 설계했다. 의상은 제품을 가리지 않도록 손목을 드러내고, 다른 브랜드 로고는 화면에서 모두 지웠다.</p>
     <p class="text">3인 팀 프로젝트에서 아트를 맡아 장면별 분위기 스틸컷을 먼저 잡고, 세 명이 BPM 장면을 하나씩 나눠 영상을 생성했다. 기준 스틸이 있어 따로 만든 장면도 톤이 맞았고, 아트 단계에서 이미지 톤을 먼저 정리하는 것이 중요하다는 걸 배웠다.</p>
     <div class="meta"><div><span>기여도</span>60%</div><div><span>담당</span>기획 · 아트</div><div><span>제작</span>50%</div><div><span>기간</span>2026.09–10</div><div><span>길이</span>1분 5초</div></div>
+  </div>
   </div>
 </section>
 
