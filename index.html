@@ -178,7 +178,7 @@ body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
 .strip a.th{opacity:.55;transition:opacity .25s}.strip a.th:hover{opacity:1}
 .strip .on span{font-weight:700}
 .strip .on span::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink);margin-right:6px;vertical-align:1px}
-@media(max-width:860px){.strip{margin-top:64px}.strip span{font-size:11px}}
+@media(max-width:860px){.strip>div{grid-template-columns:repeat(4,1fr)}.strip{margin-top:64px}.strip span{font-size:11px}}
 .vwrap{position:relative}
 .vwrap video{display:block}
 .vbar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(transparent,rgba(0,0,0,.45));color:#fff;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;opacity:0;pointer-events:none;transition:opacity .25s}
