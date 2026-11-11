@@ -207,6 +207,16 @@ main .work.active{display:block;padding-top:120px}
   .sp>.side>*{order:2}.sp>.side>:first-child,.sp>.side>.vcap{order:0}.sp>.body>*{order:1}
   .sp.late>.side>*{order:2}
   .castlabel{text-align:left;margin-top:72px}
+  /* Eddie: lay the whole page out as one column so the main video can sit above 개요 */
+  #eddie.work.active{display:flex;flex-direction:column}
+  #eddie .sp{display:contents}
+  #eddie>*{order:10}#eddie>.head{order:0}
+  #eddie .s1 .side>*{order:1}#eddie .s1 .body>*{order:4}#eddie .s1 .body>.lead,#eddie .s1 .body>.text{order:2}
+  #eddie .s2 .side>*{order:3}#eddie .s2 .body>*{order:5}
+  #eddie>.castlabel{order:6}#eddie>.cast{order:7}
+  #eddie .s3 .body>*{order:8}#eddie .s3 .side>*{order:9}
+  /* Converse: images follow the first paragraph */
+  #family .sp>.body>p:nth-of-type(2)~*{order:3}
 }
 /* test: split layout — media sticks on the left, text scrolls on the right */
 @media(min-width:861px){
@@ -399,7 +409,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div class="no">01</div>
     <div><h2>Eddie &amp; the Quokka Gang</h2><p class="sub">에디와 쿼카 갱 · Original AI Animation Series · 기획</p></div>
   </div>
-  <div class="sp">
+  <div class="sp s1">
     <div class="side">
       <div class="media poster"><img src="img/eddie/poster.jpg?v=2" alt="Eddie & the Quokka Gang 포스터"></div>
     </div>
@@ -426,7 +436,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 
     </div>
   </div>
-  <div class="sp">
+  <div class="sp s2">
     <div class="side">
       <div class="media"><video src="media/eddie-quokka.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
       <p class="vcap"><b>주인공 로코 캐릭터 소개 영상</b><span>Made with AI · 1분 5초</span></p>
@@ -469,7 +479,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div><img src="img/eddie/riff.webp" alt="리프"><p class="n">리프 Riff</p><p class="r">DJ · 발명가</p><q>잠깐, 이걸로 소리 한번 만들어 볼까?</q></div>
   </div>
 
-  <div class="sp late">
+  <div class="sp s3 late">
     <div class="side">
       <div class="media"><video src="media/eddie-hotel-lobby.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
       <p class="vcap"><b>Hotel Lobby 패러디 숏폼</b><span>Made with AI · 15초</span></p>
