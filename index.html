@@ -869,6 +869,8 @@ document.querySelectorAll('.cover .reel a, .cover .posters img').forEach(el=>{
 // It sits centred in the space under the bar; one taller than the screen sticks by its bottom edge.
 (()=>{const fit=()=>{const wide=innerWidth>860;
   document.querySelectorAll('main .work.split.active .sp').forEach(sp=>{const [a,b]=sp.children;[a,b].forEach(c=>{c.classList.remove('stick');c.style.top=''});b.style.minHeight='';
+    // let a trailing caption hang below, so the last image (not its caption) lines up with the end of the text
+    const tail=a.lastElementChild;a.style.marginBottom=wide&&tail&&tail.matches('.vcap,.cap')?-(tail.offsetHeight+parseFloat(getComputedStyle(tail).marginTop))+'px':'';
     if(!wide||sp.dataset.stick==='none')return; // data-stick=none: the pair scrolls as one block
     const force=sp.dataset.stick==='side';b.style.minHeight='';if(force)b.style.minHeight=a.offsetHeight+b.offsetHeight+'px'; // media stays put while the text slides up past it, then both scroll on
     const s=force||a.offsetHeight<=b.offsetHeight?a:b;s.classList.add('stick');const free=innerHeight-72,h=s.offsetHeight;s.style.top=(h<=free-48?72+(free-h)/2:Math.min(96,innerHeight-h-32))+'px'})};
