@@ -153,6 +153,8 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .cast .n{font-weight:600;margin-top:12px}
 .cast .r{font-size:12px;color:var(--muted)}
 .cast q{display:block;font-size:13px;margin-top:6px;line-height:1.5}
+.cast .d{font-size:13px;color:#3e4641;margin-top:6px;line-height:1.5}
+.castlabel{text-align:center;font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.02em;margin-top:120px;padding-top:28px;border-top:1px solid var(--line)}
 .eps > div{display:grid;grid-template-columns:90px 220px 1fr;gap:16px;padding:6px 0}
 .eps span{color:var(--muted);font-size:14px}
 
@@ -200,9 +202,7 @@ main .work.split.active{width:100vw;margin-left:calc(50% - 50vw);padding-left:40
 .split .side .media:first-child{margin-top:0}
 .split .side .media+.media{margin-top:24px}
 .split .stick{position:sticky}
-.split .note{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:64px;margin-top:96px}
-.split .note>.sec{grid-column:2;grid-template-columns:1fr;gap:12px}
-.split .sp .body>.sec:first-child,.split .note>.sec{margin-top:0}
+.split .sp .body>.sec:first-child{margin-top:0}
 .split .side .media.poster img{max-width:none;width:100%}
 .split .sp .sec{grid-template-columns:1fr;gap:12px}
 .split .sp .rows>div{grid-template-columns:110px 1fr;gap:12px}
@@ -438,15 +438,10 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     </div>
   </div>
 
-  <div class="body note">
-    <div class="sec first">
-      <h3>캐릭터</h3>
-      <p class="text" style="margin-top:0">질서를 지키려는 신입 관리인과 자유와 위엄을 추구하는 쿼카 보스. 둘 다 ‘인정받고 싶은’ 주인공 — 같은 욕망, 정반대의 방식.</p>
-    </div>
-  </div>
+  <h3 class="castlabel">캐릭터</h3>
   <div class="cast">
-    <div><img src="img/eddie/eddie.webp" alt="에디"><p class="n">에디 Eddie</p><p class="r">신입 섬 관리인</p><q>제발 오늘 하루만 아무 일 없이 지나가면 안 될까?</q></div>
-    <div><img src="img/eddie/rocco.webp" alt="로코"><p class="n">로코 Rocco</p><p class="r">지베이 갱의 보스</p><q>난 귀여운 게 아니라 무서운 거라고!</q></div>
+    <div><img src="img/eddie/eddie.webp" alt="에디"><p class="n">에디 Eddie</p><p class="r">신입 섬 관리인</p><p class="d">질서를 지키며 섬에서 인정받고 싶은 원칙주의자.</p><q>제발 오늘 하루만 아무 일 없이 지나가면 안 될까?</q></div>
+    <div><img src="img/eddie/rocco.webp" alt="로코"><p class="n">로코 Rocco</p><p class="r">지베이 갱의 보스</p><p class="d">자유와 위엄으로 인정받고 싶은 쿼카 보스.</p><q>난 귀여운 게 아니라 무서운 거라고!</q></div>
     <div><img src="img/eddie/fix.webp" alt="픽스"><p class="n">픽스 Fix</p><p class="r">작전 설계 담당</p><q>계획대로만 하면 완벽해. 이론적으로는.</q></div>
     <div><img src="img/eddie/dunk.webp" alt="덩크"><p class="n">덩크 Dunk</p><p class="r">행동대장</p><q>부수면 되는 거죠, 보스?</q></div>
     <div><img src="img/eddie/riff.webp" alt="리프"><p class="n">리프 Riff</p><p class="r">DJ · 발명가</p><q>잠깐, 이걸로 소리 한번 만들어 볼까?</q></div>
