@@ -130,6 +130,8 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
 .grid img{aspect-ratio:16/10;object-fit:cover}
 .grid.sq img{aspect-ratio:1}
+.grid.pair{grid-template-columns:1fr 1fr}
+.grid.pair img{aspect-ratio:16/9}
 .times figcaption{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;letter-spacing:.02em}
 .cap{font-size:12px;color:var(--muted);margin-top:10px}
 
@@ -230,6 +232,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   .rows > div,.eps > div{grid-template-columns:1fr;gap:0;padding:8px 0}
   .cast{grid-template-columns:repeat(2,1fr)}
   .grid{grid-template-columns:1fr 1fr}
+  .grid.pair{grid-template-columns:1fr}
   .work{padding-top:110px}
   footer .wrap{flex-direction:column;align-items:flex-start;gap:24px}
 }
@@ -507,8 +510,8 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   <div class="body">
     <p class="lead">똑같지 않아서, 우리답게.</p>
     <p class="text">완벽한 가족사진을 찍으려는 가족들이 자꾸 엉뚱한 표정을 짓는 막내 때문에 촬영을 반복하다가, 가장 점잖던 할머니까지 장난에 동참하면서 모두가 제각각인 '가장 우리다운 사진' 한 장을 남기는 약 55초 내러티브 광고다.</p>
-    <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:32px">
-      <img src="img/works/family-shoes.jpg" alt="발 클로즈업 컨셉샷" style="aspect-ratio:16/9"><img src="img/works/family-group.jpg" alt="바닥 높이 단체 컷 컨셉샷" style="aspect-ratio:16/9">
+    <div class="grid pair" style="margin-top:32px">
+      <img src="img/works/family-shoes.jpg" alt="발 클로즈업 컨셉샷"><img src="img/works/family-group.jpg" alt="바닥 높이 단체 컷 컨셉샷">
     </div>
     <p class="cap">Visual concept · 발 클로즈업 · 바닥 높이 단체 컷</p>
     <p class="text">가족사진은 늘 같은 표정과 자세를 요구하지만, 오래 기억에 남는 건 각자의 모습이 드러나는 순간이다. 서로 다른 컨버스를 신은 가족처럼, 제각각이어서 더 우리다운 순간을 1분 광고 안에 담아 '개성을 존중하는 브랜드'라는 메시지와 연결하고자 했다.</p>
