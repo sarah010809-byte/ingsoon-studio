@@ -200,6 +200,10 @@ main .work.split.active{width:100vw;margin-left:calc(50% - 50vw);padding-left:40
 .split .side .media:first-child{margin-top:0}
 .split .side .media+.media{margin-top:24px}
 .split .stick{position:sticky}
+.split .note{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:64px;margin-top:96px}
+.split .note>.sec{grid-column:2;grid-template-columns:1fr;gap:12px}
+.split .sp .body>.sec:first-child,.split .note>.sec{margin-top:0}
+.split .side .media.poster img{max-width:none;width:100%}
 .split .sp .sec{grid-template-columns:1fr;gap:12px}
 .split .sp .rows>div{grid-template-columns:110px 1fr;gap:12px}
 .split .sp .lead+.text+.sec{margin-top:32px}
@@ -376,8 +380,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   </div>
   <div class="sp">
     <div class="side">
-    <div class="media poster"><img src="img/eddie/poster.jpg" alt="Eddie & the Quokka Gang 포스터"></div>
-      <div class="media"><video src="media/eddie-quokka.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
+      <div class="media poster"><img src="img/eddie/poster.jpg" alt="Eddie & the Quokka Gang 포스터"></div>
     </div>
     <div class="body">
     <p class="lead">낮에는 세상에서 가장 행복한 동물,<br>밤에는 섬을 뒤집어 놓는 힙합 갱스터.</p>
@@ -400,7 +403,14 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
       </div>
     </div>
 
-    <div class="sec">
+    </div>
+  </div>
+  <div class="sp">
+    <div class="side">
+      <div class="media"><video src="media/eddie-quokka.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
+    </div>
+    <div class="body">
+    <div class="sec first">
       <h3>핵심 매력</h3>
       <div class="rows">
         <div><b>이미지의 반전</b><p>언제나 웃는 얼굴의 쿼카가 사실은 다른 동물들이 두려워하는 갱스터.</p></div>
@@ -428,8 +438,8 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     </div>
   </div>
 
-  <div class="body">
-    <div class="sec">
+  <div class="body note">
+    <div class="sec first">
       <h3>캐릭터</h3>
       <p class="text" style="margin-top:0">질서를 지키려는 신입 관리인과 자유와 위엄을 추구하는 쿼카 보스. 둘 다 ‘인정받고 싶은’ 주인공 — 같은 욕망, 정반대의 방식.</p>
     </div>
@@ -803,10 +813,10 @@ document.querySelectorAll('.cover .reel a, .cover .posters img').forEach(el=>{
 </script>
 <script>
 // split layout: whichever column is shorter sticks while the longer one scrolls.
-// A sticky column taller than the screen sticks by its bottom edge instead of its top.
+// It sits centred in the space under the bar; one taller than the screen sticks by its bottom edge.
 (()=>{const fit=()=>{const wide=innerWidth>860;
   document.querySelectorAll('main .work.split.active .sp').forEach(sp=>{const [a,b]=sp.children;[a,b].forEach(c=>{c.classList.remove('stick');c.style.top=''});
-    if(!wide)return;const s=a.offsetHeight<=b.offsetHeight?a:b;s.classList.add('stick');s.style.top=Math.min(96,innerHeight-s.offsetHeight-32)+'px'})};
+    if(!wide)return;const s=a.offsetHeight<=b.offsetHeight?a:b;s.classList.add('stick');const free=innerHeight-72,h=s.offsetHeight;s.style.top=(h<=free-48?72+(free-h)/2:Math.min(96,innerHeight-h-32))+'px'})};
   addEventListener('resize',fit);addEventListener('hashchange',()=>requestAnimationFrame(fit));addEventListener('load',fit);
   document.querySelectorAll('main .split img, main .split video').forEach(m=>m.addEventListener(m.tagName==='IMG'?'load':'loadedmetadata',fit));fit()})();
 </script>
