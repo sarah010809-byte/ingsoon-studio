@@ -214,6 +214,7 @@ main .work.split.active{width:100vw;margin-left:calc(50% - 50vw);padding-left:40
 .split .stick{position:sticky}
 .split .side .times{margin-top:24px}
 .split .side .media.sq{max-width:560px}
+#pink .side video{aspect-ratio:16/9;object-fit:cover}
 footer .wrap{max-width:none;padding:0 40px}
 .split .sp .body>.sec:first-child{margin-top:0}
 .split .side .media.poster img{max-width:none;width:100%}
@@ -489,7 +490,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div class="no">02</div>
     <div><h2>분홍산이 간질간질</h2><p class="sub">AI 크리에이터 쇼케이스 영상부문 선정작</p></div>
   </div>
-  <div class="sp">
+  <div class="sp" data-stick="side">
     <div class="side">
     <div class="media"><video src="media/pink-mountain.mp4?v=6" controls playsinline preload="none" poster="img/works/pink-poster.jpg?v=3"></video></div>
     </div>
@@ -837,8 +838,9 @@ document.querySelectorAll('.cover .reel a, .cover .posters img').forEach(el=>{
 // split layout: whichever column is shorter sticks while the longer one scrolls.
 // It sits centred in the space under the bar; one taller than the screen sticks by its bottom edge.
 (()=>{const fit=()=>{const wide=innerWidth>860;
-  document.querySelectorAll('main .work.split.active .sp').forEach(sp=>{const [a,b]=sp.children;[a,b].forEach(c=>{c.classList.remove('stick');c.style.top=''});
-    if(!wide)return;const s=a.offsetHeight<=b.offsetHeight?a:b;s.classList.add('stick');const free=innerHeight-72,h=s.offsetHeight;s.style.top=(h<=free-48?72+(free-h)/2:Math.min(96,innerHeight-h-32))+'px'})};
+  document.querySelectorAll('main .work.split.active .sp').forEach(sp=>{const [a,b]=sp.children;[a,b].forEach(c=>{c.classList.remove('stick');c.style.top=''});b.style.minHeight='';
+    if(!wide)return;const force=sp.dataset.stick==='side';b.style.minHeight='';if(force)b.style.minHeight=a.offsetHeight+innerHeight*.5+'px'; // pinned media needs a longer column beside it to scroll against
+    const s=force||a.offsetHeight<=b.offsetHeight?a:b;s.classList.add('stick');const free=innerHeight-72,h=s.offsetHeight;s.style.top=(h<=free-48?72+(free-h)/2:Math.min(96,innerHeight-h-32))+'px'})};
   addEventListener('resize',fit);addEventListener('hashchange',()=>{requestAnimationFrame(fit);setTimeout(fit,500)});addEventListener('load',fit); // the page swap animates, so measure again once it settles
   document.querySelectorAll('main .split img, main .split video').forEach(m=>m.addEventListener(m.tagName==='IMG'?'load':'loadedmetadata',fit));fit()})();
 </script>
