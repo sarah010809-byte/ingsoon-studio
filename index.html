@@ -201,6 +201,9 @@ main .work.split.active{width:100vw;margin-left:calc(50% - 50vw);padding-left:40
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
 .cover h1 img{display:block;height:clamp(52px,8vw,110px);width:auto}
 .bar .logo img{display:block;height:24px;width:auto}
+.bar .bt{flex:1;margin-left:28px;font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
+.bar .bt b{font-weight:500;color:var(--muted);margin-right:10px}
+.bar .bt.show{opacity:1;transform:none}
 .bar .logo{font-weight:700;font-size:18px;letter-spacing:-.03em;text-decoration:none}
 .bar .idx{display:flex;gap:24px}
 .bar .idx a{text-decoration:none;color:var(--muted);text-underline-offset:4px}
@@ -351,7 +354,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 <div class="lb" aria-hidden="true"><div class="dim"></div><canvas></canvas><img alt=""></div>
 <header class="bar">
   <div class="progress"><i></i></div>
-  <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a><nav class="menu"><a href="#works">Works</a><a href="#info">Info</a><a href="#contact">Contact</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
+  <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a><span class="bt"></span><nav class="menu"><a href="#works">Works</a><a href="#info">Info</a><a href="#contact">Contact</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
 </header>
 <button class="arrow prev" aria-label="이전 프로젝트">←</button>
 <button class="arrow next" aria-label="다음 프로젝트">→</button>
@@ -781,6 +784,14 @@ document.querySelectorAll('.cover .reel a, .cover .posters img').forEach(el=>{
   ['touchend','touchcancel','touchmove'].forEach(e=>el.addEventListener(e,off,{passive:true}));
   el.addEventListener('contextmenu',e=>e.preventDefault());
 });
+</script>
+<script>
+// small project title in the bar once the big title scrolls out of view
+(()=>{const bt=document.querySelector('.bar .bt'),bar=document.querySelector('.bar');
+  const upd=()=>{const w=document.querySelector('main .work.active');if(!w){bt.classList.remove('show');return}
+    const h=w.querySelector('.head h2');bt.innerHTML=`<b>${w.querySelector('.head .no').textContent}</b>${h.textContent}`;
+    bt.classList.toggle('show',h.getBoundingClientRect().bottom<bar.getBoundingClientRect().bottom)};
+  addEventListener('scroll',upd,{passive:true});addEventListener('hashchange',()=>requestAnimationFrame(upd));upd()})();
 </script>
 </body>
 </html>
