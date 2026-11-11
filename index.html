@@ -154,7 +154,7 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .cast .n{font-weight:600;margin-top:12px}
 .cast .r{font-size:12px;color:var(--muted)}
 .cast q{display:block;font-size:13px;margin-top:6px;line-height:1.5}
-.vcap{display:flex;gap:12px;align-items:baseline;margin-top:14px;font-size:14px}.vcap span{color:var(--muted)}
+.vcap{display:flex;gap:12px;align-items:baseline;margin-top:14px;font-size:14px}.vcap b{font-weight:500;color:#5b625e}.vcap span{color:var(--muted)}
 .grid.shots{margin-top:28px;grid-template-columns:repeat(3,1fr)!important}.grid.shots img{aspect-ratio:16/9}
 .cast .d{font-size:13px;color:#3e4641;margin-top:6px;line-height:1.5}
 .castlabel{text-align:center;font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.02em;margin-top:120px;padding-top:28px;border-top:1px solid var(--line)}
@@ -184,6 +184,9 @@ body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
 .vbar.show{opacity:1;pointer-events:auto}
 .vbar button{background:none;border:0;padding:0;width:22px;height:22px;display:grid;place-items:center;cursor:pointer;color:#fff}
 .vbar button svg{width:20px;height:20px;fill:currentColor}
+.vbar .vol{width:0;opacity:0;margin-left:-8px;accent-color:var(--lime);height:16px;cursor:pointer;transition:width .2s,opacity .2s}
+.vbar .mu:hover+.vol,.vbar .vol:hover,.vbar .vol:focus{width:72px;opacity:1;margin-left:0}
+@media(hover:none){.vbar .vol{display:none}} /* phones: volume is the hardware buttons' job */
 .vbar .seek{flex:1;height:16px;display:flex;align-items:center;cursor:pointer;touch-action:none}
 .vbar .seek i{position:relative;display:block;width:100%;height:3px;background:rgba(255,255,255,.35);border-radius:2px}
 .vbar .seek b{position:absolute;left:0;top:0;bottom:0;background:var(--lime);border-radius:2px}
@@ -557,7 +560,10 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div><h2>Apple Watch Bands</h2><p class="sub">Apple Watch 밴드 TV 광고 · 기획 · 아트</p></div>
   </div>
   <div class="sp">
-  <div class="media"><video src="media/apple-watch.mp4?v=6" controls playsinline preload="none" poster="img/works/apple-watch.jpg"></video></div>
+    <div class="side">
+    <div class="media"><video src="media/apple-watch.mp4?v=6" controls playsinline preload="none" poster="img/works/apple-watch.jpg"></video></div>
+      <p class="vcap"><b>Apple Watch Band Commercial · Made with AI</b><span>1분 5초</span></p>
+    </div>
   <div class="body">
     <p class="lead">심장이 빨라져도, 흔들림 없이.</p>
     <p class="text">심박이 오를수록 달라지는 하루의 순간을 따라가며 세 가지 Apple Watch 밴드를 보여주는 광고다. 세 개의 기획안 중 'BPM'을 골라 발전시켰다. 처음에는 전문 스포츠의 운동 강도에 따라 심박이 오르는 구성이었지만, 일상의 활동과 하루의 흐름으로 바꿔 더 많은 사람이 공감할 수 있게 했다.</p>
@@ -797,7 +803,7 @@ document.querySelectorAll('main video').forEach(v=>{
   const w=document.createElement('div');w.className='vwrap';v.replaceWith(w);w.append(v);
   const b=document.createElement('button');b.className='vbtn show';b.setAttribute('aria-label','재생');b.innerHTML=PLAY;w.append(b);
   const bar=document.createElement('div');bar.className='vbar';
-  bar.innerHTML=`<button class="pp" aria-label="재생">${PLAY}</button><span class="tm">0:00</span><div class="seek"><i><b></b></i></div><span class="du">0:00</span><button class="mu" aria-label="음소거">${SND}</button><button class="fs" aria-label="전체화면">${FS}</button>`;
+  bar.innerHTML=`<button class="pp" aria-label="재생">${PLAY}</button><span class="tm">0:00</span><div class="seek"><i><b></b></i></div><span class="du">0:00</span><button class="mu" aria-label="음소거">${SND}</button><input class="vol" type="range" min="0" max="1" step="0.05" value="1" aria-label="볼륨"><button class="fs" aria-label="전체화면">${FS}</button>`;
   w.append(bar);
   const pp=bar.querySelector('.pp'),tm=bar.querySelector('.tm'),du=bar.querySelector('.du'),sk=bar.querySelector('.seek'),fill=sk.querySelector('b'),mu=bar.querySelector('.mu');
   let t;
@@ -808,7 +814,10 @@ document.querySelectorAll('main video').forEach(v=>{
   b.addEventListener('click',e=>{e.stopPropagation();toggle()});
   pp.addEventListener('click',e=>{e.stopPropagation();toggle()});
   w.addEventListener('click',e=>{if(e.target.closest('.vbar button,.vbar .seek'))return;toggle()});
-  mu.addEventListener('click',e=>{e.stopPropagation();v.muted=!v.muted;mu.innerHTML=v.muted?MUTE:SND;show()});
+  mu.addEventListener('click',e=>{e.stopPropagation();v.muted=!v.muted;mu.innerHTML=v.muted?MUTE:SND;vol.value=v.muted?0:v.volume;show()});
+  const vol=bar.querySelector('.vol');
+  ['click','pointerdown'].forEach(t=>vol.addEventListener(t,e=>e.stopPropagation()));
+  vol.addEventListener('input',()=>{v.volume=+vol.value;v.muted=v.volume===0;mu.innerHTML=v.muted?MUTE:SND;show()});
   bar.querySelector('.fs').addEventListener('click',e=>{e.stopPropagation();
     if(v.requestFullscreen)v.requestFullscreen();else if(v.webkitEnterFullscreen)v.webkitEnterFullscreen()});
   const fsOn=()=>{v.controls=document.fullscreenElement===v};document.addEventListener('fullscreenchange',fsOn);
