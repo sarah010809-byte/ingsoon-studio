@@ -191,6 +191,14 @@ body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
 @media(max-width:860px){.vbtn{width:60px;height:60px;margin:-30px 0 0 -30px}.vbtn svg{width:24px;height:24px}}
 main .work{display:none}
 main .work.active{display:block;padding-top:120px}
+/* test: split layout — media sticks on the left, text scrolls on the right */
+@media(min-width:861px){
+main .work.split.active{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:64px;width:100vw;margin-left:calc(50% - 50vw);padding-left:40px;padding-right:40px}
+.split>.head,.split>.pager,.split>.strip{grid-column:1/-1}
+.split>.media{grid-column:1;grid-row:2 / span 20;position:sticky;top:96px;align-self:start;margin-top:48px}
+.split>.body{grid-column:2;margin-top:48px}
+.split .lead{margin-top:0}
+}
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
 .cover h1 img{display:block;height:clamp(52px,8vw,110px);width:auto}
 .bar .logo img{display:block;height:24px;width:auto}
@@ -501,7 +509,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   </div>
 </section>
 
-<section class="work" id="apple">
+<section class="work split" id="apple">
   <div class="head">
     <div class="no">05</div>
     <div><h2>Apple Watch Bands</h2><p class="sub">Apple Watch 밴드 TV 광고 · 기획 · 아트</p></div>
