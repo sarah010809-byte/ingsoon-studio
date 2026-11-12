@@ -156,6 +156,7 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .cast q{display:block;font-size:13px;margin-top:6px;line-height:1.5}
 .vcap{display:flex;gap:12px;align-items:baseline;margin-top:14px;font-size:14px}.vcap b{font-weight:500;color:#5b625e}.vcap span{color:var(--muted)}
 .grid.shots{margin-top:28px;grid-template-columns:repeat(3,1fr)!important}.grid.shots img{aspect-ratio:16/9}
+.media.board img{border:1px solid var(--line)}
 .cast .d{font-size:13px;color:#3e4641;margin-top:6px;line-height:1.5}
 .castlabel{text-align:center;font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.02em;margin-top:120px;padding-top:28px;border-top:1px solid var(--line)}
 .eps > div{display:grid;grid-template-columns:90px 220px 1fr;gap:16px;padding:6px 0}
@@ -535,7 +536,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   <div class="grid">
     <img src="img/works/w06_0.jpg" alt="Scene 5"><img src="img/works/w08_0.jpg" alt="Scene 7"><img src="img/works/w04_0.jpg" alt="주방 디테일">
   </div>
-  <div class="media" style="margin-top:8px"><img src="img/works/w05_0.jpg" alt="스토리보드"></div>
+  <div class="media board" style="margin-top:8px"><img src="img/works/w05_0.jpg" alt="스토리보드"></div>
   <p class="cap">Style frames · Kitchen detail · Storyboard</p>
     </div>
   <div class="body">
@@ -869,8 +870,9 @@ document.querySelectorAll('.cover .reel a, .cover .posters img').forEach(el=>{
 // It sits centred in the space under the bar; one taller than the screen sticks by its bottom edge.
 (()=>{const fit=()=>{const wide=innerWidth>860;
   document.querySelectorAll('main .work.split.active .sp').forEach(sp=>{const [a,b]=sp.children;[a,b].forEach(c=>{c.classList.remove('stick');c.style.top=''});b.style.minHeight='';
-    // let a trailing caption hang below, so the last image (not its caption) lines up with the end of the text
-    const tail=a.lastElementChild;a.style.marginBottom=wide&&tail&&tail.matches('.vcap,.cap')?-(tail.offsetHeight+parseFloat(getComputedStyle(tail).marginTop))+'px':'';
+    // let trailing captions hang below, so the last image (not its caption) lines up with the end of the text
+    a.style.marginBottom='';const ms=[...a.querySelectorAll('img,video')].filter(m=>m.offsetHeight),last=ms[ms.length-1];
+    if(wide&&last)a.style.marginBottom=-(a.getBoundingClientRect().bottom-last.getBoundingClientRect().bottom)+'px';
     if(!wide||sp.dataset.stick==='none')return; // data-stick=none: the pair scrolls as one block
     const force=sp.dataset.stick==='side';b.style.minHeight='';if(force)b.style.minHeight=a.offsetHeight+b.offsetHeight+'px'; // media stays put while the text slides up past it, then both scroll on
     const s=force||a.offsetHeight<=b.offsetHeight?a:b;s.classList.add('stick');const free=innerHeight-72,h=s.offsetHeight;s.style.top=(h<=free-48?72+(free-h)/2:Math.min(96,innerHeight-h-32))+'px'})};
