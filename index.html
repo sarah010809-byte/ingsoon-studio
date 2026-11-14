@@ -442,7 +442,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   </div>
   <div class="sp s2">
     <div class="side">
-      <div class="media"><video src="media/eddie-quokka.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
+      <div class="media" id="eddie-teaser"><video src="media/eddie-quokka.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
       <p class="vcap"><b>주인공 로코 캐릭터 소개 영상</b><span>Made with AI · 1분 5초</span></p>
     </div>
     <div class="body">
@@ -485,7 +485,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
 
   <div class="sp s3 late">
     <div class="side">
-      <div class="media"><video src="media/eddie-hotel-lobby.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
+      <div class="media" id="eddie-reels"><video src="media/eddie-hotel-lobby.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
       <p class="vcap"><b>Hotel Lobby 패러디 숏폼</b><span>Made with AI · 15초</span></p>
     </div>
     <div class="body">
@@ -652,7 +652,7 @@ document.querySelectorAll('.facade').forEach(f=>f.onclick=()=>{
   f.replaceWith(d);
 });
 function route(){
-  const h=location.hash.slice(1),i=ids.indexOf(h),pg=h==='works'||h==='info'||h==='contact';
+  const full=location.hash.slice(1),h=full.split('/')[0],sub=full.split('/')[1],i=ids.indexOf(h),pg=h==='works'||h==='info'||h==='contact';
   document.body.classList.toggle('home',i<0&&!pg);
   document.body.classList.toggle('pg',pg);
   document.body.classList.remove('menu-open');
@@ -665,11 +665,14 @@ function route(){
   document.querySelectorAll('main iframe').forEach(f=>{if(!f.closest('.active'))f.src=f.src});
   window.scrollTo({top:0,behavior:'instant'});
   requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'instant'}));
+  // deep link like #eddie/reels: scroll to that video inside the project
+  const el=sub&&document.getElementById(h+'-'+sub);
+  if(el)setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'center'}),300);
 }
 // prev/next: current project slides away from the arrow, the next one slides in from it
 let sliding=false;
 function go(d){
-  const i=ids.indexOf(location.hash.slice(1));
+  const i=ids.indexOf(location.hash.slice(1).split('/')[0]);
   if(i<0||sliding)return;
   sliding=true;
   const out=works[i],ez='cubic-bezier(.4,0,.2,1)';
