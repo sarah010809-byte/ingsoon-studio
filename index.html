@@ -177,6 +177,7 @@ body.home main,body.home .bar,body.home .arrow,body.home .pager{display:none}
 .strip a.th:hover img{transform:scale(1.05)}
 .strip a.th:hover span{text-decoration:underline;text-underline-offset:3px}
 .strip a.th{opacity:.55;transition:opacity .25s}.strip a.th:hover{opacity:1}
+.strip .pth{cursor:zoom-in;opacity:.55;transition:opacity .25s}.strip .pth:hover{opacity:1}.strip .pth:hover img{transform:scale(1.05)}
 .strip .on span{font-weight:700}
 .strip .on span::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink);margin-right:6px;vertical-align:1px}
 @media(max-width:860px){.strip>div{grid-template-columns:repeat(4,1fr)}.strip{margin-top:64px}.strip span{font-size:11px}}
@@ -642,6 +643,8 @@ works.forEach((w,i)=>{
     return k===i?`<div class="th on"><img src="${im}" alt=""><span>${t}</span></div>`:`<a class="th" href="#${id}"><img src="${im}" alt=""><span>${t}</span></a>`}).join('');
   w.insertAdjacentHTML('beforeend',`<div class="pager"><a href="#${p.id}"><span>← PREV</span><b>${t(p)}</b></a><a class="nx" href="#${n.id}"><span>NEXT →</span><b>${t(n)}</b></a></div>`);
   kinds.forEach(g=>w.insertAdjacentHTML('beforeend',`<div class="strip"><p>${g}</p><div>${strip(g)}</div></div>`));
+  const ps=[...document.querySelectorAll('.cover .posters img')].map(im=>`<div class="th pth"><img src="${im.getAttribute('src')}" alt=""><span>${im.alt}</span></div>`).join('');
+  w.insertAdjacentHTML('beforeend',`<div class="strip"><p>Poster</p><div>${ps}</div></div>`);
 });
 document.querySelectorAll('.facade').forEach(f=>f.onclick=()=>{
   const d=document.createElement('div');d.className=f.className.replace('facade','');
@@ -748,6 +751,7 @@ function close(){
   run(0,1,600,()=>{lb.classList.remove('open');from.style.visibility='';busy=false});
 }
 document.querySelectorAll('.cover .posters img').forEach(i=>i.addEventListener('click',()=>open(i.src,i)));
+document.querySelectorAll('.strip .pth img').forEach(i=>i.addEventListener('click',()=>open(i.src,i)));
 document.querySelectorAll('.index div.row').forEach(r=>r.addEventListener('click',()=>{
   const p=document.querySelector('.preview img');
   const el=getComputedStyle(p.parentNode).display!=='none'&&p.classList.contains('show')?p:r.querySelector('img');
