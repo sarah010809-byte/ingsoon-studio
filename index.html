@@ -154,6 +154,7 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .cast .n{font-weight:600;margin-top:12px}
 .cast .r{font-size:12px;color:var(--muted)}
 .cast q{display:block;font-size:13px;margin-top:6px;line-height:1.5}
+.vdesc{margin-top:6px;font-size:14px;line-height:1.6;color:var(--muted)}
 .vcap{display:flex;gap:12px;align-items:baseline;margin-top:14px;font-size:14px}.vcap b{font-weight:500;color:#5b625e}.vcap span{color:var(--muted)}
 .grid.shots{margin-top:28px;grid-template-columns:repeat(3,1fr)!important}.grid.shots img{aspect-ratio:16/9}
 .media.board img{border:1px solid var(--line)}
@@ -206,7 +207,7 @@ main .work.active{display:block;padding-top:120px}
 @media(max-width:860px){
   .sp{display:flex;flex-direction:column}
   .sp>.side,.sp>.body{display:contents}
-  .sp>.side>*{order:2}.sp>.side>:first-child,.sp>.side>.vcap{order:0}.sp>.body>*{order:1}
+  .sp>.side>*{order:2}.sp>.side>:first-child,.sp>.side>.vcap,.sp>.side>.vdesc{order:0}.sp>.body>*{order:1}
   .sp.late>.side>*{order:2}
   .castlabel{text-align:left;margin-top:72px}
   /* Eddie: lay the whole page out as one column so the main video can sit above 개요 */
@@ -444,6 +445,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div class="side">
       <div class="media" id="eddie-teaser"><video src="media/eddie-quokka.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
       <p class="vcap"><b>주인공 로코 캐릭터 소개 영상</b><span>Made with AI · 1분 5초</span></p>
+      <p class="vdesc">관광객 카메라 속 귀여운 쿼카로 시작해 힙합 갱스터로 변하는 세계관을 보여 주는 1분 5초 캐릭터 티저 영상. (생성: Kling 2.5)</p>
     </div>
     <div class="body">
     <div class="sec first">
@@ -487,6 +489,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div class="side">
       <div class="media" id="eddie-reels"><video src="media/eddie-hotel-lobby.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
       <p class="vcap"><b>Hotel Lobby 패러디 숏폼</b><span>Made with AI · 15초</span></p>
+      <p class="vdesc">쿼카 갱의 힙합 정체성을 유행 힙합곡 패러디 릴스 포맷에 맞춰 캐릭터 스왑한 15초 숏폼. (생성: Seedance 2.5)</p>
     </div>
     <div class="body">
     <div class="sec">
