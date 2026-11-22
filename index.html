@@ -158,7 +158,7 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .vcap{display:flex;gap:12px;align-items:baseline;margin-top:14px;font-size:14px}.vcap b{font-weight:500;color:#5b625e}.vcap span{color:var(--muted)}
 .grid.shots{margin-top:28px;grid-template-columns:repeat(3,1fr)!important}.grid.shots img{aspect-ratio:16/9}
 .media.board img{border:1px solid var(--line)}
-.nk-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:28px}.nk-row img{display:block;width:100%;height:auto}.nk-row.stamp{max-width:70%}
+.nk-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:28px}.nk-row img{display:block;width:100%;height:auto}.nk-row.front img,.nk-row.back img{border:1px solid var(--line)}.nk-row.stamp{max-width:70%}
 .deck{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .deck img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;cursor:zoom-in;border:1px solid var(--line);transition:transform .25s}
 .deck img:hover{transform:scale(1.06)}
@@ -339,7 +339,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   <h2 class="label">Planning</h2>
   <nav class="reel">
     <div class="col">
-      <a href="#nakhwa" style="order:1"><img src="img/nakhwa/hero.jpg" alt=""><span>낙화원 落花願</span></a>
+      <a href="#nakhwa" style="order:1"><img src="img/nakhwa/hero.jpg?v=2" alt=""><span>낙화원 落花願</span></a>
     </div>
     <div class="col">
       <a href="#jigu" style="order:2"><img src="img/works/jigu-70th.jpg" alt=""><span>지구화학 70주년 캠페인</span></a>
@@ -380,7 +380,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
       </ul>
       <h2 class="label">Planning</h2>
       <ul>
-        <li><a class="row" href="#nakhwa" data-img="img/nakhwa/hero.jpg"><b>낙화원 落花願</b><span>Interactive media art</span><span>2026</span><img src="img/nakhwa/hero.jpg" alt="" loading="lazy"></a></li>
+        <li><a class="row" href="#nakhwa" data-img="img/nakhwa/hero.jpg?v=2"><b>낙화원 落花願</b><span>Interactive media art</span><span>2026</span><img src="img/nakhwa/hero.jpg?v=2" alt="" loading="lazy"></a></li>
         <li><a class="row" href="#jigu" data-img="img/works/jigu-70th.jpg"><b>지구화학 70주년 캠페인</b><span>Campaign planning</span><span>2026</span><img src="img/works/jigu-70th.jpg" alt="" loading="lazy"></a></li>
       </ul>
       <h2 class="label">Poster</h2>
@@ -671,11 +671,11 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   </div>
   <div class="sp">
     <div class="side">
-      <div class="media"><img src="img/nakhwa/hero.jpg" alt="낙화원 공간 시안"></div>
+      <div class="media"><img src="img/nakhwa/hero.jpg?v=2" alt="낙화원 공간 시안"></div>
       <p class="cap">공간 시안 · 벽면·바닥 프로젝션, 줄에 매달린 소원지가 낙화처럼 타오른다</p>
-      <div class="media"><video src="media/nakhwa-wish.mp4" controls playsinline muted loop preload="metadata" poster="img/nakhwa/hero.jpg"></video></div>
+      <div class="media"><video src="media/nakhwa-wish.mp4" controls playsinline muted loop preload="metadata" poster="img/nakhwa/hero.jpg?v=2"></video></div>
       <p class="vcap"><b>소원지 3D 애니메이션</b><span>Cinema 4D · Octane Render · 6초</span></p>
-      <div class="nk-row front"><img src="img/nakhwa/front-1.png" alt="소원지 앞면 1"><img src="img/nakhwa/front-2.png" alt="소원지 앞면 2"><img src="img/nakhwa/front-3.png" alt="소원지 앞면 3"><img src="img/nakhwa/front-4.png" alt="소원지 앞면 4"><img src="img/nakhwa/front-5.png" alt="소원지 앞면 5"></div>
+      <div class="nk-row front"><img src="img/nakhwa/front-5.png" alt="소원지 앞면 5"><img src="img/nakhwa/front-4.png" alt="소원지 앞면 4"><img src="img/nakhwa/front-3.png" alt="소원지 앞면 3"><img src="img/nakhwa/front-2.png" alt="소원지 앞면 2"><img src="img/nakhwa/front-1.png" alt="소원지 앞면 1"></div>
       <p class="cap">소원지 앞면 · 한글 키워드를 직접 색칠한다</p>
       <div class="nk-row back"><img src="img/nakhwa/back-1.png" alt="소원지 뒷면 1"><img src="img/nakhwa/back-2.png" alt="소원지 뒷면 2"><img src="img/nakhwa/back-3.png" alt="소원지 뒷면 3"><img src="img/nakhwa/back-4.png" alt="소원지 뒷면 4"><img src="img/nakhwa/back-5.png" alt="소원지 뒷면 5"></div>
       <p class="cap">소원지 뒷면 · 세계 여러 언어로 적힌 같은 소원</p>
@@ -714,7 +714,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <p class="text"><b>1. Draw the Wall · 우리의 에디션</b> — 가로 1956cm, 세로 70cm. 창립연도와 70주년을 크기로 옮긴 거대한 도화지를 성수에 세우고, 누구나 우연히 들어와 색연필로 채운다. 색연필 대여 부스, 완성된 구역을 비추면 그림이 움직이는 AR, 인플루언서·아티스트 초대 채색으로 시간이 지날수록 완성되는 살아있는 미술관을 만든다.</p>
     <p class="text"><b>2. MY COLOR · 나만의 에디션</b> — "당신의 빨강은 어떤 빨강인가요?" 진단을 거쳐 색을 고르고 "할머니 집 마루"처럼 이름을 붙여, 세상에 하나뿐인 색연필을 만든다. 현장에서는 컬러 카드를 바로 받고 색연필은 나중에 배송되어, 팝업 이후에도 경험이 한 번 더 이어진다.</p>
     <p class="text">벽만 있으면 강렬하지만 내 것이 남지 않고, 팝업만 있으면 깊지만 이미 색연필을 좋아하는 사람만 찾아온다. 그래서 넓게 끌어들이는 벽과 깊게 남기는 팝업을 하나의 여정으로 묶었다. 3개월 동안 준비(공간·AR·티저), 런칭(Draw the Wall), 심화(MY COLOR 팝업, "2026 대한민국의 색" 아카이브 전시) 순으로 이어지며, '국민 학용품 브랜드'를 '나를 표현하는 브랜드'로 바꾸는 것을 목표로 했다.</p>
-    <p class="text">교육 과정의 브랜드 캠페인 과제로 진행한 기획이며, 실제로 집행되지는 않았다. 발표 당시 좋은 평가를 받았다.</p>
+    <p class="text">교육 과정의 브랜드 캠페인 과제로 진행한 기획으로, 크리에이티브 성수 기획위원 김현정 교수에게 좋은 평가를 받았다.</p>
     <div class="meta"><div><span>기여도</span>100%</div><div><span>담당</span>기획 · 장표 디자인</div><div><span>기간</span>2026</div><div><span>형식</span>오프라인 캠페인 · 팝업</div></div>
   </div>
   </div>
