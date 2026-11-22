@@ -158,6 +158,14 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .vcap{display:flex;gap:12px;align-items:baseline;margin-top:14px;font-size:14px}.vcap b{font-weight:500;color:#5b625e}.vcap span{color:var(--muted)}
 .grid.shots{margin-top:28px;grid-template-columns:repeat(3,1fr)!important}.grid.shots img{aspect-ratio:16/9}
 .media.board img{border:1px solid var(--line)}
+.deck{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.deck img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;cursor:zoom-in;border:1px solid var(--line);transition:transform .25s}
+.deck img:hover{transform:scale(1.06)}
+@media(max-width:860px){.deck{grid-template-columns:repeat(4,1fr)}}
+.lb .nav{position:fixed;top:50%;width:52px;height:52px;margin-top:-26px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.25);color:#fff;font-size:22px;cursor:pointer;display:none;z-index:2}
+.lb .nav.pv{left:20px}.lb .nav.nx{right:20px}
+.lb .count{position:fixed;bottom:20px;left:0;right:0;text-align:center;color:#fff;font-size:13px;letter-spacing:.04em;display:none;z-index:2}
+.lb.deckmode.ready .nav,.lb.deckmode.ready .count{display:block}
 .cast .d{font-size:13px;color:#3e4641;margin-top:6px;line-height:1.5}
 .castlabel{text-align:center;font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.02em;margin-top:120px;padding-top:28px;border-top:1px solid var(--line)}
 .eps > div{display:grid;grid-template-columns:90px 220px 1fr;gap:16px;padding:6px 0}
@@ -398,7 +406,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   <div class="bottom"><span>INSUN LEE © 2026</span></div>
 </section>
 
-<div class="lb" aria-hidden="true"><div class="dim"></div><canvas></canvas><img alt=""></div>
+<div class="lb" aria-hidden="true"><div class="dim"></div><canvas></canvas><img alt=""><button class="nav pv" aria-label="이전 장">←</button><button class="nav nx" aria-label="다음 장">→</button><p class="count"></p></div>
 <header class="bar">
   <div class="progress"><i></i></div>
   <a href="#" class="logo"><img src="img/ingsoon-logo.png" alt="ingsoon!"></a><span class="bt"></span><nav class="menu"><a href="#works">Works</a><a href="#info">Info</a><a href="#contact">Contact</a></nav><button class="burger" aria-label="메뉴"><i></i><i></i></button>
@@ -498,6 +506,13 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
         <div><b>제작 방식</b><p>AI 영상 생성 + 3D 캐릭터·배경 + 편집. 캐릭터 디자인과 배경을 고정해 반복 제작 가능한 파이프라인.</p></div>
         <div><b>단계</b><p>콘셉트 영상 → 파일럿 → 일관성·효율 검토 → 시리즈 확장.</p></div>
         <div><b>IP 확장</b><p>캐릭터별 숏폼 힙합 뮤직비디오, 음악 콘텐츠, 굿즈, 새로운 호주 동물과 라이벌 조직.</p></div>
+      </div>
+    </div>
+    <div class="sec">
+      <h3>기획안</h3>
+      <div>
+        <div class="deck"><img src="img/eddie/plan/01-t.jpg" data-full="img/eddie/plan/01.jpg" alt="기획안 1p" loading="lazy"><img src="img/eddie/plan/02-t.jpg" data-full="img/eddie/plan/02.jpg" alt="기획안 2p" loading="lazy"><img src="img/eddie/plan/03-t.jpg" data-full="img/eddie/plan/03.jpg" alt="기획안 3p" loading="lazy"><img src="img/eddie/plan/04-t.jpg" data-full="img/eddie/plan/04.jpg" alt="기획안 4p" loading="lazy"><img src="img/eddie/plan/05-t.jpg" data-full="img/eddie/plan/05.jpg" alt="기획안 5p" loading="lazy"><img src="img/eddie/plan/06-t.jpg" data-full="img/eddie/plan/06.jpg" alt="기획안 6p" loading="lazy"><img src="img/eddie/plan/07-t.jpg" data-full="img/eddie/plan/07.jpg" alt="기획안 7p" loading="lazy"><img src="img/eddie/plan/08-t.jpg" data-full="img/eddie/plan/08.jpg" alt="기획안 8p" loading="lazy"><img src="img/eddie/plan/09-t.jpg" data-full="img/eddie/plan/09.jpg" alt="기획안 9p" loading="lazy"><img src="img/eddie/plan/10-t.jpg" data-full="img/eddie/plan/10.jpg" alt="기획안 10p" loading="lazy"><img src="img/eddie/plan/11-t.jpg" data-full="img/eddie/plan/11.jpg" alt="기획안 11p" loading="lazy"><img src="img/eddie/plan/12-t.jpg" data-full="img/eddie/plan/12.jpg" alt="기획안 12p" loading="lazy"><img src="img/eddie/plan/13-t.jpg" data-full="img/eddie/plan/13.jpg" alt="기획안 13p" loading="lazy"><img src="img/eddie/plan/14-t.jpg" data-full="img/eddie/plan/14.jpg" alt="기획안 14p" loading="lazy"><img src="img/eddie/plan/15-t.jpg" data-full="img/eddie/plan/15.jpg" alt="기획안 15p" loading="lazy"><img src="img/eddie/plan/16-t.jpg" data-full="img/eddie/plan/16.jpg" alt="기획안 16p" loading="lazy"><img src="img/eddie/plan/17-t.jpg" data-full="img/eddie/plan/17.jpg" alt="기획안 17p" loading="lazy"><img src="img/eddie/plan/18-t.jpg" data-full="img/eddie/plan/18.jpg" alt="기획안 18p" loading="lazy"><img src="img/eddie/plan/19-t.jpg" data-full="img/eddie/plan/19.jpg" alt="기획안 19p" loading="lazy"></div>
+        <p class="cap">19p · 클릭해서 크게 보기</p>
       </div>
     </div>
     <div class="sec">
@@ -695,7 +710,7 @@ function go(d){
 document.querySelectorAll('.pager a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();go(a.classList.contains('nx')?1:-1)}));
 document.querySelector('.arrow.prev').onclick=()=>go(-1);
 document.querySelector('.arrow.next').onclick=()=>go(1);
-document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(-1);if(e.key==='ArrowRight')go(1)});
+document.addEventListener('keydown',e=>{if(document.querySelector('.lb.open'))return;if(e.key==='ArrowLeft')go(-1);if(e.key==='ArrowRight')go(1)});
 window.addEventListener('hashchange',route);
 route();
 </script>
@@ -745,7 +760,7 @@ function open(src,el,go){
     F=fit(pic.naturalWidth,pic.naturalHeight,!!go);
     Object.assign(lbImg.style,{left:F.x+'px',top:F.y+'px',width:F.w+'px',height:F.h+'px',display:'none'});
     lbImg.src=src;lb.classList.add('open');cv.style.display='block';cv.style.opacity=1;dim.style.visibility='';el.style.visibility='hidden';
-    if(!go)return run(1,0,650,()=>{lbImg.style.display='block';cv.style.display='none';busy=false});
+    if(!go)return run(1,0,650,()=>{lbImg.style.display='block';cv.style.display='none';busy=false;lb.classList.add('ready')});
     // animation card: the image fills the screen, the project page swaps in underneath it, then the image dissolves
     let swapped=false;
     run(1,0,800,()=>{
@@ -758,7 +773,8 @@ function open(src,el,go){
 function close(){
   if(busy||!lb.classList.contains('open'))return;busy=true;
   lbImg.style.display='none';cv.style.display='block';
-  run(0,1,600,()=>{lb.classList.remove('open');from.style.visibility='';busy=false});
+  lb.classList.remove('ready');
+  run(0,1,600,()=>{lb.classList.remove('open','deckmode');from.style.visibility='';busy=false});
 }
 document.querySelectorAll('.cover .posters img').forEach(i=>i.addEventListener('click',()=>open(i.src,i)));
 document.querySelectorAll('.strip .pth img').forEach(i=>i.addEventListener('click',()=>open(i.src,i)));
@@ -807,6 +823,14 @@ const cardFx=e=>{
 };
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+// plan deck: thumbnails open in the lightbox and can be paged through
+const deck=[...document.querySelectorAll('.deck img')];let at=0;
+const page=d=>{if(busy)return;const n=(at+d+deck.length)%deck.length;deck[at].style.visibility='';at=n;from=deck[at];from.style.visibility='hidden';
+  const src=deck[at].dataset.full;lbImg.src=src;pic=new Image();pic.src=src;lb.querySelector('.count').textContent=`${at+1} / ${deck.length}`};
+deck.forEach((i,k)=>i.addEventListener('click',()=>{if(busy)return;at=k;lb.classList.add('deckmode');lb.querySelector('.count').textContent=`${k+1} / ${deck.length}`;open(i.dataset.full,i)}));
+lb.querySelector('.pv').addEventListener('click',e=>{e.stopPropagation();page(-1)});
+lb.querySelector('.nx').addEventListener('click',e=>{e.stopPropagation();page(1)});
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('deckmode'))return;if(e.key==='ArrowLeft')page(-1);if(e.key==='ArrowRight')page(1)},true);
 </script>
 <script>
 // scroll progress line
