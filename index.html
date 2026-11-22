@@ -161,7 +161,7 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .nk-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:28px}.nk-row img{display:block;width:100%;height:auto}.nk-row.front img,.nk-row.back img{border:1px solid var(--line)}.nk-row.stamp{max-width:70%}
 .deck{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .deck img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;cursor:zoom-in;border:1px solid var(--line);transition:transform .25s}
-.deck img:hover{transform:scale(1.06)}
+.deck img:hover{transform:scale(1.06)}.deck.swap img{cursor:pointer}.deck.swap img.on{outline:2px solid #111;outline-offset:-2px}
 @media(max-width:860px){.deck{grid-template-columns:repeat(4,1fr)}}
 .lb .nav{position:fixed;top:50%;width:52px;height:52px;margin-top:-26px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.25);color:#fff;font-size:22px;cursor:pointer;display:none;z-index:2}
 .lb .nav.pv{left:20px}.lb .nav.nx{right:20px}
@@ -673,24 +673,25 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
     <div class="side">
       <div class="media"><img src="img/nakhwa/hero.jpg?v=2" alt="낙화원 공간 시안"></div>
       <p class="cap">공간 시안 · 벽면·바닥 프로젝션, 줄에 매달린 소원지가 낙화처럼 타오른다</p>
-      <div class="media"><video src="media/nakhwa-wish.mp4" controls playsinline muted loop preload="metadata" poster="img/nakhwa/hero.jpg?v=2"></video></div>
+      <div class="media"><video src="media/nakhwa-wish.mp4" controls playsinline muted loop preload="none" style="background:#000"></video></div>
       <p class="vcap"><b>소원지 3D 애니메이션</b><span>Cinema 4D · Octane Render · 6초</span></p>
       <div class="nk-row front"><img src="img/nakhwa/front-5.png" alt="소원지 앞면 5"><img src="img/nakhwa/front-4.png" alt="소원지 앞면 4"><img src="img/nakhwa/front-3.png" alt="소원지 앞면 3"><img src="img/nakhwa/front-2.png" alt="소원지 앞면 2"><img src="img/nakhwa/front-1.png" alt="소원지 앞면 1"></div>
       <p class="cap">소원지 앞면 · 한글 키워드를 직접 색칠한다</p>
       <div class="nk-row back"><img src="img/nakhwa/back-1.png" alt="소원지 뒷면 1"><img src="img/nakhwa/back-2.png" alt="소원지 뒷면 2"><img src="img/nakhwa/back-3.png" alt="소원지 뒷면 3"><img src="img/nakhwa/back-4.png" alt="소원지 뒷면 4"><img src="img/nakhwa/back-5.png" alt="소원지 뒷면 5"></div>
-      <p class="cap">소원지 뒷면 · 세계 여러 언어로 적힌 같은 소원</p>
-      <div class="nk-row stamp"><img src="img/nakhwa/stamp-1.png" alt="입인기 1"><img src="img/nakhwa/stamp-2.png" alt="입인기 2"><img src="img/nakhwa/stamp-3.png" alt="입인기 3"><img src="img/nakhwa/stamp-4.png" alt="입인기 4"><img src="img/nakhwa/stamp-5.png" alt="입인기 5"></div>
-      <p class="cap">입인기 · 소원지에 찍는 전통 문양 도장</p>
+      <p class="cap">소원지 뒷면 · 다섯 가지 소원을 세계 언어로, 해당 키워드에만 컬러 포인트</p>
+      <div class="nk-row stamp"><img src="img/nakhwa/stamp-1.png" alt="압인기 1"><img src="img/nakhwa/stamp-2.png" alt="압인기 2"><img src="img/nakhwa/stamp-3.png" alt="압인기 3"><img src="img/nakhwa/stamp-4.png" alt="압인기 4"><img src="img/nakhwa/stamp-5.png" alt="압인기 5"></div>
+      <p class="cap">압인기 · 소나무(건강) · 별똥별(꿈) · 비둘기(안녕) · 원앙(사랑) · 복주머니(행복)</p>
     </div>
   <div class="body">
     <p class="lead">공항을 스치는 사람들의 소원이, 하나의 낙화가 된다.</p>
     <p class="text">한국 전통 낙화놀이를 모티브로 한 몰입형 인터랙티브 미디어아트다. 관람객이 꾸민 소원지를 스캔하면 벽면의 줄에 매달려 낙화처럼 타오르며, 소원을 불꽃에 실어 흘려보낸다.</p>
     <p class="text"><b>서로 다른 여정이, 하나의 낙화로.</b><br>연말의 인천공항은 국적과 목적지가 다른 사람들이 잠시 스쳐 가는 경계의 공간이다. 소원을 불꽃에 실어 흘려보내는 낙화놀이를 이곳에 옮겨, 떠나는 사람, 찾아온 사람, 잠시 머무는 사람 모두가 소원을 남기고 하나의 장면을 함께 만드는 경험을 기획했다.</p>
-    <p class="text"><b>01 키워드 소원지 고르기</b> — 건강·행복·사랑·복·꿈·안녕 중 하나를 고른다.<br><b>02 한글 키워드 색칠하기</b> — 한글 글자 안을 자유롭게 채워 나만의 소원지를 만든다.<br><b>03 스캔</b> — 전시장 스캐너로 꾸민 소원지를 읽어 들인다.<br><b>04 벽면의 줄에 매달리기</b> — 내 소원지가 벽면 낙화 줄에 걸려 나타난다.<br><b>05 낙화처럼 타들어가기</b> — 불꽃이 수면 위로 떨어지고, 약 3분마다 모두의 소원이 하나의 낙화로 모인다.</p>
-    <p class="text"><b>소원지 기획 · 디자인</b> — 공항을 오가는 누구나 공감할 수 있도록 보편적인 소원 6가지를 키워드로 정했다. 앞면은 세계 사람이 모이는 공항에서 한글 글자 자체를 색칠하며 한글과 한국적인 것을 직접 경험하도록 디자인했고, 뒷면은 같은 소원을 여러 나라 말로 채워 누구나 자기 언어를 찾을 수 있게 했다. 소원지에 찍는 입인기 문양(소나무, 별, 비둘기, 원앙, 복주머니)도 디자인했다.</p>
+    <p class="text"><b>01 키워드 소원지 고르기</b> — 건강·행복·사랑·꿈·안녕 중 하나를 고른다.<br><b>02 한글 키워드 색칠하기</b> — 한글 글자 안을 자유롭게 채워 나만의 소원지를 만든다.<br><b>03 스캔</b> — 전시장 스캐너로 꾸민 소원지를 읽어 들인다.<br><b>04 벽면의 줄에 매달리기</b> — 내 소원지가 벽면 낙화 줄에 걸려 나타난다.<br><b>05 낙화처럼 타들어가기</b> — 불꽃이 수면 위로 떨어지고, 약 3분마다 모두의 소원이 하나의 낙화로 모인다.</p>
+    <p class="text"><b>소원지 기획 · 디자인</b> — 공항을 오가는 누구나 공감할 수 있도록 건강·행복·사랑·꿈·안녕, 보편적인 소원 5가지를 키워드로 정했다. 앞면은 세계 사람이 모이는 공항에서 한글 글자 자체를 색칠하며 한글과 한국적인 것을 직접 경험하도록 디자인했다. 뒷면에는 다섯 가지 소원 키워드를 세계 여러 언어로 모두 담고, 해당 소원지의 키워드에 해당하는 단어에만 컬러 포인트를 주었다.</p>
+    <p class="text"><b>압인기 디자인</b> — 소원지에 찍는 압인 문양을 키워드마다 그 뜻을 담은 상징으로 디자인했다. 장수를 뜻하는 소나무(건강), 별똥별(꿈), 평화를 뜻하는 꽃을 문 비둘기(안녕), 금슬을 뜻하는 원앙(사랑), 복을 담는 복주머니(행복).</p>
     <p class="text"><b>3D 애니메이션</b> — Cinema 4D로 관객이 꾸민 소원지가 날아 내려와 줄에 걸리고, 낙화처럼 타오르는 장면을 만들었다.</p>
     <p class="text">벽과 바닥의 비율, 관람 동선, 체류 시간이 곧 연출의 기준이 된다는 것을 배웠다. 화면 한 장이 아니라 공간 전체를 하나의 캔버스로 설계한 경험이었다.</p>
-    <div class="meta"><div><span>담당</span>기획 · 소원지 앞뒷면 디자인 · 입인기 디자인 · 소원지 3D 애니메이션</div><div><span>공간</span>K-컬처 뮤지엄 3관 · 13.8m × 11.2m × 약 5.8m</div><div><span>툴</span>Cinema 4D · Octane Render</div><div><span>전시</span>인천공항 K-컬처 뮤지엄 특별전 선정 (2026.12)</div><div><span>팀</span>oddlyours · 4인</div><div><span>기간</span>2026.09–12</div></div>
+    <div class="meta"><div><span>담당</span>기획 · 소원지 앞뒷면 디자인 · 압인기 디자인 · 소원지 3D 애니메이션</div><div><span>공간</span>K-컬처 뮤지엄 3관 · 13.8m × 11.2m × 약 5.8m</div><div><span>툴</span>Cinema 4D · Octane Render</div><div><span>전시</span>인천공항 K-컬처 뮤지엄 특별전 선정 (2026.12)</div><div><span>팀</span>oddlyours · 4인</div><div><span>기간</span>2026.10–11</div></div>
   </div>
   </div>
 </section>
@@ -702,10 +703,9 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
   </div>
   <div class="sp">
     <div class="side">
-      <div class="media"><img src="img/jigu/plan/09.jpg" alt="Draw the Wall — 1956cm × 70cm 도화지"></div>
-      <p class="cap">Draw the Wall · 1956cm × 70cm, 창립연도와 70주년을 크기로</p>
-      <div class="deck"><img src="img/jigu/plan/01-t.jpg" data-full="img/jigu/plan/01.jpg" alt="기획안 1p" loading="lazy"><img src="img/jigu/plan/02-t.jpg" data-full="img/jigu/plan/02.jpg" alt="기획안 2p" loading="lazy"><img src="img/jigu/plan/03-t.jpg" data-full="img/jigu/plan/03.jpg" alt="기획안 3p" loading="lazy"><img src="img/jigu/plan/04-t.jpg" data-full="img/jigu/plan/04.jpg" alt="기획안 4p" loading="lazy"><img src="img/jigu/plan/05-t.jpg" data-full="img/jigu/plan/05.jpg" alt="기획안 5p" loading="lazy"><img src="img/jigu/plan/06-t.jpg" data-full="img/jigu/plan/06.jpg" alt="기획안 6p" loading="lazy"><img src="img/jigu/plan/07-t.jpg" data-full="img/jigu/plan/07.jpg" alt="기획안 7p" loading="lazy"><img src="img/jigu/plan/08-t.jpg" data-full="img/jigu/plan/08.jpg" alt="기획안 8p" loading="lazy"><img src="img/jigu/plan/09-t.jpg" data-full="img/jigu/plan/09.jpg" alt="기획안 9p" loading="lazy"><img src="img/jigu/plan/10-t.jpg" data-full="img/jigu/plan/10.jpg" alt="기획안 10p" loading="lazy"><img src="img/jigu/plan/11-t.jpg" data-full="img/jigu/plan/11.jpg" alt="기획안 11p" loading="lazy"><img src="img/jigu/plan/12-t.jpg" data-full="img/jigu/plan/12.jpg" alt="기획안 12p" loading="lazy"><img src="img/jigu/plan/13-t.jpg" data-full="img/jigu/plan/13.jpg" alt="기획안 13p" loading="lazy"><img src="img/jigu/plan/14-t.jpg" data-full="img/jigu/plan/14.jpg" alt="기획안 14p" loading="lazy"><img src="img/jigu/plan/15-t.jpg" data-full="img/jigu/plan/15.jpg" alt="기획안 15p" loading="lazy"><img src="img/jigu/plan/16-t.jpg" data-full="img/jigu/plan/16.jpg" alt="기획안 16p" loading="lazy"><img src="img/jigu/plan/17-t.jpg" data-full="img/jigu/plan/17.jpg" alt="기획안 17p" loading="lazy"><img src="img/jigu/plan/18-t.jpg" data-full="img/jigu/plan/18.jpg" alt="기획안 18p" loading="lazy"></div>
-      <p class="cap">기획안 18p · 클릭해서 크게 보기 · <a href="img/jigu/jigu-70th-plan.pdf" target="_blank" rel="noopener">PDF</a></p>
+      <div class="media"><img class="jg-hero" src="img/jigu/plan/01.jpg" alt="지구화학 70주년 캠페인 기획안"></div>
+      <div class="deck swap"><img src="img/jigu/plan/01-t.jpg" data-full="img/jigu/plan/01.jpg" alt="기획안 1p" loading="lazy"><img src="img/jigu/plan/02-t.jpg" data-full="img/jigu/plan/02.jpg" alt="기획안 2p" loading="lazy"><img src="img/jigu/plan/03-t.jpg" data-full="img/jigu/plan/03.jpg" alt="기획안 3p" loading="lazy"><img src="img/jigu/plan/04-t.jpg" data-full="img/jigu/plan/04.jpg" alt="기획안 4p" loading="lazy"><img src="img/jigu/plan/05-t.jpg" data-full="img/jigu/plan/05.jpg" alt="기획안 5p" loading="lazy"><img src="img/jigu/plan/06-t.jpg" data-full="img/jigu/plan/06.jpg" alt="기획안 6p" loading="lazy"><img src="img/jigu/plan/07-t.jpg" data-full="img/jigu/plan/07.jpg" alt="기획안 7p" loading="lazy"><img src="img/jigu/plan/08-t.jpg" data-full="img/jigu/plan/08.jpg" alt="기획안 8p" loading="lazy"><img src="img/jigu/plan/09-t.jpg" data-full="img/jigu/plan/09.jpg" alt="기획안 9p" loading="lazy"><img src="img/jigu/plan/10-t.jpg" data-full="img/jigu/plan/10.jpg" alt="기획안 10p" loading="lazy"><img src="img/jigu/plan/11-t.jpg" data-full="img/jigu/plan/11.jpg" alt="기획안 11p" loading="lazy"><img src="img/jigu/plan/12-t.jpg" data-full="img/jigu/plan/12.jpg" alt="기획안 12p" loading="lazy"><img src="img/jigu/plan/13-t.jpg" data-full="img/jigu/plan/13.jpg" alt="기획안 13p" loading="lazy"><img src="img/jigu/plan/14-t.jpg" data-full="img/jigu/plan/14.jpg" alt="기획안 14p" loading="lazy"><img src="img/jigu/plan/15-t.jpg" data-full="img/jigu/plan/15.jpg" alt="기획안 15p" loading="lazy"><img src="img/jigu/plan/16-t.jpg" data-full="img/jigu/plan/16.jpg" alt="기획안 16p" loading="lazy"><img src="img/jigu/plan/17-t.jpg" data-full="img/jigu/plan/17.jpg" alt="기획안 17p" loading="lazy"><img src="img/jigu/plan/18-t.jpg" data-full="img/jigu/plan/18.jpg" alt="기획안 18p" loading="lazy"></div>
+      <p class="cap">기획안 18p · 썸네일에 마우스를 올리면 위에 크게 보여요 · <a href="img/jigu/jigu-70th-plan.pdf" target="_blank" rel="noopener">PDF</a></p>
     </div>
   <div class="body">
     <p class="lead">Never blend in, keep your own color.</p>
@@ -900,7 +900,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 let deck=[];let at=0;
 const page=d=>{if(busy)return;const n=(at+d+deck.length)%deck.length;deck[at].style.visibility='';at=n;from=deck[at];from.style.visibility='hidden';
   const src=deck[at].dataset.full;lbImg.src=src;pic=new Image();pic.src=src;lb.querySelector('.count').textContent=`${at+1} / ${deck.length}`};
-document.querySelectorAll('.deck').forEach(dk=>{const imgs=[...dk.querySelectorAll('img')];imgs.forEach((i,k)=>i.addEventListener('click',()=>{if(busy)return;deck=imgs;at=k;lb.classList.add('deckmode');lb.querySelector('.count').textContent=`${k+1} / ${deck.length}`;open(i.dataset.full,i)}))});
+document.querySelectorAll('.deck.swap').forEach(dk=>{const h=dk.closest('.side').querySelector('.jg-hero');dk.querySelectorAll('img').forEach(i=>{new Image().src=i.dataset.full;const go=()=>{h.src=i.dataset.full;dk.querySelectorAll('img').forEach(x=>x.classList.toggle('on',x===i))};i.addEventListener('mouseenter',go);i.addEventListener('click',go)})});
+document.querySelectorAll('.deck:not(.swap)').forEach(dk=>{const imgs=[...dk.querySelectorAll('img')];imgs.forEach((i,k)=>i.addEventListener('click',()=>{if(busy)return;deck=imgs;at=k;lb.classList.add('deckmode');lb.querySelector('.count').textContent=`${k+1} / ${deck.length}`;open(i.dataset.full,i)}))});
 lb.querySelector('.pv').addEventListener('click',e=>{e.stopPropagation();page(-1)});
 lb.querySelector('.nx').addEventListener('click',e=>{e.stopPropagation();page(1)});
 document.addEventListener('keydown',e=>{if(!lb.classList.contains('deckmode'))return;if(e.key==='ArrowLeft')page(-1);if(e.key==='ArrowRight')page(1)},true);
