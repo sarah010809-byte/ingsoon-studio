@@ -168,6 +168,7 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .deck{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .deck img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;cursor:zoom-in;border:1px solid var(--line);transition:transform .25s}
 .deck img:hover{transform:scale(1.06)}.deck.swap img{cursor:pointer}.deck.swap img.on{outline:2px solid #111;outline-offset:-2px}
+@media(min-width:861px){.split .deck.swap{grid-template-columns:repeat(8,1fr);gap:5px}.split .deck.swap img:hover{transform:none}}
 @media(max-width:860px){.deck{grid-template-columns:repeat(4,1fr)}}
 .lb .nav{position:fixed;top:50%;width:52px;height:52px;margin-top:-26px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.25);color:#fff;font-size:22px;cursor:pointer;display:none;z-index:2}
 .lb .nav.pv{left:20px}.lb .nav.nx{right:20px}
