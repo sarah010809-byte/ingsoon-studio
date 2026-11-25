@@ -148,9 +148,17 @@ body.pg .cover,body.pg main,body.pg .bar,body.pg .arrow,body.pg footer{display:n
 .intent .ih{display:inline;background:linear-gradient(transparent 58%,var(--lime) 58%);box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .intent .it{display:block}
 .intent .it{color:#3e4641;margin-top:14px}
-.carou{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;border:1px solid var(--line);scrollbar-width:thin}
-.carou img{flex:0 0 78%;width:78%;display:block;scroll-snap-align:start;aspect-ratio:4/5}
-@media(min-width:861px){#eddie-carousel img{flex-basis:44%;width:44%}}
+.carou-wrap{position:relative;margin-top:56px;background:#1c1c17;padding:22px 0 16px}
+.carou{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 24%}
+.carou::-webkit-scrollbar{display:none}
+.carou img{flex:0 0 100%;width:100%;display:block;scroll-snap-align:center;aspect-ratio:4/5;filter:brightness(.45) saturate(.8);transition:filter .3s}
+.carou img.on{filter:none}
+.carou-frame{position:absolute;top:22px;left:24%;right:24%;aspect-ratio:4/5;outline:3px solid #f3ecd8;box-shadow:0 0 0 1px #000;pointer-events:none}
+.carou-nav{position:absolute;top:calc(50% - 6px);transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:0;background:rgba(243,236,216,.9);color:#141410;font-size:20px;cursor:pointer;z-index:2}
+.carou-nav.prev{left:calc(24% - 56px)}.carou-nav.next{right:calc(24% - 56px)}
+.carou-dots{display:flex;justify-content:center;gap:7px;margin-top:14px}
+.carou-dots i{width:7px;height:7px;border-radius:50%;background:#6b6b5c}.carou-dots i.on{background:#f3ecd8}
+@media(max-width:860px){.carou{padding:0 13%}.carou-frame{left:13%;right:13%}.carou-nav{display:none}}
 .sec{display:grid;grid-template-columns:180px 1fr;gap:24px;padding:28px 0;border-top:1px solid var(--line)}
 .sec.first{margin-top:80px}
 .sec h3{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.02em}
@@ -522,7 +530,7 @@ footer h2{font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.035em;
       <div class="media" id="eddie-reels"><video src="media/eddie-hotel-lobby.mp4#t=0.1" controls playsinline preload="metadata"></video></div>
       <p class="vcap"><b>Hotel Lobby 패러디 숏폼</b><span>Made with AI · 15초</span></p>
       <p class="vdesc">쿼카 갱의 힙합 정체성을 유행 힙합곡 패러디 릴스 포맷에 맞춰 캐릭터 스왑한 15초 숏폼. (생성: Seedance 2.5)</p>
-      <div class="carou" id="eddie-carousel" style="margin-top:56px"><img src="img/eddie/carousel/01.jpg" alt="캐릭터 소개 캐러셀 1/6" loading="lazy"><img src="img/eddie/carousel/02.jpg" alt="캐릭터 소개 캐러셀 2/6" loading="lazy"><img src="img/eddie/carousel/03.jpg" alt="캐릭터 소개 캐러셀 3/6" loading="lazy"><img src="img/eddie/carousel/04.jpg" alt="캐릭터 소개 캐러셀 4/6" loading="lazy"><img src="img/eddie/carousel/05.jpg" alt="캐릭터 소개 캐러셀 5/6" loading="lazy"><img src="img/eddie/carousel/06.jpg" alt="캐릭터 소개 캐러셀 6/6" loading="lazy"></div>
+      <div class="carou-wrap"><div class="carou" id="eddie-carousel"><img src="img/eddie/carousel/01.jpg" alt="캐릭터 소개 캐러셀 1/6" loading="lazy"><img src="img/eddie/carousel/02.jpg" alt="캐릭터 소개 캐러셀 2/6" loading="lazy"><img src="img/eddie/carousel/03.jpg" alt="캐릭터 소개 캐러셀 3/6" loading="lazy"><img src="img/eddie/carousel/04.jpg" alt="캐릭터 소개 캐러셀 4/6" loading="lazy"><img src="img/eddie/carousel/05.jpg" alt="캐릭터 소개 캐러셀 5/6" loading="lazy"><img src="img/eddie/carousel/06.jpg" alt="캐릭터 소개 캐러셀 6/6" loading="lazy"></div><div class="carou-frame"></div><button class="carou-nav prev" aria-label="이전">‹</button><button class="carou-nav next" aria-label="다음">›</button><div class="carou-dots"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
       <p class="vcap"><b>캐릭터 소개 SNS 캐러셀</b><span>6장 · 1080×1350</span></p>
       <p class="vdesc">옆으로 넘겨 보세요. 장과 장이 이어지는 파노라마 구성 · <a href="img/eddie/carousel/panorama.jpg" target="_blank" rel="noopener">이어진 전체 보기</a></p>
     </div>
@@ -1068,6 +1076,14 @@ document.querySelectorAll('.cover .reel a, .cover .posters img').forEach(el=>{
     const s=force||a.offsetHeight<=b.offsetHeight?a:b;s.classList.add('stick');const free=innerHeight-72,h=s.offsetHeight;s.style.top=(h<=free-48?72+(free-h)/2:Math.min(96,innerHeight-h-32))+'px'})};
   addEventListener('resize',fit);addEventListener('hashchange',()=>{requestAnimationFrame(fit);setTimeout(fit,500)});addEventListener('load',fit); // the page swap animates, so measure again once it settles
   document.querySelectorAll('main .split img, main .split video').forEach(m=>m.addEventListener(m.tagName==='IMG'?'load':'loadedmetadata',fit));fit()})();
+</script>
+<script>
+document.querySelectorAll('.carou-wrap').forEach(w=>{const c=w.querySelector('.carou'),im=[...c.querySelectorAll('img')],d=[...w.querySelectorAll('.carou-dots i')];
+const cur=()=>{const m=c.scrollLeft+c.clientWidth/2;let k=0,b=1e9;im.forEach((x,i)=>{const dd=Math.abs(x.offsetLeft+x.offsetWidth/2-m);if(dd<b){b=dd;k=i}});return k};
+const upd=()=>{const k=cur();im.forEach((x,i)=>x.classList.toggle('on',i===k));d.forEach((x,i)=>x.classList.toggle('on',i===k))};
+const go=k=>{k=Math.max(0,Math.min(im.length-1,k));c.scrollTo({left:im[k].offsetLeft-(c.clientWidth-im[k].offsetWidth)/2,behavior:'smooth'})};
+c.addEventListener('scroll',()=>requestAnimationFrame(upd));w.querySelector('.prev').onclick=()=>go(cur()-1);w.querySelector('.next').onclick=()=>go(cur()+1);
+d.forEach((x,i)=>{x.style.cursor='pointer';x.onclick=()=>go(i)});upd();});
 </script>
 </body>
 </html>
