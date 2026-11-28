@@ -275,9 +275,10 @@ footer .wrap{max-width:none;padding:0 40px}
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:18px 40px;font-size:14px}
 .cover h1 img{display:block;height:clamp(52px,8vw,110px);width:auto}
 .bar .logo img{display:block;height:24px;width:auto}
-.bar .bt{flex:1;margin-left:28px;font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
+.bar .bt{flex:1;margin-left:28px;font-size:17px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
 .bar .bt b{font-weight:500;color:var(--muted);margin-right:10px}
 .bar .bt.show{opacity:1;transform:none}
+@media(max-width:860px){.bar .bt{font-size:15px}}
 .bar .logo{font-weight:700;font-size:18px;letter-spacing:-.03em;text-decoration:none}
 .bar .idx{display:flex;gap:24px}
 .bar .idx a{text-decoration:none;color:var(--muted);text-underline-offset:4px}
